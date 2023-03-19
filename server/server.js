@@ -3,6 +3,7 @@ const cors = require("cors")
 const db = require("./models")
 const app = express()
 const routes = require("./routes/index")
+require("dotenv").config()
 var corsOptions = {
   origin: "http://localhost:8081",
 }
@@ -25,7 +26,6 @@ app.use(appPrefix, routes)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8081
-
 app.listen(PORT, () => {
   db.sequelize
     .sync()
