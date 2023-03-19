@@ -20,6 +20,7 @@ const verifyToken = (req, res, next) => {
     })
 
     next()
+    res.status(200)
   } catch (err) {
     return res.status(403)
   }
