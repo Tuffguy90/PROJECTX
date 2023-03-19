@@ -1,8 +1,5 @@
 let a = [
   {
-    /**
-     * user
-     */
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -222,6 +219,10 @@ let a = [
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER
+    },
+    sub_mat_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false
     },
     subsidary_id: {
       type: Sequelize.INTEGER,

@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('tbl_user_masters', 
+    await queryInterface.createTable('tbl_mattrix_masters', 
     {
       id: {
         allowNull: false,
@@ -10,33 +10,8 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      first_name: {
+      name: {
         type: Sequelize.STRING
-      },
-      last_name: {
-        type: Sequelize.STRING
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-      },
-      mobile: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-      },
-      address: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      role_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-      },
-      subsidary_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
       },
       status: {
         type: Sequelize.INTEGER,
@@ -67,9 +42,10 @@ module.exports = {
         allowNull: true,
         type: Sequelize.DATE
       }
-    });
+    }
+    );
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('tbl_user_masters');
+    await queryInterface.dropTable('tbl_mattrix_masters');
   }
 };
