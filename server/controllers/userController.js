@@ -14,7 +14,7 @@ const login = async (req, res) => {
     const email = req.body.email
     const password = req.body.password
     const conditions = {
-      attributes: ["id", "firstName", "lastName", "email"],
+      attributes: ["id", "first_name", "last_name", "email"],
       where: {
         email: email,
         password: password,
@@ -25,8 +25,8 @@ const login = async (req, res) => {
     if (user) {
       var token = jwt.sign(
         {
-          firstName: user.firstName,
-          lastName: user.lastName,
+          first_name: user.first_name,
+          last_name: user.last_name,
           email: user.email,
         },
         process.env.SECRET_KEY,

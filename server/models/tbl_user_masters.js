@@ -13,10 +13,15 @@ module.exports = (sequelize, DataTypes) => {
   }
   tbl_user_masters.init(
     {
-      firstName: DataTypes.STRING,
-      lastName: DataTypes.STRING,
+      first_name: DataTypes.STRING,
+      last_name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
+      mobile: DataTypes.INTEGER,
+      address: DataTypes.STRING,
+      role_id: DataTypes.INTEGER,
+      subsidary_id: DataTypes.INTEGER,
+      status: DataTypes.INTEGER,
       token: DataTypes.STRING,
     },
     {

@@ -15,6 +15,9 @@ module.exports = {
       last_name: {
         type: Sequelize.STRING,
       },
+      password: {
+        type: Sequelize.STRING,
+      },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -25,12 +28,9 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      token: {
-        type: Sequelize.STRING,
-      },
       address: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       role_id: {
         type: Sequelize.INTEGER,
