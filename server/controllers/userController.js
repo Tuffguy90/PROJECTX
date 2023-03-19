@@ -49,7 +49,7 @@ const login = async (req, res) => {
         token,
       })
     }
-    return res.send({
+    return res.status(400).send({
       status: 400,
       message: "Invalid Login Credentials",
       user: {},

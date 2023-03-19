@@ -3,6 +3,8 @@ const cors = require("cors")
 const db = require("./models")
 const app = express()
 const routes = require("./routes/index")
+const userRoutes = require("./controllers/userController")
+const verifyToken = require("./middlewares/verifyToken")
 require("dotenv").config()
 var corsOptions = {
   origin: "http://localhost:8081",
@@ -21,7 +23,9 @@ app.use(express.urlencoded({ extended: true }))
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to projectx application." })
 })
+app.post(appPrefix + "/login", userRoutes.login)
 
+app.use(verifyToken)
 app.use(appPrefix, routes)
 
 // set port, listen for requests
