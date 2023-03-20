@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict"
+const { Model } = require("sequelize")
 module.exports = (sequelize, DataTypes) => {
   class tbl_head_meta extends Model {
     /**
@@ -11,15 +9,31 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.tbl_subsidary_masters, {
+        foreignKey: "subsidary_id",
+        as: "subsidary",
+      })
+
+      this.belongsTo(models.tbl_mattrix_masters, {
+        foreignKey: "mattrix_id",
+        as: "mattrix",
+      })
+      this.belongsTo(models.tbl_head_masters, {
+        foreignKey: "head_id",
+        as: "head",
+      })
     }
   }
-  tbl_head_meta.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'tbl_head_meta',
-  });
-  return tbl_head_meta;
-};
+  tbl_head_meta.init(
+    {
+      firstName: DataTypes.STRING,
+      lastName: DataTypes.STRING,
+      email: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "tbl_head_meta",
+    }
+  )
+  return tbl_head_meta
+}

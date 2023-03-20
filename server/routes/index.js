@@ -11,6 +11,7 @@ router.post("/create-subsidary", subsidaryRoutes.create)
 router.post("/create-matrix", mattrixController.create)
 router.post("map-susidary-mattrix", mattrixController.mapSubsidaryMattrix)
 router.post("/create-head", headRoutes.create)
+router.post("/create-head-meta", headRoutes.createHeadMeta)
 
 /** GET ROUTES */
 router.get("/get-subsidaries", subsidaryRoutes.list)
