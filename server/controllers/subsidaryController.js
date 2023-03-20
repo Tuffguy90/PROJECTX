@@ -12,6 +12,18 @@ const create = async (req, res) => {
         error: validate?.error,
       })
     }
+    const isDupl = await SUBSIDARY.findOne({
+      where: {
+        name: body.name,
+      },
+    })
+    console.log("isdup", isDupl)
+    if (isDupl) {
+      return res.status(409).send({
+        message: "Duplicate Data found",
+        data: isDupl,
+      })
+    }
     const createSub = await SUBSIDARY.create(body)
 
     return res.send({
@@ -20,14 +32,27 @@ const create = async (req, res) => {
     })
   } catch (err) {
     console.log("error-in-subsidary-create", err)
-    return res.status(500)
+    return res.status(500).send("Internal Server Error")
   }
 }
 
 const list = async (req, res) => {
   try {
     const sub_id = req.query.id
-    const subs = await SUBSIDARY.findAll()
+    const subs = await SUBSIDARY.findAll({
+      include: [
+        {
+          model: db.tbl_subsidary_mattrix_mapings,
+          as: "subMattrix",
+          include: [
+            {
+              model: db.tbl_mattrix_masters,
+              as: "mattrix",
+            },
+          ],
+        },
+      ],
+    })
 
     return res.send({
       message: "List of Subsidaries",
@@ -35,7 +60,7 @@ const list = async (req, res) => {
     })
   } catch (err) {
     console.log("error-in-subsidary-list", err)
-    return res.status(500)
+    return res.status(500).send("Internal Server Error")
   }
 }
 

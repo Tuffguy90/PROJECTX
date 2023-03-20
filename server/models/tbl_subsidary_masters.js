@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasMany(models.tbl_subsidary_mattrix_mapings, {
+        foreignKey: "subsidary_id",
+        as: "subMattrix",
+      })
     }
   }
   tbl_subsidary_masters.init(
@@ -19,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       mobile: DataTypes.INTEGER,
       short_name: DataTypes.STRING,
       status: DataTypes.INTEGER,
+      // created_by: DataTypes.INTEGER,
     },
     {
       sequelize,

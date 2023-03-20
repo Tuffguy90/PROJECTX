@@ -13,7 +13,7 @@ const verifyToken = (req, res, next) => {
 
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
       if (err) {
-        res.status(403)
+        return res.status(403).send("Unauthozied")
       }
 
       req.body.created_by = decoded?.id || 0

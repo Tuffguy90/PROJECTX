@@ -1,0 +1,129 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "project_peerless",
+    "dateExported": "2023-03-19T20:24:22.247Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "bbe02af1-24b6-4a85-b212-6331894363a5",
+            "name": "subsidary",
+            "containerId": "",
+            "created": "2023-03-19T18:40:35.464Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "7ff5afd5-a803-4739-b897-57ad38fb4556",
+            "name": "matrix",
+            "containerId": "",
+            "created": "2023-03-19T20:19:37.826Z",
+            "sortNum": 20000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "cf586a9c-1d75-4881-9033-3983969988b7",
+            "colId": "8c25fcf4-d664-4478-9b0e-325b8f87c84d",
+            "containerId": "",
+            "name": "web_login",
+            "url": "http://localhost:8081/api/v1/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-03-19T18:10:43.360Z",
+            "modified": "2023-03-19T19:55:28.396Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\":\"joydeep@gmail.com\",\n  \"password\":\"password\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "aece2a36-5581-48b2-af43-8073faa6075a",
+            "colId": "8c25fcf4-d664-4478-9b0e-325b8f87c84d",
+            "containerId": "7ff5afd5-a803-4739-b897-57ad38fb4556",
+            "name": "createMatrix",
+            "url": "http://localhost:8081/api/v1/create-matrix",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-03-19T20:19:45.572Z",
+            "modified": "2023-03-19T20:21:35.459Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkpveWRlZXAiLCJsYXN0X25hbWUiOiJCYW5lcmplZSIsImVtYWlsIjoiam95ZGVlcEBnbWFpbC5jb20iLCJpYXQiOjE2NzkyNTYwODAsImV4cCI6MTY3OTQyODg4MH0.cqHFzI862HlNjBGfttL9SaUMfXGWMlEMTYOUZcPzKrY"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\":\"Accounts Matrix\",\n  \"status\":1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a76bed05-a26a-4a9f-92e2-8c6934eb68ed",
+            "colId": "8c25fcf4-d664-4478-9b0e-325b8f87c84d",
+            "containerId": "7ff5afd5-a803-4739-b897-57ad38fb4556",
+            "name": "listMatrix",
+            "url": "http://localhost:8081/api/v1/get-matrix",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-03-19T20:19:52.518Z",
+            "modified": "2023-03-19T20:21:47.368Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiSm95ZGVlcCIsImxhc3RfbmFtZSI6IkJhbmVyamVlIiwiZW1haWwiOiJqb3lkZWVwQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI1NTcyOCwiZXhwIjoxNjc5NDI4NTI4fQ.umbKE8iOC14H4xAjV3r2m_DJkCG7_GrryjXmGNG4E7Y"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e67f28ca-b9c8-40d7-ac12-1b43ec57aef9",
+            "colId": "8c25fcf4-d664-4478-9b0e-325b8f87c84d",
+            "containerId": "bbe02af1-24b6-4a85-b212-6331894363a5",
+            "name": "createSubsidary",
+            "url": "http://localhost:8081/api/v1/create-subsidary",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-03-19T18:40:42.896Z",
+            "modified": "2023-03-19T20:04:00.307Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkpveWRlZXAiLCJsYXN0X25hbWUiOiJCYW5lcmplZSIsImVtYWlsIjoiam95ZGVlcEBnbWFpbC5jb20iLCJpYXQiOjE2NzkyNTYwODAsImV4cCI6MTY3OTQyODg4MH0.cqHFzI862HlNjBGfttL9SaUMfXGWMlEMTYOUZcPzKrY"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\":\"Hospital2\",\n  \"email\": \"hos1@gmail.com\",\n  \"code\":\"HOS11\",\n  \"mobile\":9876543212\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f7b05555-a4d0-47a2-8083-db09d060500a",
+            "colId": "8c25fcf4-d664-4478-9b0e-325b8f87c84d",
+            "containerId": "bbe02af1-24b6-4a85-b212-6331894363a5",
+            "name": "list",
+            "url": "http://localhost:8081/api/v1/get-subsidaries",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-03-19T19:39:49.227Z",
+            "modified": "2023-03-19T19:55:44.765Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiSm95ZGVlcCIsImxhc3RfbmFtZSI6IkJhbmVyamVlIiwiZW1haWwiOiJqb3lkZWVwQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI1NTcyOCwiZXhwIjoxNjc5NDI4NTI4fQ.umbKE8iOC14H4xAjV3r2m_DJkCG7_GrryjXmGNG4E7Y"
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
