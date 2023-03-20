@@ -52,9 +52,9 @@ const list = async (req, res) => {
   }
 }
 
-const matrixRoutes = {
+const headRoutes = {
   create,
   list,
 }
 
-module.exports = matrixRoutes
+module.exports = headRoutes

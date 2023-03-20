@@ -51,9 +51,62 @@ const list = async (req, res) => {
   }
 }
 
+const mapSubsidaryMattrix = async (req, res) => {
+  try {
+    let mattrix_ids = req.body.mattrix_ids
+    let subsidary_id = req.body.subsidary_id
+    if (mattrix_ids.length < 0 || !subsidary_id) {
+      return res.status(400).json({
+        message: "Validation Error",
+        error: validate?.error,
+      })
+    }
+    let data = []
+    mattrix_ids.forEach((element) => {
+      data.push({
+        mattrix_id: element,
+        subsidary_id,
+      })
+    })
+    let resp = await SUBSIDARYMATTRIX.bulkCreate(data)
+    return res.send({
+      message: "mattrix Created Successfully",
+      data: resp,
+    })
+  } catch (error) {
+    console.log("error-in-mattrix-list", err)
+    return res.status(500)
+  }
+}
+
+const remove = async (req, res) => {
+  try {
+    if (req.body.id == undefined || req.body.id == null) {
+      return res.status(400).json({
+        message: "Validation Error",
+        error: validate?.error,
+      })
+    }
+    let resp = await MATTRIX.destroy({
+      where: {
+        id: req.body.id,
+      },
+    })
+    return res.send({
+      message: "mattrix Created Successfully",
+      data: resp,
+    })
+  } catch (error) {
+    console.log("error-in-mattrix-list", err)
+    return res.status(500)
+  }
+}
+
 const matrixRoutes = {
   create,
   list,
+  mapSubsidaryMattrix,
+  remove,
 }
 
 module.exports = matrixRoutes
