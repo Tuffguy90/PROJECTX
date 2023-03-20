@@ -41,9 +41,11 @@ function a11yProps(index) {
 const Profile = () => {
     const theme = useTheme();
     const navigate = useNavigate();
+    const loginUserData = JSON.parse(localStorage.getItem('_userData'));
 
     const handleLogout = async () => {
-        localStorage.removeItem('logged_in');
+        localStorage.removeItem('_userData');
+        localStorage.removeItem('_token');
         navigate('/');
     };
 
@@ -79,7 +81,9 @@ const Profile = () => {
             >
                 <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
                     <Avatar alt="profile user" src={user} sx={{ width: 32, height: 32 }} />
-                    <Typography variant="subtitle1">Admin</Typography>
+                    <Typography variant="subtitle1">
+                        {loginUserData?.first_name} {loginUserData?.last_name}
+                    </Typography>
                 </Stack>
             </ButtonBase>
             <Popper
@@ -122,9 +126,9 @@ const Profile = () => {
                                                     <Stack direction="row" spacing={1.25} alignItems="center">
                                                         <Avatar alt="profile user" src={user} sx={{ width: 32, height: 32 }} />
                                                         <Stack>
-                                                            <Typography variant="h6">Admin</Typography>
+                                                            <Typography variant="h6">{loginUserData?.first_name}</Typography>
                                                             <Typography variant="body2" color="textSecondary">
-                                                                Admin
+                                                                Role Name
                                                             </Typography>
                                                         </Stack>
                                                     </Stack>
