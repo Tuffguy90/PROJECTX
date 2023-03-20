@@ -29,6 +29,30 @@ module.exports = (sequelize, DataTypes) => {
       firstName: DataTypes.STRING,
       lastName: DataTypes.STRING,
       email: DataTypes.STRING,
+      createdBy: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      updatedBy: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      deletedBy: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      deletedAt: {
+        allowNull: true,
+        type: DataTypes.DATE,
+      },
+      createdAt: {
+        allowNull: true,
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        allowNull: true,
+        type: DataTypes.DATE,
+      },
     },
     {
       sequelize,

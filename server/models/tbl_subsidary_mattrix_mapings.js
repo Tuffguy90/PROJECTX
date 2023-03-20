@@ -23,7 +23,30 @@ module.exports = (sequelize, DataTypes) => {
     {
       subsidary_id: DataTypes.INTEGER,
       mattrix_id: DataTypes.INTEGER,
-      // createdBy: DataTypes.INTEGER,
+      createdBy: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      updatedBy: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      deletedBy: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      deletedAt: {
+        allowNull: true,
+        type: DataTypes.DATE,
+      },
+      createdAt: {
+        allowNull: true,
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        allowNull: true,
+        type: DataTypes.DATE,
+      },
     },
     {
       sequelize,
