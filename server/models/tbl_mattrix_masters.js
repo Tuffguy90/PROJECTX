@@ -14,9 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   tbl_mattrix_masters.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: DataTypes.STRING
+    name: DataTypes.STRING,
+    status: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'tbl_mattrix_masters',

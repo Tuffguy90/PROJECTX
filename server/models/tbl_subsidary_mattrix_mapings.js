@@ -14,9 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   tbl_subsidary_mattrix_mapings.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: DataTypes.STRING
+    subsidary_id: DataTypes.INTEGER,
+    mattrix_id: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'tbl_subsidary_mattrix_mapings',
