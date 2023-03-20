@@ -5,6 +5,7 @@ const app = express()
 const routes = require("./routes/index")
 const userRoutes = require("./controllers/userController")
 const verifyToken = require("./middlewares/verifyToken")
+const print = require("./common/debug");
 require("dotenv").config()
 var corsOptions = {
   origin: "http://localhost:8081",
@@ -39,5 +40,9 @@ app.listen(PORT, () => {
   //   .catch((err) => {
   //     console.log("Failed to sync db: " + err.message)
   //   })
+  /**
+   * List of all route path
+   */
+  app._router.stack.forEach(print.bind(null, []))
   console.log(`Server is running on port ${PORT}.`)
 })
