@@ -1,4 +1,5 @@
 import { useRoutes, useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 // project import
 import LoginRoutes from './LoginRoutes';
@@ -9,13 +10,12 @@ import MainRoutes from './MainRoutes';
 export default function ThemeRoutes() {
     const location = useLocation();
     const navigate = useNavigate();
-    let isLoggedIn = localStorage.getItem('logged_in');
-    // console.log('isLoggedIn', isLoggedIn, location.pathname);
+    let tokenValue = localStorage.getItem('_token');
     let beforeLoginUrls = ['/', '/forgot-password'];
-    if ((isLoggedIn === undefined || isLoggedIn === null || isLoggedIn === false) && !beforeLoginUrls.includes(location.pathname)) {
-        // console.log('okey', location.pathname);
-        return navigate('/');
-    } else {
-        return useRoutes([LoginRoutes, MainRoutes]);
-    }
+    useEffect(() => {
+        if ((tokenValue === null || tokenValue === false) && !beforeLoginUrls.includes(location.pathname)) {
+            return navigate('/');
+        }
+    }, [tokenValue, location.pathname]);
+    return useRoutes([LoginRoutes, MainRoutes]);
 }

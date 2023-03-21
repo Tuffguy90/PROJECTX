@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import authService from '../../../services/auth.service';
+import { toast } from 'react-toastify';
 
 // material-ui
 import {
@@ -29,6 +31,7 @@ import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
 const AuthLogin = () => {
     const [checked, setChecked] = React.useState(false);
+    const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => {
@@ -38,7 +41,6 @@ const AuthLogin = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    const navigate = useNavigate();
 
     return (
         <>
@@ -54,9 +56,20 @@ const AuthLogin = () => {
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
-                        console.log('values', values);
-                        localStorage.setItem('logged_in', true);
-                        navigate('/dashboard');
+                        authService
+                            .login({ email: values.email, password: values.password })
+                            .then(({ data }) => {
+                                if (data?.status === 200) {
+                                    localStorage.setItem('_token', data?.token);
+                                    localStorage.setItem('_userData', JSON.stringify(data?.user));
+                                    navigate('/dashboard');
+                                } else {
+                                    toast.warning('Invalid Login Credentials');
+                                }
+                            })
+                            .catch((err) => {
+                                toast.error(err?.response?.data?.message);
+                            });
                         setStatus({ success: false });
                         setSubmitting(false);
                     } catch (err) {

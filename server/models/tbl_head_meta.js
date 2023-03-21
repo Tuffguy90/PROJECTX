@@ -26,9 +26,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   tbl_head_meta.init(
     {
-      firstName: DataTypes.STRING,
-      lastName: DataTypes.STRING,
-      email: DataTypes.STRING,
+      mattrix_id: DataTypes.INTEGER,
+      subsidary_id: DataTypes.INTEGER,
+      head_id: DataTypes.INTEGER,
+      head_value: DataTypes.INTEGER,
+      financial_year: DataTypes.STRING,
+      month: DataTypes.INTEGER,
       createdBy: {
         allowNull: true,
         type: DataTypes.INTEGER,
