@@ -87,8 +87,9 @@ const createBulkHeadMeta = async (req, res) => {
 
 const list = async (req, res) => {
   try {
-    const matx_id = req.query.id
-    const matrix = await HEAD.findAll({
+    const mattrix_id = req.query.mattrix_id
+    const subsidary_id = req.query.subsidary_id
+    var conditions = {
       include: [
         {
           model: HEADMETA,
@@ -105,7 +106,18 @@ const list = async (req, res) => {
           ],
         },
       ],
-    })
+    }
+    if (matx_id > 0) {
+      conditions["where"] = {
+        mattrix_id,
+      }
+    }
+    if (matx_id > 0) {
+      conditions["where"] = {
+        subsidary_id,
+      }
+    }
+    const matrix = await HEAD.findAll(conditions)
 
     return res.send({
       message: "List of Heads with meta",
