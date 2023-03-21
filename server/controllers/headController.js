@@ -62,6 +62,29 @@ const createHeadMeta = async (req, res) => {
   }
 }
 
+const createBulkHeadMeta = async (req, res) => {
+  try {
+    const body = req.body
+    const validate = headSchema?.headMetaBulkSchema.validate(body)
+    if (validate?.error) {
+      return res.status(400).json({
+        message: "Validation Error",
+        error: validate?.error,
+      })
+    }
+
+    const createdMatrix = await HEADMETA.bulkCreate(body)
+
+    return res.send({
+      message: "Head Meat Created Successfully",
+      data: createdMatrix,
+    })
+  } catch (err) {
+    console.log("error-in-head-meta-create", err)
+    return res.status(500).send("Internal Server Error")
+  }
+}
+
 const list = async (req, res) => {
   try {
     const matx_id = req.query.id
@@ -112,6 +135,7 @@ const listHeadMeta = async (req, res) => {
 const headRoutes = {
   create,
   createHeadMeta,
+  createBulkHeadMeta,
   list,
 }
 
