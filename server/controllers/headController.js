@@ -1,6 +1,6 @@
 const db = require("../models")
 const HEAD = db.tbl_head_masters
-const HEADMETA = db.tbl_head_metas
+const HEADMETA = db.tbl_head_meta
 const SUBSIDARY = db.tbl_subsidary_masters
 const MATTRIX = db.tbl_mattrix_masters
 const headSchema = require("./validators/head")
@@ -107,12 +107,12 @@ const list = async (req, res) => {
         },
       ],
     }
-    if (matx_id > 0) {
+    if (mattrix_id > 0) {
       conditions["where"] = {
         mattrix_id,
       }
     }
-    if (matx_id > 0) {
+    if (subsidary_id > 0) {
       conditions["where"] = {
         subsidary_id,
       }
