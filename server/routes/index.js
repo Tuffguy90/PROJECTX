@@ -5,6 +5,7 @@ const router = express.Router();
 const userRoutes = require("../controllers/userController");
 const mattrixController = require("../controllers/matrixController");
 const headRoutes = require("../controllers/headController");
+const reportController = require("../controllers/reportController")
 
 /** POST ROUTES */
 router.post("/create-subsidary", subsidaryRoutes.create);
@@ -23,5 +24,6 @@ router.get("/get-mattrix", mattrixController.list);
 router.get("/delete-mattrix", mattrixController.remove);
 router.get("/get-heads", headRoutes.list);
 router.get("/get-user-list", userRoutes.userList);
+router.get("/get-report", reportController.list)
 
 module.exports = router;
