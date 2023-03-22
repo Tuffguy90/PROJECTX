@@ -3,6 +3,7 @@ import { lazy } from 'react';
 // project import
 import Loadable from 'components/Loadable';
 import MainLayout from 'layout/MainLayout';
+import { Subsidary } from 'pages/subsidary/index';
 
 // render - dashboard
 const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
@@ -16,6 +17,10 @@ const MainRoutes = {
         {
             path: '/dashboard',
             element: <Dashboard />
+        },
+        {
+            path: '/subsidaries',
+            element: <Subsidary />
         }
         // {
         //     path: 'color',

@@ -6,7 +6,6 @@ const verifyToken = (req, res, next) => {
   try {
     const authHeader = req.headers["authorization"]
     const token = authHeader?.split(" ")[1] ? authHeader.split(" ")[1] : null
-    console.log("token", token)
     if (token === null) {
       return res.status(401).send("Unauthorized Access")
     }
