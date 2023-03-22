@@ -10,8 +10,9 @@ import MainCard from 'components/MainCard';
 // service
 import headService from 'services/head.service';
 import subsidaryService from 'services/subsidary.service';
+import reportService from 'services/report.service';
 
-export const HeadMaster = () => {
+export const Report = () => {
     const [mattrix, setMattrix] = useState([]);
     const [subsidaries, setSubsidaries] = useState([]);
     const [subsidaryMatrix, setSubsidaryMatrix] = useState([]);
@@ -59,9 +60,9 @@ export const HeadMaster = () => {
                 }}
             >
                 <MainCard sx={{ m: 1, p: 1 }} content={false}>
-                    <h1>Heads</h1>
+                    <h1>Report</h1>
                     <DataGrid
-                        dataSource={headService.headMasterStore}
+                        dataSource={reportService.reportStore}
                         allowColumnReordering={true}
                         rowAlternationEnabled={true}
                         showBorders={true}
@@ -70,34 +71,46 @@ export const HeadMaster = () => {
                             <Popup title="Head" showTitle={true} />
                         </Editing>
                         <SearchPanel visible={true} highlightCaseSensitive={true} />
-                        <Column dataField="head_name">
+                        <Column dataField="head_name" width={200}>
                             <RequiredRule />
                         </Column>
-                        <Column dataField="subsidary_id" caption="Subsidary">
+                        <Column dataField="data[0].month_value" caption="April">
                             <RequiredRule />
-                            <Lookup dataSource={subsidaries} displayExpr="name" valueExpr="id" />
                         </Column>
-                        <Column dataField="mattrix_id" caption="Mattrix">
+                        <Column dataField="data[1].month_value" caption="May">
                             <RequiredRule />
-                            <Lookup dataSource={mattrix} displayExpr="name" valueExpr="id" />
+                        </Column>
+                        <Column dataField="data[2].month_value" caption="June">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="data[3].month_value" caption="July">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="data[4].month_value" caption="Aug">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="data[5].month_value" caption="Sept">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="data[6].month_value" caption="Oct">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="data[7].month_value" caption="Nov">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="data[8].month_value" caption="Dec">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="data[9].month_value" caption="Jan">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="data[10].month_value" caption="Feb">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="data[11].month_value" caption="March">
+                            <RequiredRule />
                         </Column>
 
-                        <Column dataField="status" dataType="number" cellRender={statusCell}>
-                            <Lookup
-                                dataSource={[
-                                    {
-                                        value: 1,
-                                        label: 'Active'
-                                    },
-                                    {
-                                        value: 0,
-                                        label: 'In Active'
-                                    }
-                                ]}
-                                displayExpr="label"
-                                valueExpr="value"
-                            />
-                        </Column>
                         <Paging />
                     </DataGrid>
                 </MainCard>

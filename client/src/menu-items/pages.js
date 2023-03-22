@@ -65,9 +65,26 @@ const heads = {
     ]
 };
 
+const report = {
+    id: 'group-sub3',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'report',
+            title: 'Report',
+            type: 'item',
+            url: '/report',
+            icon: icons.LoginOutlined,
+            breadcrumbs: false
+        }
+    ]
+};
+
 const pages = {
     subsidaries,
-    heads
+    heads,
+    report
 };
 
 export default pages;
