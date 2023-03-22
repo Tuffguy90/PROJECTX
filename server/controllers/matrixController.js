@@ -1,5 +1,7 @@
 const db = require("../models")
 const MATRIX = db.tbl_mattrix_masters
+const SUBMATTRIXMAP = db.tbl_subsidary_mattrix_mapings
+const SUBSIDARY = db.tbl_subsidary_masters
 const matrixSchema = require("./validators/matrix")
 
 const create = async (req, res) => {
@@ -51,14 +53,40 @@ const list = async (req, res) => {
   }
 }
 
+const listOfSubsidaryMattrix = async (req, res) => {
+  try {
+    const matx_id = req.query.id
+    const matrix = await SUBMATTRIXMAP.findAll({
+      include: [
+        {
+          model: MATRIX,
+          as: "mattrix",
+        },
+        {
+          model: SUBSIDARY,
+          as: "subsidary",
+        },
+      ],
+    })
+
+    return res.send({
+      message: "List of matrix",
+      data: matrix,
+    })
+  } catch (err) {
+    console.log("error-in-matrix-list", err)
+    return res.status(500).send("Internal Server Error")
+  }
+}
+
 const mapSubsidaryMattrix = async (req, res) => {
   try {
     let mattrix_ids = req.body.mattrix_ids
     let subsidary_id = req.body.subsidary_id
-    if (mattrix_ids.length < 0 || !subsidary_id) {
+    if (mattrix_ids?.length < 0 || !subsidary_id) {
       return res.status(400).json({
         message: "Validation Error",
-        error: validate?.error,
+        error: "Error",
       })
     }
     let data = []
@@ -68,13 +96,13 @@ const mapSubsidaryMattrix = async (req, res) => {
         subsidary_id,
       })
     })
-    let resp = await SUBSIDARYMATTRIX.bulkCreate(data)
+    let resp = await SUBMATTRIXMAP.bulkCreate(data)
     return res.send({
       message: "mattrix Created Successfully",
       data: resp,
     })
   } catch (error) {
-    console.log("error-in-mattrix-list", err)
+    console.log("error-in-mattrix-list", error)
     return res.status(500)
   }
 }
@@ -106,6 +134,7 @@ const matrixRoutes = {
   create,
   list,
   mapSubsidaryMattrix,
+  listOfSubsidaryMattrix,
   remove,
 }
 
