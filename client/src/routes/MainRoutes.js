@@ -5,6 +5,7 @@ import Loadable from 'components/Loadable';
 import MainLayout from 'layout/MainLayout';
 import { Subsidary } from 'pages/subsidary/index';
 import { HeadMaster } from 'pages/heads/index';
+import CreateUser from 'pages/user/CreateUser';
 
 // render - dashboard
 const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
@@ -31,11 +32,11 @@ const MainRoutes = {
         {
             path: '/subsidaries',
             element: <Subsidary />
+        },
+        {
+            path: 'user',
+            element: <CreateUser />
         }
-        // {
-        //     path: 'color',
-        //     element: <Color />
-        // },
         // {
         //     path: 'dashboard',
         //     children: [

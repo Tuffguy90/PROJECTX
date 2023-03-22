@@ -1,5 +1,5 @@
-"use strict"
-const { Model } = require("sequelize")
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class tbl_user_masters extends Model {
     /**
@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.belongsTo(models.tbl_subsidary_masters, {
+        foreignKey: "subsidary_id",
+        as: "subsidary",
+      });
     }
   }
   tbl_user_masters.init(
@@ -28,6 +31,6 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "tbl_user_masters",
     }
-  )
-  return tbl_user_masters
-}
+  );
+  return tbl_user_masters;
+};

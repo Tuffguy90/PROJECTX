@@ -3,6 +3,7 @@ const db = require("../models/index");
 const bcrypt = require("bcrypt");
 const { createUserSchema } = require("./validators/user");
 const USER = db.tbl_user_masters;
+const SUBSIDARY = db.tbl_subsidary_masters;
 const { extractTokenInfo } = require("../helpers/index");
 require("dotenv").config();
 
@@ -24,13 +25,13 @@ const login = async (req, res) => {
 
     const user = await USER.findOne(conditions);
     if (user) {
-      // const isMatch = await bcrypt.compare(req.body.password, user.password);
-      // if (!isMatch) {
-      //   return res.status(400).send({
-      //     status: 400,
-      //     message: "Invalid Login Credentials",
-      //   });
-      // }
+      const isMatch = await bcrypt.compare(req.body.password, user.password);
+      if (!isMatch) {
+        return res.status(400).send({
+          status: 400,
+          message: "Invalid Login Credentials",
+        });
+      }
       if (req.body.password !== user.password) {
         return res.status(400).send({
           status: 400,
@@ -153,10 +154,20 @@ const createUser = async (req, res) => {
   try {
     let tokenUserData = extractTokenInfo(req);
     let body = req.body;
-    body.password = `${req.body.first_name}_${req.body.mobile.substring(
-      0,
-      5
-    )}`.toLocaleLowerCase();
+    let key = body.key || null;
+    if (key !== null) {
+      body.email && delete body.email;
+      let updateData = await USER.update({ ...body }, { where: { id: key } });
+      if (updateData) {
+        return res.status(200).send({
+          data: [],
+          message: "Data Updated Successfully",
+        });
+      }
+    }
+    /** Password will user mobile number
+     */
+    body.password = req.body.mobile;
     const validate = createUserSchema.validate(body);
     if (validate?.error) {
       return res.status(400).send({
@@ -178,7 +189,7 @@ const createUser = async (req, res) => {
     }
     body.createdBy = tokenUserData?.id || null;
     let salt = await bcrypt.genSalt(10);
-    body.password = await bcrypt.hash(password, salt);
+    body.password = await bcrypt.hash(body.password, salt);
     const createdUser = await USER.create(body);
 
     return res.status(200).send({
@@ -186,11 +197,56 @@ const createUser = async (req, res) => {
       data: createdUser,
     });
   } catch (err) {
+    console.log("err", err?.message);
     return res.status(500).json({
-      message: "Internal Server Error",
-      error: err?.message,
+      message: err?.message,
       data: [],
     });
+  }
+};
+
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+const userList = async (req, res) => {
+  try {
+    const user_id = req.param.user_id || null;
+    var conditions = {
+      attributes: [
+        "id",
+        "first_name",
+        "last_name",
+        "mobile",
+        "email",
+        "address",
+        "subsidary_id",
+        "status",
+      ],
+      include: [
+        {
+          model: SUBSIDARY,
+          attributes: ["name", "code", "id", "short_name"],
+          as: "subsidary",
+        },
+      ],
+    };
+    const countData = await USER.findAll(conditions);
+    if (user_id !== null) {
+      conditions["where"] = {
+        id: user_id,
+      };
+    }
+    const userList = await USER.findAll(conditions);
+
+    return res.status(200).send({
+      message: "",
+      data: { data: userList, totalCount: countData?.length },
+    });
+  } catch (err) {
+    return res.status(500).send({ message: err?.message, data: [] });
   }
 };
 
@@ -198,6 +254,7 @@ const userRoutes = {
   login,
   changePassword,
   createUser,
+  userList,
 };
 
 module.exports = userRoutes;

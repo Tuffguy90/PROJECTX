@@ -7,7 +7,7 @@ import MainCard from 'components/MainCard';
 import AnimateButton from 'components/@extended/AnimateButton';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import authService from 'services/auth.service';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { sweetAlertBox } from 'helpers/index';
@@ -26,12 +26,15 @@ const ChangePassword = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+    const renderHeader = useMemo(() => {
+        return <h1 className="mb-0 pb-0">Change Password</h1>
+    }, []);
     return (
         <ComponentSkeleton>
             <Grid container spacing={0}>
                 <Grid item xs={12} lg={12}>
                     <Stack spacing={0}>
-                        <MainCard title="Change Password" codeHighlight>
+                        <MainCard title={renderHeader} codeHighlight>
                             <Formik
                                 initialValues={{
                                     new_password: '',
