@@ -23,9 +23,20 @@ const login = async (data) => {
             'Access-Control-Allow-Origin': '*'
         }
     }).catch((err) => {
-        return err.message;
+        return err.response;
     });
 };
 
-const authService = { tokenExpiryCheck, login };
+const changePassword = async (data) => {
+    return axios({
+        url: `${API_BASE_URL}/change-password`,
+        method: 'POST',
+        data: data,
+        headers: authHeader()
+    }).catch((err) => {
+        return err.response;
+    });
+};
+
+const authService = { tokenExpiryCheck, login, changePassword };
 export default authService;

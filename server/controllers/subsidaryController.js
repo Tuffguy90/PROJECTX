@@ -18,7 +18,6 @@ const create = async (req, res) => {
         name: body.name,
       },
     })
-    console.log("isdup", isDupl)
     if (isDupl) {
       return res.status(409).send({
         message: "Duplicate Data found",

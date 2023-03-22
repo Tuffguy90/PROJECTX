@@ -6,6 +6,7 @@ import MainLayout from 'layout/MainLayout';
 
 // render - dashboard
 const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
+const ChangePassword = Loadable(lazy(() => import('pages/user/ChangePassword')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -16,6 +17,10 @@ const MainRoutes = {
         {
             path: '/dashboard',
             element: <Dashboard />
+        },
+        {
+            path: '/change-password',
+            element: <ChangePassword />
         }
         // {
         //     path: 'color',
