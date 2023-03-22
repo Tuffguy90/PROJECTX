@@ -4,10 +4,14 @@ const HEADMETA = db.tbl_head_meta
 const SUBSIDARY = db.tbl_subsidary_masters
 const MATTRIX = db.tbl_mattrix_masters
 const headSchema = require("./validators/head")
+const helper = require("../helper/index")
 
 const create = async (req, res) => {
   try {
     const body = req.body
+    if (body?.key) {
+      return helper.updateModel("head", body.values, body.key, res)
+    }
     const validate = headSchema?.createHeadSchema.validate(body)
     if (validate?.error) {
       return res.status(400).json({
@@ -18,7 +22,6 @@ const create = async (req, res) => {
     const isDupl = await HEAD.findOne({
       where: {
         head_name: body.head_name,
-        sub_mat_id: body.sub_mat_id,
       },
     })
 

@@ -1,0 +1,12 @@
+.dx-header-row,
+.dx-popup-title {
+    background-color: #333 !important;
+    color: #e3e3e3 !important;
+}
+.dx-closebutton {
+    background-color: #e3e3e3;
+    transition: 0.3s all;
+}
+.dx-closebutton:hover {
+    background-color: #a09898;
+}

@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       sub_mat_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
+        defaultValue: 1,
       },
       subsidary_id: {
         type: DataTypes.INTEGER,
