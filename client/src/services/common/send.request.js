@@ -30,17 +30,19 @@ const sendRequest = (url, type = 'GET', data) => {
         headers: authHeader()
     })
         .catch((err) => {
-            if (type === 'POST') {
-                Notify(toastConfig('Internal Server Error', 'danger'));
-            }
-            return err?.message;
+            return err?.response;
         })
         .then((response) => {
             if (type === 'POST' && response?.status === 200) {
-                console.log('success', response);
+                console.log('success-xx', response);
                 Notify(toastConfig('Data saved successfully', 'success'));
             } else if (type === 'POST' && response?.status === 400) {
+                console.log('success-xx400', response);
                 Notify(toastConfig('Data was not saved, validation error', 'warning'));
+                const error = response?.data?.error?.details.map((e) => e.message).join(',');
+                throw error;
+            } else if (type === 'POST' && response?.status === 500) {
+                throw 'Internal Server Error';
             }
 
             return response?.data;

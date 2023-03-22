@@ -49,8 +49,25 @@ const subsidaries = {
     ]
 };
 
+const heads = {
+    id: 'group-sub2',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'heads',
+            title: 'Heads',
+            type: 'item',
+            url: '/heads',
+            icon: icons.ProfileOutlined,
+            breadcrumbs: false
+        }
+    ]
+};
+
 const pages = {
-    subsidaries
+    subsidaries,
+    heads
 };
 
 export default pages;

@@ -17,6 +17,18 @@ const getSubsidaries = async () => {
         .then((response) => response?.data);
 };
 
+const getSubsidaryMattrix = async () => {
+    return axios({
+        url: `${API_BASE_URL}/get-subsidary-mattrix`,
+        method: 'GET',
+        headers: authHeader()
+    })
+        .catch((err) => {
+            return err.message;
+        })
+        .then((response) => response?.data);
+};
+
 const subsidaryStore = new CustomStore({
     key: 'id',
     load: () => sendRequest(`${API_BASE_URL}/get-subsidaries`),
@@ -34,6 +46,7 @@ const subsidaryStore = new CustomStore({
 
 const subsidaryService = {
     getSubsidaries,
+    getSubsidaryMattrix,
     subsidaryStore
 };
 

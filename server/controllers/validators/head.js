@@ -4,7 +4,8 @@ const createHeadSchema = Joi.object({
   subsidary_id: Joi.number().required(),
   mattrix_id: Joi.number().required(),
   head_name: Joi.string().required(),
-  sub_mat_id: Joi.number().required(),
+  sub_mat_id: Joi.number(),
+  status: Joi.number().required(),
   created_by: Joi.number().required(),
 })
 
