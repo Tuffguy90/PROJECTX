@@ -5,6 +5,8 @@ import Loadable from 'components/Loadable';
 import MainLayout from 'layout/MainLayout';
 import { Subsidary } from 'pages/subsidary/index';
 import { HeadMaster } from 'pages/heads/index';
+import { MatrixMaster } from 'pages/matrix/index';
+import { SubsidaryMatrixMap } from 'pages/subsidaryMatrixMap/index';
 
 // render - dashboard
 const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
@@ -26,6 +28,14 @@ const MainRoutes = {
         {
             path: '/heads',
             element: <HeadMaster />
+        },
+        {
+            path: '/matrix',
+            element: <MatrixMaster />
+        },
+        {
+            path: '/sub-matrix',
+            element: <SubsidaryMatrixMap />
         }
         // {
         //     path: 'color',

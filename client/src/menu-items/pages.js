@@ -65,9 +65,43 @@ const heads = {
     ]
 };
 
+const matrix = {
+    id: 'group-sub3',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'matrix',
+            title: 'Matrix Master',
+            type: 'item',
+            url: '/matrix',
+            icon: icons.ProfileOutlined,
+            breadcrumbs: false
+        }
+    ]
+};
+
+const subsidaryMatrixMap = {
+    id: 'group-sub4',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'subMat',
+            title: 'Matrix Maping',
+            type: 'item',
+            url: '/sub-matrix',
+            icon: icons.ProfileOutlined,
+            breadcrumbs: false
+        }
+    ]
+};
+
 const pages = {
     subsidaries,
-    heads
+    heads,
+    matrix,
+    subsidaryMatrixMap
 };
 
 export default pages;

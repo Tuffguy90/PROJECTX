@@ -5,7 +5,7 @@ import pages from './pages';
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-    items: [dashboard, pages.subsidaries, pages.heads]
+    items: [dashboard, pages.subsidaries, pages.heads, pages.matrix, pages.subsidaryMatrixMap]
 };
 
 export default menuItems;

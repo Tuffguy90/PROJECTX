@@ -55,45 +55,9 @@ const list = async (req, res) => {
   }
 }
 
-const mapSubMatrix = async (req, res) => {
-  try {
-    const body = req.body
-    const validate = subsidarySchema?.mapSubMatrixSchema.validate(body)
-    if (validate?.error) {
-      return res.status(400).json({
-        message: "Validation Error",
-        error: validate?.error,
-      })
-    }
-    const isDupl = await SUBSIDARY.findOne({
-      where: {
-        mattrix_id: body.mattrix_id,
-        subsidary_id: body.subsidary_id,
-      },
-    })
-    console.log("isdup", isDupl)
-    if (isDupl) {
-      return res.status(409).send({
-        message: "Duplicate Data found",
-        data: isDupl,
-      })
-    }
-    const createSub = await SUBMATTRIX.create(body)
-
-    return res.send({
-      message: "Subsidary Matrix Mapped Successfully",
-      data: createSub,
-    })
-  } catch (err) {
-    console.log("error-in-subsidary-create", err)
-    return res.status(500).send("Internal Server Error")
-  }
-}
-
 const subsidaryRoutes = {
   create,
   list,
-  mapSubMatrix,
 }
 
 module.exports = subsidaryRoutes

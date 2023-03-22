@@ -15,7 +15,7 @@ const verifyToken = (req, res, next) => {
         return res.status(403).send("Unauthozied")
       }
 
-      req.body.created_by = decoded?.id || 0
+      req.body.createdBy = decoded?.id || 0
       next()
     })
 
