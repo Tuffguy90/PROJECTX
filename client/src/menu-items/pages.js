@@ -1,10 +1,11 @@
 // assets
-import { LoginOutlined, ProfileOutlined } from '@ant-design/icons';
+import { LoginOutlined, ProfileOutlined, UserOutlined } from '@ant-design/icons';
 
 // icons
 const icons = {
     LoginOutlined,
-    ProfileOutlined
+    ProfileOutlined,
+    UserOutlined
 };
 
 // ==============================|| MENU ITEMS - EXTRA PAGES ||============================== //
@@ -65,6 +66,22 @@ const heads = {
     ]
 };
 
+const users = {
+    id: 'group-user',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'users',
+            title: 'User',
+            type: 'item',
+            url: '/user',
+            icon: icons.UserOutlined,
+            breadcrumbs: false
+        }
+    ]
+};
+
 const report = {
     id: 'group-sub3',
     title: 'Navigation',
@@ -84,6 +101,7 @@ const report = {
 const pages = {
     subsidaries,
     heads,
+    users,
     report
 };
 

@@ -1,5 +1,6 @@
 // project import
 import Routes from 'routes';
+import './assets/css/App.css';
 import ThemeCustomization from 'themes';
 import ScrollTop from 'components/ScrollTop';
 
