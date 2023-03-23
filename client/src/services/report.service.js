@@ -7,18 +7,35 @@ import CustomStore from '../../node_modules/devextreme/data/custom_store';
 
 const reportStore = new CustomStore({
     key: 'id',
-    load: () => sendRequest(`${API_BASE_URL}/get-report`)
-    // insert: (values) => sendRequest(`${API_BASE_URL}/create-head`, 'POST', { ...values }),
-    // update: (key, values) =>
-    //     sendRequest(`${API_BASE_URL}/create-head`, 'POST', {
-    //         key,
-    //         values: values
-    //     })
-    // remove: (key) =>
-    //     sendRequest(`${API_BASE_URL}/DeleteOrder`, 'DELETE', {
-    //         key
-    //     })
+    load: () => sendRequest(`${API_BASE_URL}/get-report`),
+    update: (key, values) => {
+        var val = [];
+        for (var i = 0; i < 12; i++) {
+            if (values[`data[${i}]`]) {
+                val.push({
+                    month_id: i,
+                    month_value: values[`data[${i}]`]['month_value']
+                });
+            }
+        }
+        sendRequest(`${API_BASE_URL}/update-report`, 'POST', {
+            key,
+            values: val[0]
+        });
+    }
 });
+
+const getMonth = (values) => {
+    let val = [];
+    for (var i = 0; i < 12; i++) {
+        if (values[`data[${i}]`]) {
+            console.log('atch', values[`data[${i}]`]);
+            val['month_' + i] = values[`data[${i}]`];
+        }
+    }
+    console.log('val', val);
+    return val;
+};
 
 const getMattrix = async () => {
     return axios({

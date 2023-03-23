@@ -16,6 +16,7 @@ router.post("/create-head-meta", headRoutes.createHeadMeta)
 router.post("/create-bulk-head-meta", headRoutes.createBulkHeadMeta)
 router.post("/change-password", userRoutes.changePassword)
 router.post("/create-user", userRoutes.createUser)
+router.post("/update-report", reportController.updateReport)
 
 /** GET ROUTES */
 router.get("/get-subsidaries", subsidaryRoutes.list)
