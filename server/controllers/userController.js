@@ -21,7 +21,7 @@ const login = async (req, res) => {
       },
     }
     const user = await USER.findOne(conditions)
-    console.log("users", user)
+    console.log("users", user, email, password)
     if (user) {
       var token = jwt.sign(
         {
