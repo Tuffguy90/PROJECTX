@@ -10,31 +10,17 @@ import MainCard from 'components/MainCard';
 // service
 import headService from 'services/head.service';
 import subsidaryService from 'services/subsidary.service';
+import authService from 'services/auth.service';
 
-export const HeadMaster = () => {
-    const [mattrix, setMattrix] = useState([]);
-    const [subsidaries, setSubsidaries] = useState([]);
-    const [subsidaryMatrix, setSubsidaryMatrix] = useState([]);
+const CreateUser = () => {
+    const [subsidiaries, setSubsidiaries] = useState([]);
     useEffect(() => {
-        loadMattrix();
-        loadSubsidaries();
-        loadSubMatrix();
+        loadSubsidiaries();
     }, []);
 
-    const loadMattrix = async () => {
-        const data = await headService.getMattrix();
-        setMattrix(data?.data);
-    };
-
-    const loadSubMatrix = async () => {
-        const data = await subsidaryService.getSubsidaryMattrix();
-        console.log('loadmaxxx', data);
-        setSubsidaryMatrix(data?.data);
-    };
-
-    const loadSubsidaries = async () => {
+    const loadSubsidiaries = async () => {
         const data = await subsidaryService.getSubsidaries();
-        setSubsidaries(data?.data);
+        setSubsidiaries(data?.data);
     };
     const statusCell = (options) => {
         const color = options.data?.status === 1 ? 'success' : 'danger';
@@ -59,30 +45,38 @@ export const HeadMaster = () => {
                 }}
             >
                 <MainCard sx={{ m: 1, p: 1 }} content={false}>
-                    <h1>Heads</h1>
+                    <h1 style={{ margin: '0px' }}>User</h1>
                     <DataGrid
-                        dataSource={headService.headMasterStore}
+                        dataSource={authService.userCRUD}
                         allowColumnReordering={true}
                         rowAlternationEnabled={true}
                         showBorders={true}
                     >
                         <Editing mode="popup" allowAdding={true} allowDeleting={false} allowUpdating={true}>
-                            <Popup title="Head" showTitle={true} />
+                            <Popup title="User" showTitle={true} />
                         </Editing>
                         <SearchPanel visible={true} highlightCaseSensitive={true} />
-                        <Column dataField="head_name">
+                        <Column dataField="first_name" caption="First Name">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="last_name" caption="Last Name">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="email" allowEditing={false} caption="Email-Id">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="mobile" caption="Mobile">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="address" caption="Address">
                             <RequiredRule />
                         </Column>
                         <Column dataField="subsidary_id" caption="Subsidary">
                             <RequiredRule />
-                            <Lookup dataSource={subsidaries} displayExpr="name" valueExpr="id" />
+                            <Lookup dataSource={subsidiaries} displayExpr="name" valueExpr="id" />
                         </Column>
-                        <Column dataField="mattrix_id" caption="Mattrix">
-                            <RequiredRule />
-                            <Lookup dataSource={mattrix} displayExpr="name" valueExpr="id" />
-                        </Column>
-
                         <Column dataField="status" dataType="number" cellRender={statusCell}>
+                            <RequiredRule />
                             <Lookup
                                 dataSource={[
                                     {
@@ -105,3 +99,4 @@ export const HeadMaster = () => {
         </Box>
     );
 };
+export default CreateUser;

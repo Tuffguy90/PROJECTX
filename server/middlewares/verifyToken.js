@@ -1,29 +1,27 @@
-var jwt = require("jsonwebtoken")
-var jwt = require("jsonwebtoken")
-require("dotenv").config()
+var jwt = require("jsonwebtoken");
+var jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const verifyToken = (req, res, next) => {
   try {
     const authHeader = req.headers["authorization"]
     const token = authHeader?.split(" ")[1] ? authHeader.split(" ")[1] : null
     if (token === null) {
-      return res.status(401).send("Unauthorized Access")
+      return res.status(401).send("Unauthorized Access");
     }
 
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
       if (err) {
-        return res.status(403).send("Unauthozied")
+        return res.status(403).send("Unauthorized");
       }
+      req.body.createdBy = decoded?.id || 0;
+      next();
+    });
 
-      req.body.createdBy = decoded?.id || 0
-      next()
-    })
-
-    res.status(200)
+    res.status(200);
   } catch (err) {
-    console.log("error", err)
-    return res.status(403).send("Error")
+    return res.status(403).send("Error");
   }
-}
+};
 
-module.exports = verifyToken
+module.exports = verifyToken;

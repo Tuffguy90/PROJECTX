@@ -1,10 +1,11 @@
 // assets
-import { LoginOutlined, ProfileOutlined } from '@ant-design/icons';
+import { LoginOutlined, ProfileOutlined, UserOutlined } from '@ant-design/icons';
 
 // icons
 const icons = {
     LoginOutlined,
-    ProfileOutlined
+    ProfileOutlined,
+    UserOutlined
 };
 
 // ==============================|| MENU ITEMS - EXTRA PAGES ||============================== //
@@ -65,8 +66,40 @@ const heads = {
     ]
 };
 
-const matrix = {
+const users = {
+    id: 'group-user',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'users',
+            title: 'User',
+            type: 'item',
+            url: '/user',
+            icon: icons.UserOutlined,
+            breadcrumbs: false
+        }
+    ]
+};
+
+const report = {
     id: 'group-sub3',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'report',
+            title: 'Report',
+            type: 'item',
+            url: '/report',
+            icon: icons.LoginOutlined,
+            breadcrumbs: false
+        }
+    ]
+};
+
+const matrix = {
+    id: 'group-mat3',
     title: 'Navigation',
     type: 'group',
     children: [
@@ -82,7 +115,7 @@ const matrix = {
 };
 
 const subsidaryMatrixMap = {
-    id: 'group-sub4',
+    id: 'group-sub-mat4',
     title: 'Navigation',
     type: 'group',
     children: [
@@ -100,6 +133,8 @@ const subsidaryMatrixMap = {
 const pages = {
     subsidaries,
     heads,
+    users,
+    report,
     matrix,
     subsidaryMatrixMap
 };

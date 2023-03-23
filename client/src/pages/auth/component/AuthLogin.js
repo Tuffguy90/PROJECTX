@@ -1,21 +1,10 @@
 import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import authService from '../../../services/auth.service';
-import { toast } from 'react-toastify';
+import { sweetAlertBox } from 'helpers/index';
 
 // material-ui
-import {
-    Button,
-    FormHelperText,
-    Grid,
-    Link,
-    IconButton,
-    InputAdornment,
-    InputLabel,
-    OutlinedInput,
-    Stack,
-    Typography
-} from '@mui/material';
+import { Button, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, Stack } from '@mui/material';
 
 // third party
 import * as Yup from 'yup';
@@ -30,7 +19,6 @@ import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const AuthLogin = () => {
-    const [checked, setChecked] = React.useState(false);
     const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -64,11 +52,11 @@ const AuthLogin = () => {
                                     localStorage.setItem('_userData', JSON.stringify(data?.user));
                                     navigate('/dashboard');
                                 } else {
-                                    toast.warning('Invalid Login Credentials');
+                                    sweetAlertBox('Oops', data?.message ? data?.message : 'Invalid login credentials', 'info');
                                 }
                             })
                             .catch((err) => {
-                                toast.error(err?.response?.data?.message);
+                                sweetAlertBox('Oops', err?.response?.data?.message, 'danger');
                             });
                         setStatus({ success: false });
                         setSubmitting(false);
@@ -138,13 +126,13 @@ const AuthLogin = () => {
                                 </Stack>
                             </Grid>
 
-                            <Grid item xs={12} sx={{ mt: -1 }}>
+                            {/* <Grid item xs={12} sx={{ mt: -1 }}>
                                 <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                                     <Link variant="h6" component={RouterLink} to="/forgot-password" color="text.primary">
                                         Forgot Password?
                                     </Link>
                                 </Stack>
-                            </Grid>
+                            </Grid> */}
                             {errors.submit && (
                                 <Grid item xs={12}>
                                     <FormHelperText error>{errors.submit}</FormHelperText>
