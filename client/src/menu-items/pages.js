@@ -1,11 +1,13 @@
 // assets
-import { LoginOutlined, ProfileOutlined, UserOutlined } from '@ant-design/icons';
+import { LoginOutlined, ProfileOutlined, UserOutlined, FileExcelOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 
 // icons
 const icons = {
     LoginOutlined,
     ProfileOutlined,
-    UserOutlined
+    UserOutlined,
+    FileExcelOutlined,
+    UsergroupAddOutlined
 };
 
 // ==============================|| MENU ITEMS - EXTRA PAGES ||============================== //
@@ -92,7 +94,23 @@ const report = {
             title: 'Report',
             type: 'item',
             url: '/report',
-            icon: icons.LoginOutlined,
+            icon: icons.FileExcelOutlined,
+            breadcrumbs: false
+        }
+    ]
+};
+
+const role = {
+    id: 'group-role',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'role',
+            title: 'Role',
+            type: 'item',
+            url: '/role',
+            icon: icons.UsergroupAddOutlined,
             breadcrumbs: false
         }
     ]
@@ -136,7 +154,8 @@ const pages = {
     users,
     report,
     matrix,
-    subsidaryMatrixMap
+    subsidaryMatrixMap,
+    role
 };
 
 export default pages;

@@ -32,9 +32,20 @@ const getMattrix = async () => {
         .then((response) => response?.data);
 };
 
+const getDashboardCount = async () => {
+    return axios({
+        url: `${API_BASE_URL}/get-dashboard-count`,
+        method: 'GET',
+        headers: authHeader()
+    }).catch((err) => {
+        return err.response;
+    });
+};
+
 const reportService = {
     reportStore,
-    getMattrix
+    getMattrix,
+    getDashboardCount
 };
 
 export default reportService;

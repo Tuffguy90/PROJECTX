@@ -11,24 +11,24 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(100)
       },
       status: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(12),
         allowNull: false,
         defaultValue: 1
       },
       createdBy: {
         allowNull: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(5)
       },
       updatedBy: {
         allowNull: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(5)
       },
       deletedBy: {
         allowNull: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(5)
       },
       deletedAt: {
         allowNull: true,

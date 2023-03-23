@@ -9,6 +9,7 @@ import { MatrixMaster } from 'pages/matrix/index';
 import { SubsidaryMatrixMap } from 'pages/subsidaryMatrixMap/index';
 import CreateUser from 'pages/user/CreateUser';
 import { Report } from 'pages/report/index';
+import { RoleMaster } from 'pages/roles/index';
 
 // render - dashboard
 const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
@@ -51,6 +52,10 @@ const MainRoutes = {
         {
             path: '/sub-matrix',
             element: <SubsidaryMatrixMap />
+        },
+        {
+            path: '/role',
+            element: <RoleMaster />
         }
         // {
         //     path: 'dashboard',

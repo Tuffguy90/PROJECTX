@@ -12,5 +12,12 @@ const createUserSchema = Joi.object({
   created_by: Joi.number().required(),
 });
 
-const userSchema = { createUserSchema };
+const createRoleSchema = Joi.object({
+  name: Joi.string().required(),
+  short_name: Joi.string().required(),
+  status: Joi.number().required(),
+  created_by: Joi.number().required(),
+});
+
+const userSchema = { createUserSchema, createRoleSchema };
 module.exports = userSchema;

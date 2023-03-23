@@ -125,7 +125,7 @@ const ChangePassword = () => {
                                                             <InputAdornment position="end">
                                                                 <IconButton
                                                                     aria-label="toggle password visibility"
-                                                                    onClick={() => handleClickShowPassword(new_password)}
+                                                                    onClick={() => handleClickShowPassword('new_password')}
                                                                     onMouseDown={handleMouseDownPassword}
                                                                     edge="end"
                                                                     size="large"
