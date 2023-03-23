@@ -23,7 +23,7 @@ module.exports = {
         allowNull: false
       },
       head_name: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: true
       },
       status: {

@@ -19,6 +19,7 @@ const create = async (req, res) => {
         error: validate?.error,
       })
     }
+    console.log('here...........',body);
     const isDupl = await HEAD.findOne({
       where: {
         head_name: body.head_name,
@@ -31,6 +32,7 @@ const create = async (req, res) => {
         data: isDupl,
       })
     }
+    
     const createdMatrix = await HEAD.create(body)
 
     return res.send({
