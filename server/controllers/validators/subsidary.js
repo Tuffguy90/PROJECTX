@@ -7,7 +7,7 @@ const createSubsidarySchema = Joi.object({
   mobile: Joi.number().required(),
   short_name: Joi.string(),
   status: Joi.number(),
-  created_by: Joi.number(),
+  createdBy: Joi.number(),
 })
 
 const mapSubMatrixSchema = Joi.object({

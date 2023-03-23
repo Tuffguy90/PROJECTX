@@ -218,9 +218,9 @@ const userList = async (req, res) => {
   try {
     const user_id = req.param.user_id || null;
     let whereCondition = {
-      role_id: {
-        [Op.ne]: 1,
-      },
+      // role_id: {
+      //   [Op.ne]: 1,
+      // },
     };
     var conditions = {
       attributes: [
@@ -240,6 +240,7 @@ const userList = async (req, res) => {
           as: "subsidary",
         },
       ],
+      logging:true,
       where: whereCondition,
     };
     const countData = await USER.findAll(conditions);
