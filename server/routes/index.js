@@ -28,5 +28,6 @@ router.get("/get-heads", headRoutes.list);
 router.get("/get-user-list", userRoutes.userList);
 router.get("/get-report", reportController.list);
 router.get("/get-roles", roleController.list);
+router.get("/get-dashboard-count", reportController.showDashboardCountValue);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const db = require("../models");
 const HEADS = db.tbl_head_masters;
 const HEADMETAS = db.tbl_head_meta;
-const USERS = db.tbl_user_master;
+const USERS = db.tbl_user_masters;
 const MATRIX = db.tbl_mattrix_masters;
 const SUBSIDIARY = db.tbl_subsidary_masters;
 const subsidarySchema = require("./validators/subsidary");
@@ -123,13 +123,31 @@ const list = async (req, res) => {
 
 const showDashboardCountValue = async (req, res) => {
   try {
-    let userCnt = await USERS.count({ where: { id: { [Op.in]: 1 } } });
-    let matrixCnt = await MATRIX.count();
+    let userCnt = await USERS.count({
+      where: { id: { [Op.in]: 1 }, status: 1 },
+    });
+    let matrixCnt = await MATRIX.count({
+      where: {
+        status: 1,
+      },
+    });
+    let subsidiaryCnt = await SUBSIDIARY.count({
+      where: {
+        status: 1,
+      },
+    });
+    let headCnt = await HEADS.count({
+      where: {
+        status: 1,
+      },
+    });
     return res.status(200).send({
       message: "success",
       data: [
         { name: "Total User", cntVal: userCnt },
         { name: "Total Matrix", cntVal: matrixCnt },
+        { name: "Total Subsidiary", cntVal: subsidiaryCnt },
+        { name: "Total Heads", cntVal: headCnt },
       ],
     });
   } catch (err) {
