@@ -9,10 +9,12 @@ import CreateUser from 'pages/user/CreateUser';
 import { Report } from 'pages/report/index';
 import { MatrixMaster } from 'pages/matrix/index';
 import { SubsidaryMatrixMap } from 'pages/subsidaryMatrixMap/index';
+import Dashboard from 'pages/dashboard/index';
+import ChangePassword from 'pages/user/ChangePassword';
 
 // render - dashboard
-const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
-const ChangePassword = Loadable(lazy(() => import('pages/user/ChangePassword')));
+// const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
+// const ChangePassword = Loadable(lazy(() => import('pages/user/ChangePassword')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -37,12 +39,14 @@ const MainRoutes = {
             element: <Subsidary />
         },
         {
-            path: 'user',
+            path: '/user',
             element: <CreateUser />
         },
         {
             path: '/report',
-            element: <Report />,
+            element: <Report />
+        },
+        {
             path: '/matrix',
             element: <MatrixMaster />
         },
@@ -50,31 +54,6 @@ const MainRoutes = {
             path: '/sub-matrix',
             element: <SubsidaryMatrixMap />
         }
-        // {
-        //     path: 'dashboard',
-        //     children: [
-        //         {
-        //             path: 'default',
-        //             element: <DashboardDefault />
-        //         }
-        //     ]
-        // },
-        // {
-        //     path: 'sample-page',
-        //     element: <SamplePage />
-        // },
-        // {
-        //     path: 'shadow',
-        //     element: <Shadow />
-        // },
-        // {
-        //     path: 'typography',
-        //     element: <Typography />
-        // },
-        // {
-        //     path: 'icons/ant',
-        //     element: <AntIcons />
-        // }
     ]
 };
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useEffect, useState } from 'react';
 // material-ui
 import { Box, Stack, TableContainer, Typography } from '@mui/material';
@@ -23,51 +23,52 @@ export const MatrixMaster = () => {
     };
     return (
         <Box>
-        <TableContainer
-            sx={{
-                width: '100%',
-                overflowX: 'auto',
-                position: 'relative',
-                display: 'block',
-                maxWidth: '100%',
-                '& td, & th': { whiteSpace: 'nowrap' }
-            }}
-        >
-            <MainCard sx={{ m: 1, p: 1 }} content={false}>
-                <h1>Matrix Master</h1>
-                <DataGrid
-                    dataSource={matrixService.matrixStore}
-                    allowColumnReordering={true}
-                    rowAlternationEnabled={true}
-                    showBorders={true}
-                >
-                    <Editing mode="popup" allowAdding={true} allowDeleting={false} allowUpdating={true}>
-                        <Popup title="Subsidary" showTitle={true} />
-                    </Editing>
-                    <SearchPanel visible={true} highlightCaseSensitive={true} />
-                    <Column dataField="name">
-                        <RequiredRule />
-                    </Column>
-                    <Column dataField="status" dataType="number" cellRender={statusCell}>
-                        <Lookup
-                            dataSource={[
-                                {
-                                    value: 1,
-                                    label: 'Active'
-                                },
-                                {
-                                    value: 0,
-                                    label: 'In Active'
-                                }
-                            ]}
-                            displayExpr="label"
-                            valueExpr="value"
-                        />
-                    </Column>
-                    <Paging />
-                </DataGrid>
-            </MainCard>
-        </TableContainer>
-    </Box>
-    )
-}
+            <TableContainer
+                sx={{
+                    width: '100%',
+                    overflowX: 'auto',
+                    position: 'relative',
+                    display: 'block',
+                    maxWidth: '100%',
+                    '& td, & th': { whiteSpace: 'nowrap' }
+                }}
+            >
+                <MainCard sx={{ m: 1, p: 1 }} content={false}>
+                    <h1>Matrix Master</h1>
+                    <DataGrid
+                        dataSource={matrixService.matrixStore}
+                        allowColumnReordering={true}
+                        rowAlternationEnabled={true}
+                        showBorders={true}
+                    >
+                        <Editing mode="popup" allowAdding={true} allowDeleting={false} allowUpdating={true}>
+                            <Popup title="Matrix" showTitle={true} />
+                        </Editing>
+                        <SearchPanel visible={true} highlightCaseSensitive={true} />
+                        <Column dataField="id" visible={false} allowAdding={false} allowEditing={false}></Column>
+                        <Column dataField="name">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="status" dataType="number" cellRender={statusCell}>
+                            <Lookup
+                                dataSource={[
+                                    {
+                                        value: 1,
+                                        label: 'Active'
+                                    },
+                                    {
+                                        value: 0,
+                                        label: 'In Active'
+                                    }
+                                ]}
+                                displayExpr="label"
+                                valueExpr="value"
+                            />
+                        </Column>
+                        <Paging />
+                    </DataGrid>
+                </MainCard>
+            </TableContainer>
+        </Box>
+    );
+};

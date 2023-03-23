@@ -67,7 +67,7 @@ const heads = {
 };
 
 const users = {
-    id: 'group-user',
+    id: 'group-sub3',
     title: 'Navigation',
     type: 'group',
     children: [
@@ -82,8 +82,40 @@ const users = {
     ]
 };
 
+const subsidaryMatrixMap = {
+    id: 'group-sub4',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'subMat',
+            title: 'Matrix Maping',
+            type: 'item',
+            url: '/sub-matrix',
+            icon: icons.ProfileOutlined,
+            breadcrumbs: false
+        }
+    ]
+};
+
+const matrix = {
+    id: 'group-sub5',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'mattrix',
+            title: 'Matrix',
+            type: 'item',
+            url: '/matrix',
+            icon: icons.ProfileOutlined,
+            breadcrumbs: false
+        }
+    ]
+};
+
 const report = {
-    id: 'group-sub3',
+    id: 'group-sub6',
     title: 'Navigation',
     type: 'group',
     children: [
@@ -92,7 +124,7 @@ const report = {
             title: 'Report',
             type: 'item',
             url: '/report',
-            icon: icons.LoginOutlined,
+            icon: icons.UserOutlined,
             breadcrumbs: false
         }
     ]
@@ -102,7 +134,9 @@ const pages = {
     subsidaries,
     heads,
     users,
-    report
+    report,
+    matrix,
+    subsidaryMatrixMap
 };
 
 export default pages;
