@@ -11,37 +11,37 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       sub_mat_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(5),
         allowNull: false
       },
       subsidary_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(5),
         allowNull: false
       },
       mattrix_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(5),
         allowNull: false
       },
       head_name: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING(100),
         allowNull: true
       },
       status: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(3),
         allowNull: false,
         defaultValue: 1
       },
       createdBy: {
         allowNull: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(5)
       },
       updatedBy: {
         allowNull: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(5)
       },
       deletedBy: {
         allowNull: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(5)
       },
       deletedAt: {
         allowNull: true,

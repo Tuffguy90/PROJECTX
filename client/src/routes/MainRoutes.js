@@ -7,6 +7,7 @@ import { Subsidary } from 'pages/subsidary/index';
 import { HeadMaster } from 'pages/heads/index';
 import CreateUser from 'pages/user/CreateUser';
 import { Report } from 'pages/report/index';
+import { RoleMaster } from 'pages/roles/index';
 
 // render - dashboard
 const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
@@ -41,6 +42,10 @@ const MainRoutes = {
         {
             path: '/report',
             element: <Report />
+        },
+        {
+            path: '/role',
+            element: <RoleMaster />
         }
         // {
         //     path: 'dashboard',

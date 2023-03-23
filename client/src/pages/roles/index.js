@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-// material-ui
 import { Box, Stack, TableContainer, Typography } from '@mui/material';
 import 'devextreme/dist/css/dx.light.css';
 import DataGrid, { Column, Pager, Paging, SearchPanel, Editing } from 'devextreme-react/data-grid';
@@ -7,21 +6,9 @@ import Dot from 'components/@extended/Dot';
 import { Lookup, Popup, RequiredRule } from '../../../node_modules/devextreme-react/data-grid';
 const pageSizes = [10, 25, 50, 100];
 import MainCard from 'components/MainCard';
-// service
-import headService from 'services/head.service';
-import subsidaryService from 'services/subsidary.service';
-import authService from 'services/auth.service';
+import roleService from 'services/role.service';
 
-const CreateUser = () => {
-    const [subsidiaries, setSubsidiaries] = useState([]);
-    useEffect(() => {
-        loadSubsidiaries();
-    }, []);
-
-    const loadSubsidiaries = async () => {
-        const data = await subsidaryService.getSubsidaries();
-        setSubsidiaries(data?.data);
-    };
+export const RoleMaster = () => {
     const statusCell = (options) => {
         const color = options.data?.status === 1 ? 'success' : 'danger';
         const title = options.data?.status === 1 ? 'Active' : 'Inactive';
@@ -45,38 +32,24 @@ const CreateUser = () => {
                 }}
             >
                 <MainCard sx={{ m: 1, p: 1 }} content={false}>
-                    <h1 style={{ margin: '0px' }}>User</h1>
+                    <h1>Roles</h1>
                     <DataGrid
-                        dataSource={authService.userCRUD}
+                        dataSource={roleService.roleCRUD}
                         allowColumnReordering={true}
                         rowAlternationEnabled={true}
                         showBorders={true}
                     >
                         <Editing mode="popup" allowAdding={true} allowDeleting={false} allowUpdating={true}>
-                            <Popup title="User" showTitle={true} />
+                            <Popup title="Role" showTitle={true} />
                         </Editing>
                         <SearchPanel visible={true} highlightCaseSensitive={true} />
-                        <Column dataField="first_name" caption="First Name">
+                        <Column dataField="name">
                             <RequiredRule />
                         </Column>
-                        <Column dataField="last_name" caption="Last Name">
+                        <Column dataField="short_name" caption="Short Name">
                             <RequiredRule />
-                        </Column>
-                        <Column dataField="email" allowEditing={true} caption="Email-Id">
-                            <RequiredRule />
-                        </Column>
-                        <Column dataField="mobile" caption="Mobile">
-                            <RequiredRule />
-                        </Column>
-                        <Column dataField="address" caption="Address">
-                            <RequiredRule />
-                        </Column>
-                        <Column dataField="subsidary_id" caption="Subsidary">
-                            <RequiredRule />
-                            <Lookup dataSource={subsidiaries} displayExpr="name" valueExpr="id" />
                         </Column>
                         <Column dataField="status" dataType="number" cellRender={statusCell}>
-                            <RequiredRule />
                             <Lookup
                                 dataSource={[
                                     {
@@ -99,4 +72,3 @@ const CreateUser = () => {
         </Box>
     );
 };
-export default CreateUser;

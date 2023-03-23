@@ -6,6 +6,7 @@ const USER = db.tbl_user_masters;
 const SUBSIDARY = db.tbl_subsidary_masters;
 const { extractTokenInfo } = require("../helpers/index");
 require("dotenv").config();
+const { Op } = require("sequelize");
 
 /**
  * User Login
@@ -27,12 +28,6 @@ const login = async (req, res) => {
     if (user) {
       const isMatch = await bcrypt.compare(req.body.password, user.password);
       if (!isMatch) {
-        return res.status(400).send({
-          status: 400,
-          message: "Invalid Login Credentials",
-        });
-      }
-      if (req.body.password !== user.password) {
         return res.status(400).send({
           status: 400,
           message: "Invalid Login Credentials",
@@ -157,6 +152,7 @@ const createUser = async (req, res) => {
     let key = body.key || null;
     if (key !== null) {
       body.email && delete body.email;
+      body.mobile && delete body.mobile;
       let updateData = await USER.update({ ...body }, { where: { id: key } });
       if (updateData) {
         return res.status(200).send({
@@ -214,6 +210,11 @@ const createUser = async (req, res) => {
 const userList = async (req, res) => {
   try {
     const user_id = req.param.user_id || null;
+    let whereCondition = {
+      role_id: {
+        [Op.ne]: 1,
+      },
+    };
     var conditions = {
       attributes: [
         "id",
@@ -232,13 +233,13 @@ const userList = async (req, res) => {
           as: "subsidary",
         },
       ],
+      where: whereCondition,
     };
     const countData = await USER.findAll(conditions);
     if (user_id !== null) {
-      conditions["where"] = {
-        id: user_id,
-      };
+      whereCondition.id = user_id;
     }
+    conditions.where = whereCondition;
     const userList = await USER.findAll(conditions);
 
     return res.status(200).send({
