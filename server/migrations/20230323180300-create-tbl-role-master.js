@@ -1,50 +1,37 @@
-"use strict"
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("tbl_head_masters", {
+    await queryInterface.createTable("tbl_role_masters", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      sub_mat_id: {
-        type: Sequelize.INTEGER(5),
-        allowNull: false,
+      name: {
+        type: Sequelize.STRING(150),
       },
-      subsidary_id: {
-        type: Sequelize.INTEGER(5),
-        allowNull: false,
-      },
-      mattrix_id: {
-        type: Sequelize.INTEGER(5),
-        allowNull: false,
-      },
-      head_name: {
-        type: Sequelize.STRING(100),
-        allowNull: true,
+      short_name: {
+        type: Sequelize.STRING(30),
       },
       status: {
-        type: Sequelize.INTEGER(3),
+        type: Sequelize.STRING(2),
         allowNull: false,
         defaultValue: 1,
+        comment: "1-Active, 0-De-Active",
       },
       createdBy: {
         allowNull: true,
-        type: Sequelize.INTEGER(5),
+        type: Sequelize.INTEGER,
       },
       updatedBy: {
         allowNull: true,
-        type: Sequelize.INTEGER(5),
+        type: Sequelize.INTEGER,
       },
       deletedBy: {
         allowNull: true,
-        type: Sequelize.INTEGER(5),
-      },
-      deletedAt: {
-        allowNull: true,
-        type: Sequelize.DATE,
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: true,
@@ -54,9 +41,13 @@ module.exports = {
         allowNull: true,
         type: Sequelize.DATE,
       },
-    })
+      deletedAt: {
+        allowNull: true,
+        type: Sequelize.DATE,
+      },
+    });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("tbl_head_masters")
+    await queryInterface.dropTable("tbl_role_masters");
   },
-}
+};

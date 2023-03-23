@@ -10,41 +10,41 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(150),
       },
       code: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
         allowNull: false,
       },
       short_name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(30),
       },
       email: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
         allowNull: false,
         unique: true,
       },
       mobile: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(10),
         allowNull: false,
         unique: true,
       },
       status: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(5),
         allowNull: false,
         defaultValue: 1,
       },
       createdBy: {
         allowNull: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(5),
       },
       updatedBy: {
         allowNull: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(5),
       },
       deletedBy: {
         allowNull: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(5),
       },
       deletedAt: {
         allowNull: true,

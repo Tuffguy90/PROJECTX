@@ -1,11 +1,13 @@
 // assets
-import { LoginOutlined, ProfileOutlined, UserOutlined } from '@ant-design/icons';
+import { LoginOutlined, ProfileOutlined, UserOutlined, FileExcelOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 
 // icons
 const icons = {
     LoginOutlined,
     ProfileOutlined,
-    UserOutlined
+    UserOutlined,
+    FileExcelOutlined,
+    UsergroupAddOutlined
 };
 
 // ==============================|| MENU ITEMS - EXTRA PAGES ||============================== //
@@ -82,40 +84,8 @@ const users = {
     ]
 };
 
-const subsidaryMatrixMap = {
-    id: 'group-sub4',
-    title: 'Navigation',
-    type: 'group',
-    children: [
-        {
-            id: 'subMat',
-            title: 'Matrix Maping',
-            type: 'item',
-            url: '/sub-matrix',
-            icon: icons.ProfileOutlined,
-            breadcrumbs: false
-        }
-    ]
-};
-
-const matrix = {
-    id: 'group-sub5',
-    title: 'Navigation',
-    type: 'group',
-    children: [
-        {
-            id: 'mattrix',
-            title: 'Matrix',
-            type: 'item',
-            url: '/matrix',
-            icon: icons.ProfileOutlined,
-            breadcrumbs: false
-        }
-    ]
-};
-
 const report = {
-    id: 'group-sub6',
+    id: 'group-sub3',
     title: 'Navigation',
     type: 'group',
     children: [
@@ -124,7 +94,23 @@ const report = {
             title: 'Report',
             type: 'item',
             url: '/report',
-            icon: icons.UserOutlined,
+            icon: icons.FileExcelOutlined,
+            breadcrumbs: false
+        }
+    ]
+};
+
+const role = {
+    id: 'group-role',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'role',
+            title: 'Role',
+            type: 'item',
+            url: '/role',
+            icon: icons.UsergroupAddOutlined,
             breadcrumbs: false
         }
     ]
@@ -135,8 +121,7 @@ const pages = {
     heads,
     users,
     report,
-    matrix,
-    subsidaryMatrixMap
+    role
 };
 
 export default pages;
