@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "root",
-    "password": "",
+    "username": "postgres",
+    "password": "password",
     "database": "exdb",
     "host": "127.0.0.1",
-    "dialect": "mysql",
+    "dialect": "postgres",
     "dialectOptions": {
       "useUTC": false,
       "dateStrings": true,

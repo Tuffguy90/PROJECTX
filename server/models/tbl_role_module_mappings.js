@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "role_id",
         as: "role",
       })
+      this.belongsTo(models.tbl_module_masters, {
+        foreignKey: "module_id",
+        as: "module",
+      })
     }
   }
   tbl_role_module_mappings.init({

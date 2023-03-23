@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.belongsToMany(models.tbl_role_master, {
+        through: db.tbl_role_module_mappings, foreignKey: "module_id",
+        as: "r0le",
+      })
     }
   }
   tbl_module_masters.init({
