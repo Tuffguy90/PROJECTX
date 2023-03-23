@@ -8,7 +8,7 @@ const updateModel = async (type, data, key, res) => {
       },
     })
     return res.send({
-      message: "Subsidary Updated Successfully",
+      message: "Data Updated Successfully",
       data: updatedSub,
     })
   }
@@ -30,8 +30,11 @@ const getModel = (type) => {
     case "head":
       MODEL = db.tbl_head_masters
       break
-    case "subMat":
-      MODEL = db.tbl_subsidary_mattrix_mapings
+    case "role":
+      MODEL = db.tbl_role_masters
+      break
+    case "user":
+      MODEL = db.tbl_user_masters
       break
   }
 
