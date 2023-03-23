@@ -62,7 +62,7 @@ const CreateUser = () => {
                         <Column dataField="last_name" caption="Last Name">
                             <RequiredRule />
                         </Column>
-                        <Column dataField="email" allowEditing={false} caption="Email-Id">
+                        <Column dataField="email" allowEditing={true} caption="Email-Id">
                             <RequiredRule />
                         </Column>
                         <Column dataField="mobile" caption="Mobile">
