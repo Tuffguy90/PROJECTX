@@ -26,12 +26,12 @@ const login = async (req, res) => {
     const user = await USER.findOne(conditions);
     if (user) {
       const isMatch = await bcrypt.compare(req.body.password, user.password);
-      if (!isMatch) {
-        return res.status(400).send({
-          status: 400,
-          message: "Invalid Login Credentials",
-        });
-      }
+      // if (!isMatch) {
+      //   return res.status(400).send({
+      //     status: 400,
+      //     message: "Invalid Login Credentials",
+      //   });
+      // }
       if (req.body.password !== user.password) {
         return res.status(400).send({
           status: 400,
