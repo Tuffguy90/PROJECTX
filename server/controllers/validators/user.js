@@ -16,7 +16,7 @@ const createRoleSchema = Joi.object({
   name: Joi.string().required(),
   short_name: Joi.string().required(),
   status: Joi.number().required(),
-  created_by: Joi.number().required(),
+  createdBy: Joi.number().required(),
 });
 
 const userSchema = { createUserSchema, createRoleSchema };
