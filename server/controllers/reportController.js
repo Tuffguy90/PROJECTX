@@ -18,62 +18,62 @@ const list = async (req, res) => {
       {
         month_name: "April",
         month_value: 0,
-        month_id: 4,
+        month_id: 1,
       },
       {
         month_name: "May",
         month_value: 0,
-        month_id: 5,
+        month_id: 2,
       },
       {
         month_name: "June",
         month_value: 0,
-        month_id: 6,
+        month_id: 3,
       },
       {
         month_name: "July",
         month_value: 0,
-        month_id: 7,
+        month_id: 4,
       },
       {
         month_name: "Aug",
         month_value: 0,
-        month_id: 8,
+        month_id: 5,
       },
       {
         month_name: "Sept",
         month_value: 0,
-        month_id: 9,
+        month_id: 6,
       },
       {
         month_name: "Oct",
         month_value: 0,
-        month_id: 10,
+        month_id: 7,
       },
       {
         month_name: "Nov",
         month_value: 0,
-        month_id: 11,
+        month_id: 8,
       },
       {
         month_name: "Dec",
         month_value: 0,
-        month_id: 12,
+        month_id: 9,
       },
       {
         month_name: "Jan",
         month_value: 0,
-        month_id: 1,
+        month_id: 10,
       },
       {
         month_name: "Feb",
         month_value: 0,
-        month_id: 2,
+        month_id: 11,
       },
       {
         month_name: "March",
         month_value: 0,
-        month_id: 3,
+        month_id: 12,
       },
     ];
     const head = await HEADS.findAll({
@@ -155,9 +155,70 @@ const showDashboardCountValue = async (req, res) => {
   }
 };
 
+const updateReport = async (req, res) => {
+  try {
+    const head_id = req.body.key
+    const values = req.body.values
+    const month = values.month_id + 1
+    const head_value = values.month_value
+    const financial_year = req.body?.financial_year || 2023
+    const createdBy = req.body?.created_by || 1
+    const getHeadData = await HEADS.findOne({
+      attributes: ["mattrix_id", "subsidary_id"],
+      where: {
+        id: head_id,
+      },
+    })
+    const subsidary_id = getHeadData.subsidary_id
+    const mattrix_id = getHeadData.mattrix_id
+
+    const hasValue = await HEADMETAS.findOne({
+      where: {
+        head_id,
+        subsidary_id,
+        mattrix_id,
+        financial_year,
+        month,
+      },
+    })
+    let response = []
+    if (hasValue) {
+      response = await HEADMETAS.update(
+        {
+          head_value,
+        },
+        {
+          where: {
+            id: hasValue.id,
+          },
+        }
+      )
+    } else {
+      response = await HEADMETAS.create({
+        subsidary_id,
+        mattrix_id,
+        head_id,
+        head_value,
+        financial_year,
+        month,
+        createdBy,
+      })
+    }
+
+    return res.send({
+      message: "Report Updated Successfully",
+      data: response,
+    })
+  } catch (err) {
+    console.log("error-in-report-list", err)
+    return res.status(500).send("Internal Server Error")
+  }
+}
+
 const reportController = {
   list,
   showDashboardCountValue,
+  updateReport
 };
 
 module.exports = reportController;
