@@ -10,8 +10,8 @@ import { Report } from 'pages/report/index';
 import { RoleMaster } from 'pages/roles/index';
 
 // render - dashboard
-// const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
-// const ChangePassword = Loadable(lazy(() => import('pages/user/ChangePassword')));
+const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
+const ChangePassword = Loadable(lazy(() => import('pages/user/ChangePassword')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
