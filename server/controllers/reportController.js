@@ -80,7 +80,7 @@ const list = async (req, res) => {
       attributes: ["id", "head_name"],
       include: [
         {
-          required: false,
+          required: true,
           model: HEADMETAS,
           as: "meta",
           where: {
@@ -89,7 +89,6 @@ const list = async (req, res) => {
         },
       ],
       where: {
-        mattrix_id,
         subsidary_id,
       },
     })
