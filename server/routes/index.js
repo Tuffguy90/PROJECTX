@@ -9,15 +9,16 @@ const reportController = require("../controllers/reportController");
 const roleController = require("../controllers/roleController");
 
 /** POST ROUTES */
-router.post("/create-subsidary", subsidaryRoutes.create);
-router.post("/create-matrix", mattrixController.create);
-router.post("/map-susidary-mattrix", mattrixController.mapSubsidaryMattrix);
-router.post("/create-head", headRoutes.create);
-router.post("/create-head-meta", headRoutes.createHeadMeta);
-router.post("/create-bulk-head-meta", headRoutes.createBulkHeadMeta);
+router.post("/create-subsidary", subsidaryRoutes.create)
+router.post("/create-matrix", mattrixController.create)
+router.post("/map-susidary-mattrix", mattrixController.mapSubsidaryMattrix)
+router.post("/create-head", headRoutes.create)
+router.post("/create-head-meta", headRoutes.createHeadMeta)
+router.post("/create-bulk-head-meta", headRoutes.createBulkHeadMeta)
 router.post("/change-password", userRoutes.changePassword);
 router.post("/create-user", userRoutes.createUser);
 router.post("/create-role", roleController.create);
+router.post("/update-report", reportController.updateReport)
 
 /** GET ROUTES */
 router.get("/get-subsidaries", subsidaryRoutes.list);
@@ -30,4 +31,4 @@ router.get("/get-report", reportController.list);
 router.get("/get-roles", roleController.list);
 router.get("/get-dashboard-count", reportController.showDashboardCountValue);
 
-module.exports = router;
+module.exports = router

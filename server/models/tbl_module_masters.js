@@ -3,22 +3,24 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class tbl_role_masters extends Model {
+  class tbl_module_masters extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsToMany(models.tbl_module_masters, {
-        through: models.tbl_role_module_mappings, foreignKey: "role_id",
-        as: "module",
+      this.belongsToMany(models.tbl_role_masters, {
+        through: models.tbl_role_module_mappings, foreignKey: "module_id",
+        as: "r0le",
       })
     }
   }
-  tbl_role_masters.init({
+  tbl_module_masters.init({
     name: DataTypes.STRING,
-    short_name: DataTypes.STRING,
+    path: DataTypes.STRING,
+    icon: DataTypes.STRING,
+    slug: DataTypes.STRING,
     createdBy: {
       allowNull: true,
       type: DataTypes.INTEGER,
@@ -45,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'tbl_role_masters',
+    modelName: 'tbl_module_masters',
   });
-  return tbl_role_masters;
+  return tbl_module_masters;
 };

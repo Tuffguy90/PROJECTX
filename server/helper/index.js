@@ -28,6 +28,11 @@ const getModel = (type) => {
       MODEL = db.tbl_mattrix_masters;
       break;
     case "head":
+      MODEL = db.tbl_head_masters
+      break
+    case "subMat":
+      MODEL = db.tbl_subsidary_mattrix_mapings
+      break
       MODEL = db.tbl_head_masters;
       break;
     case "role":

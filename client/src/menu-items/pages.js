@@ -116,11 +116,45 @@ const role = {
     ]
 };
 
+const matrix = {
+    id: 'group-mat3',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'matrix',
+            title: 'Matrix Master',
+            type: 'item',
+            url: '/matrix',
+            icon: icons.ProfileOutlined,
+            breadcrumbs: false
+        }
+    ]
+};
+
+const subsidaryMatrixMap = {
+    id: 'group-sub-mat4',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'subMat',
+            title: 'Matrix Maping',
+            type: 'item',
+            url: '/sub-matrix',
+            icon: icons.ProfileOutlined,
+            breadcrumbs: false
+        }
+    ]
+};
+
 const pages = {
     subsidaries,
     heads,
     users,
     report,
+    matrix,
+    subsidaryMatrixMap,
     role
 };
 

@@ -9,14 +9,14 @@ const createUserSchema = Joi.object({
   address: Joi.string().required(),
   subsidary_id: Joi.number().required(),
   status: Joi.number().required(),
-  created_by: Joi.number().required(),
+  createdBy: Joi.number().required(),
 });
 
 const createRoleSchema = Joi.object({
   name: Joi.string().required(),
   short_name: Joi.string().required(),
   status: Joi.number().required(),
-  created_by: Joi.number().required(),
+  createdBy: Joi.number().required(),
 });
 
 const userSchema = { createUserSchema, createRoleSchema };

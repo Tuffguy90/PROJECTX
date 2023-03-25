@@ -32,9 +32,34 @@ module.exports = (sequelize, DataTypes) => {
       head_value: DataTypes.INTEGER,
       financial_year: DataTypes.STRING,
       month: DataTypes.INTEGER,
+      createdBy: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      updatedBy: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      deletedBy: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      deletedAt: {
+        allowNull: true,
+        type: DataTypes.DATE,
+      },
+      createdAt: {
+        allowNull: true,
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        allowNull: true,
+        type: DataTypes.DATE,
+      },
     },
     {
       sequelize,
+      paranoid:true,
       modelName: "tbl_head_meta",
     }
   )
