@@ -3,6 +3,7 @@ const db = require("../models/index");
 const bcrypt = require("bcrypt");
 const { createUserSchema } = require("./validators/user");
 const USER = db.tbl_user_masters;
+const ROLE = db.tbl_role_masters;
 const SUBSIDARY = db.tbl_subsidary_masters;
 const { extractTokenInfo } = require("../helpers/index");
 require("dotenv").config();
@@ -18,7 +19,21 @@ const login = async (req, res) => {
   try {
     const email = req.body.email;
     const conditions = {
-      attributes: ["id", "first_name", "last_name", "email", "password"],
+      attributes: [
+        "id",
+        "first_name",
+        "last_name",
+        "email",
+        "role_id",
+        "password",
+      ],
+      include: [
+        {
+          model: ROLE,
+          attributes: ["name"],
+          as: "role",
+        },
+      ],
       where: {
         email: email,
       },
@@ -53,6 +68,7 @@ const login = async (req, res) => {
           },
         }
       );
+      delete user.password;
       return res.send({
         status: 200,
         message: "Login Success",

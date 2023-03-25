@@ -47,6 +47,7 @@ const AuthLogin = () => {
                         authService
                             .login({ email: values.email, password: values.password })
                             .then(({ data }) => {
+                                console.log('data',data)
                                 if (data?.status === 200) {
                                     localStorage.setItem('_token', data?.token);
                                     localStorage.setItem('_userData', JSON.stringify(data?.user));
@@ -56,7 +57,7 @@ const AuthLogin = () => {
                                 }
                             })
                             .catch((err) => {
-                                sweetAlertBox('Oops', err?.response?.data?.message, 'danger');
+                                sweetAlertBox('Oops', 'Something Went Wrong.', 'danger');
                             });
                         setStatus({ success: false });
                         setSubmitting(false);

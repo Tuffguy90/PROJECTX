@@ -7,7 +7,7 @@ import { useTheme } from '@mui/material/styles';
 import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
 // assets
-import { LogoutOutlined, FormOutlined } from '@ant-design/icons';
+import { LogoutOutlined, FormOutlined, UserOutlined } from '@ant-design/icons';
 
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
 
@@ -28,6 +28,12 @@ const ProfileTab = ({ handleLogout }) => {
                     <FormOutlined />
                 </ListItemIcon>
                 <ListItemText primary="Change Password" />
+            </ListItemButton>
+            <ListItemButton selected={selectedIndex === 1} onClick={(event) => handleListItemClick(event, 1, '/change-password')}>
+                <ListItemIcon>
+                    <UserOutlined />
+                </ListItemIcon>
+                <ListItemText primary="Profile" />
             </ListItemButton>
             <ListItemButton selected={selectedIndex === 2} onClick={handleLogout}>
                 <ListItemIcon>

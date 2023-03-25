@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "subsidary_id",
         as: "subsidary",
       });
+      this.belongsTo(models.tbl_role_masters, {
+        foreignKey: "role_id",
+        as: "role",
+      });
     }
   }
   tbl_user_masters.init(
