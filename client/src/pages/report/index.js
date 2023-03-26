@@ -134,7 +134,7 @@ export const Report = () => {
                         </div>
                     </div>
                     <DataGrid dataSource={reportData} allowColumnReordering={true} rowAlternationEnabled={true} showBorders={true}>
-                        <Editing mode="cell" allowAdding={true} allowDeleting={false} allowUpdating={true}>
+                        <Editing mode="cell" allowAdding={false} allowDeleting={false} allowUpdating={true}>
                             <Popup title="Head" showTitle={true} />
                         </Editing>
                         <SearchPanel visible={true} highlightCaseSensitive={true} />

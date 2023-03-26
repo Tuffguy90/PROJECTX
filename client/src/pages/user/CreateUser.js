@@ -18,8 +18,8 @@ const CreateUser = () => {
         loadSubsidiaries();
     }, []);
     const [permission, setPermission] = useState([
-        {id:0,name:'False'},
-        {id:1,name:'True'}
+        { id: 0, name: 'False' },
+        { id: 1, name: 'True' }
     ]);
     const loadSubsidiaries = async () => {
         const data = await subsidaryService.getSubsidaries();
@@ -49,66 +49,73 @@ const CreateUser = () => {
             >
                 <MainCard sx={{ m: 1, p: 1 }} content={false}>
                     <h1 style={{ margin: '0px' }}>User</h1>
-                    <DataGrid
-                        dataSource={authService.userCRUD}
-                        allowColumnReordering={true}
-                        rowAlternationEnabled={true}
-                        showBorders={true}
-                    >
-                        <Editing mode="popup" allowAdding={true} allowDeleting={false} allowUpdating={true}>
-                            <Popup title="User" showTitle={true} />
-                        </Editing>
-                        <SearchPanel visible={true} highlightCaseSensitive={true} />
-                        <Column dataField="first_name" caption="First Name">
-                            <RequiredRule />
-                        </Column>
-                        <Column dataField="last_name" caption="Last Name">
-                            <RequiredRule />
-                        </Column>
-                        <Column dataField="email" allowEditing={true} caption="Email-Id">
-                            <RequiredRule />
-                        </Column>
-                        <Column dataField="mobile" caption="Mobile">
-                            <RequiredRule />
-                        </Column>
-                        <Column dataField="address" caption="Address">
-                            <RequiredRule />
-                        </Column>
-                        <Column dataField="subsidary_id" caption="Subsidary">
-                            <RequiredRule />
-                            <Lookup dataSource={subsidiaries} displayExpr="name" valueExpr="id" />
-                        </Column>
-                        <Column dataField="is_add" caption="Can Add">
-                            <RequiredRule />
-                            <Lookup dataSource={permission} displayExpr="name" valueExpr="id" />
-                        </Column>
-                        <Column dataField="is_edit" caption="Can Edit">
-                            <RequiredRule />
-                            <Lookup dataSource={permission} displayExpr="name" valueExpr="id" />
-                        </Column>
-                        <Column dataField="is_delete" caption="Can Delete">
-                            <RequiredRule />
-                            <Lookup dataSource={permission} displayExpr="name" valueExpr="id" />
-                        </Column>
-                        <Column dataField="status" dataType="number" cellRender={statusCell}>
-                            <RequiredRule />
-                            <Lookup
-                                dataSource={[
-                                    {
-                                        value: 1,
-                                        label: 'Active'
-                                    },
-                                    {
-                                        value: 0,
-                                        label: 'In Active'
-                                    }
-                                ]}
-                                displayExpr="label"
-                                valueExpr="value"
-                            />
-                        </Column>
-                        <Paging />
-                    </DataGrid>
+                    <div>
+                        <DataGrid
+                            dataSource={authService.userCRUD}
+                            allowColumnReordering={true}
+                            rowAlternationEnabled={true}
+                            showBorders={true}
+                            wordWrapEnabled={true}
+                            columAutoWidth={true}
+                        >
+                            <Editing mode="popup" allowAdding={true} allowDeleting={false} allowUpdating={true}>
+                                <Popup title="User" showTitle={true} />
+                            </Editing>
+                            <SearchPanel visible={true} highlightCaseSensitive={true} />
+                            <Column dataField="first_name" caption="First Name">
+                                <RequiredRule />
+                            </Column>
+                            <Column dataField="last_name" caption="Last Name">
+                                <RequiredRule />
+                            </Column>
+                            <Column dataField="email" allowEditing={true} caption="Email-Id">
+                                <RequiredRule />
+                            </Column>
+                            <Column dataField="mobile" caption="Mobile">
+                                <RequiredRule />
+                            </Column>
+                            <Column dataField="password_value" caption="Password">
+                                <RequiredRule />
+                            </Column>
+                            <Column dataField="address" caption="Address">
+                                <RequiredRule />
+                            </Column>
+                            <Column dataField="subsidary_id" caption="Subsidary">
+                                <RequiredRule />
+                                <Lookup dataSource={subsidiaries} displayExpr="name" valueExpr="id" />
+                            </Column>
+                            <Column dataField="is_add" caption="Can Add">
+                                <RequiredRule />
+                                <Lookup dataSource={permission} displayExpr="name" valueExpr="id" />
+                            </Column>
+                            <Column dataField="is_edit" caption="Can Edit">
+                                <RequiredRule />
+                                <Lookup dataSource={permission} displayExpr="name" valueExpr="id" />
+                            </Column>
+                            <Column dataField="is_delete" caption="Can Delete">
+                                <RequiredRule />
+                                <Lookup dataSource={permission} displayExpr="name" valueExpr="id" />
+                            </Column>
+                            <Column dataField="status" dataType="number" cellRender={statusCell}>
+                                <RequiredRule />
+                                <Lookup
+                                    dataSource={[
+                                        {
+                                            value: 1,
+                                            label: 'Active'
+                                        },
+                                        {
+                                            value: 0,
+                                            label: 'In Active'
+                                        }
+                                    ]}
+                                    displayExpr="label"
+                                    valueExpr="value"
+                                />
+                            </Column>
+                            <Paging />
+                        </DataGrid>
+                    </div>
                 </MainCard>
             </TableContainer>
         </Box>

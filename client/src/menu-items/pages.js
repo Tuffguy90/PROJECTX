@@ -150,10 +150,10 @@ const subsidaryMatrixMap = {
 
 const pages = {
     subsidaries,
+    matrix,
     heads,
     users,
     report,
-    matrix,
     subsidaryMatrixMap,
     role
 };

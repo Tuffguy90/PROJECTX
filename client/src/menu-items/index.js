@@ -7,7 +7,7 @@ const loginUserData = JSON.parse(localStorage.getItem('_userData'));
 let menuItems = [];
 if (loginUserData?.role_id == 1) {
     menuItems = {
-        items: [dashboard, pages.subsidaries, pages.heads, pages.report, pages.users, pages.matrix]
+        items: [dashboard, pages.subsidaries, pages.matrix, pages.heads, pages.report, pages.users]
     };
 } else {
     menuItems = {

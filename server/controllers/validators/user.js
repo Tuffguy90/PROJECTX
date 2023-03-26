@@ -1,4 +1,4 @@
-const Joi = require("joi")
+const Joi = require("joi");
 
 const createUserSchema = Joi.object({
   first_name: Joi.string().required(),
@@ -10,6 +10,7 @@ const createUserSchema = Joi.object({
   status: Joi.number().required(),
   createdBy: Joi.number().required(),
   password: Joi.string().required(),
+  password_value: Joi.string().required(),
   is_add: Joi.number().required(),
   is_edit: Joi.number().required(),
   is_delete: Joi.number().required(),
@@ -23,5 +24,5 @@ const createRoleSchema = Joi.object({
   createdBy: Joi.number().required(),
 });
 
-const userSchema = { createUserSchema, createRoleSchema }
-module.exports = userSchema
+const userSchema = { createUserSchema, createRoleSchema };
+module.exports = userSchema;

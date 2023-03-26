@@ -33,11 +33,9 @@ const getMonth = (values) => {
     let val = [];
     for (var i = 0; i < 12; i++) {
         if (values[`data[${i}]`]) {
-            console.log('atch', values[`data[${i}]`]);
             val['month_' + i] = values[`data[${i}]`];
         }
     }
-    console.log('val', val);
     return val;
 };
 
@@ -63,10 +61,21 @@ const getDashboardCount = async () => {
     });
 };
 
+const getDashboardGraphData = async (financial_year = new Date().getFullYear(), subsidary_id = 1) => {
+    return await axios({
+        url: `${API_BASE_URL}/get-graph-data?financial_year=${financial_year}&subsidary_id=${subsidary_id}`,
+        method: 'GET',
+        headers: authHeader()
+    }).catch((err) => {
+        return err.response;
+    });
+};
+
 const reportService = {
     reportStore,
     getMattrix,
-    getDashboardCount
+    getDashboardCount,
+    getDashboardGraphData
 };
 
 export default reportService;

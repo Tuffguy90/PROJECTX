@@ -30,6 +30,13 @@ const login = async (req, res) => {
         "is_delete",
         "role_id",
       ],
+      include: [
+        {
+          model: SUBSIDARY,
+          attributes: ["name", "id"],
+          as: "subsidary",
+        },
+      ],
       where: {
         email: email,
         status: 1,
@@ -45,12 +52,6 @@ const login = async (req, res) => {
           message: "Invalid Login Credentials",
         });
       }
-      // if (req.body.password !== user.password) {
-      //   return res.status(400).send({
-      //     status: 400,
-      //     message: "Invalid Login Credentials",
-      //   });
-      // }
 
       var token = jwt.sign(
         {
@@ -183,7 +184,7 @@ const createUser = async (req, res) => {
     }
     /** Password will user mobile number
      */
-    body.password = req.body.mobile;
+    body.password = body.password_value;
     const validate = createUserSchema.validate(body);
     if (validate?.error) {
       return res.status(400).send({
@@ -205,7 +206,7 @@ const createUser = async (req, res) => {
     }
     body.createdBy = tokenUserData?.id || null;
     let salt = await bcrypt.genSalt(10);
-    body.password = await bcrypt.hash(body.password, salt);
+    body.password = await bcrypt.hash(body.password_value, salt);
     const createdUser = await USER.create(body);
 
     return res.status(200).send({
@@ -213,7 +214,6 @@ const createUser = async (req, res) => {
       data: createdUser,
     });
   } catch (err) {
-    console.log("err", err?.message);
     return res.status(500).json({
       message: err?.message,
       data: [],
@@ -244,6 +244,8 @@ const userList = async (req, res) => {
         "email",
         "address",
         "subsidary_id",
+        "password",
+        "password_value",
         "status",
         "is_add",
         "is_edit",
@@ -256,7 +258,7 @@ const userList = async (req, res) => {
           as: "subsidary",
         },
       ],
-      logging: true,
+      logging: false,
       where: whereCondition,
     };
     const countData = await USER.findAll(conditions);
