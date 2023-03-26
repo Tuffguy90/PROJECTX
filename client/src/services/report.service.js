@@ -5,25 +5,29 @@ import { authHeader } from '../helpers';
 import sendRequest from './common/send.request';
 import CustomStore from '../../node_modules/devextreme/data/custom_store';
 
-const reportStore = new CustomStore({
-    key: 'id',
-    load: () => sendRequest(`${API_BASE_URL}/get-report`),
-    update: (key, values) => {
-        var val = [];
-        for (var i = 0; i < 12; i++) {
-            if (values[`data[${i}]`]) {
-                val.push({
-                    month_id: i,
-                    month_value: values[`data[${i}]`]['month_value']
-                });
+const reportStore = (financial_year = 2023, subsidary_id = 1) =>
+    new CustomStore({
+        key: 'id',
+        load: () => {
+            let url = `${API_BASE_URL}/get-report?financial_year=${financial_year}&subsidary_id=${subsidary_id}`;
+            return sendRequest(url);
+        },
+        update: (key, values) => {
+            var val = [];
+            for (var i = 0; i < 12; i++) {
+                if (values[`data[${i}]`]) {
+                    val.push({
+                        month_id: i,
+                        month_value: values[`data[${i}]`]['month_value']
+                    });
+                }
             }
+            sendRequest(`${API_BASE_URL}/update-report`, 'POST', {
+                key,
+                values: val[0]
+            });
         }
-        sendRequest(`${API_BASE_URL}/update-report`, 'POST', {
-            key,
-            values: val[0]
-        });
-    }
-});
+    });
 
 const getMonth = (values) => {
     let val = [];

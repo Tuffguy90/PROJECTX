@@ -69,7 +69,9 @@ export const HeadMaster = () => {
                         <Editing mode="popup" allowAdding={true} allowDeleting={false} allowUpdating={true}>
                             <Popup title="Head" showTitle={true} />
                         </Editing>
+
                         <SearchPanel visible={true} highlightCaseSensitive={true} />
+                        <Column dataField="id" visible={false} allowAdding={false} allowEditing={false}></Column>
                         <Column dataField="head_name">
                             <RequiredRule />
                         </Column>
