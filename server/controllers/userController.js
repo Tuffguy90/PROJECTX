@@ -43,7 +43,15 @@ const login = async (req, res) => {
       },
     };
 
-    const user = await USER.findOne(conditions);
+    let user = await USER.findOne(conditions);
+    // user = JSON.parse(JSON.stringify(user));
+    // if (user.role_id == 1) {
+    //   let subsidary = await SUBSIDARY.findAll({
+    //     attributes: ["name", "id"],
+    //     raw: true,
+    //   });
+    //   user["subsidary"] = subsidary;
+    // }
     if (user) {
       const isMatch = await bcrypt.compare(req.body.password, user.password);
       if (!isMatch) {
