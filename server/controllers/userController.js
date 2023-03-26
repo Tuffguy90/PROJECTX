@@ -17,7 +17,6 @@ const { Op } = require("sequelize");
  */
 const login = async (req, res) => {
   try {
-    console.log("db", db.tbl_role_masters);
     const email = req.body.email;
     const conditions = {
       attributes: [
@@ -25,37 +24,33 @@ const login = async (req, res) => {
         "first_name",
         "last_name",
         "email",
-        "role_id",
         "password",
-      ],
-      include: [
-        {
-          model: ROLE,
-          attributes: ["name"],
-          as: "role",
-        },
+        "is_add",
+        "is_edit",
+        "is_delete",
+        "role_id",
       ],
       where: {
         email: email,
+        status: 1,
       },
-      logging:true
     };
 
     const user = await USER.findOne(conditions);
     if (user) {
       const isMatch = await bcrypt.compare(req.body.password, user.password);
-      // if (!isMatch) {
-      //   return res.status(400).send({
-      //     status: 400,
-      //     message: "Invalid Login Credentials",
-      //   });
-      // }
-      if (req.body.password !== user.password) {
+      if (!isMatch) {
         return res.status(400).send({
           status: 400,
           message: "Invalid Login Credentials",
         });
       }
+      // if (req.body.password !== user.password) {
+      //   return res.status(400).send({
+      //     status: 400,
+      //     message: "Invalid Login Credentials",
+      //   });
+      // }
 
       var token = jwt.sign(
         {
@@ -77,7 +72,6 @@ const login = async (req, res) => {
           },
         }
       );
-      delete user.password;
       return res.send({
         status: 200,
         message: "Login Success",
@@ -174,6 +168,7 @@ const createUser = async (req, res) => {
   try {
     let tokenUserData = extractTokenInfo(req);
     let body = req.body;
+    req.body["role_id"] = 2;
     let key = body.key || null;
     if (key !== null) {
       body.email && delete body.email;
@@ -236,9 +231,9 @@ const userList = async (req, res) => {
   try {
     const user_id = req.param.user_id || null;
     let whereCondition = {
-      // role_id: {
-      //   [Op.ne]: 1,
-      // },
+      role_id: {
+        [Op.ne]: 1,
+      },
     };
     var conditions = {
       attributes: [
@@ -250,6 +245,9 @@ const userList = async (req, res) => {
         "address",
         "subsidary_id",
         "status",
+        "is_add",
+        "is_edit",
+        "is_delete",
       ],
       include: [
         {

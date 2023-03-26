@@ -11,7 +11,7 @@ const roleController = require("../controllers/roleController");
 /** POST ROUTES */
 router.post("/create-subsidary", subsidaryRoutes.create)
 router.post("/create-matrix", mattrixController.create)
-router.post("/map-susidary-mattrix", mattrixController.mapSubsidaryMattrix)
+router.post("/map-subsidary-mattrix", mattrixController.mapSubsidaryMattrix)
 router.post("/create-head", headRoutes.create)
 router.post("/create-head-meta", headRoutes.createHeadMeta)
 router.post("/create-bulk-head-meta", headRoutes.createBulkHeadMeta)

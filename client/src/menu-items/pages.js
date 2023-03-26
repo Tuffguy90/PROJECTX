@@ -69,7 +69,7 @@ const heads = {
 };
 
 const users = {
-    id: 'group-user',
+    id: 'group-sub3',
     title: 'Navigation',
     type: 'group',
     children: [
@@ -85,7 +85,7 @@ const users = {
 };
 
 const report = {
-    id: 'group-sub3',
+    id: 'group-sub4',
     title: 'Navigation',
     type: 'group',
     children: [

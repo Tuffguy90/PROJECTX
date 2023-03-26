@@ -14,6 +14,7 @@ import { sweetAlertBox } from 'helpers/index';
 // ==============================|| COMPONENTS - TYPOGRAPHY ||============================== //
 
 const ChangePassword = () => {
+    const loginUserData = JSON.parse(localStorage.getItem('_userData'));
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -50,7 +51,7 @@ const ChangePassword = () => {
                                 onSubmit={async (values, { setErrors, setStatus, setSubmitting, resetForm }) => {
                                     try {
                                         authService
-                                            .changePassword(values)
+                                            .changePassword({ ...values, created_by: loginUserData.id })
                                             .then((response) => {
                                                 if (response?.status === 200) {
                                                     resetForm({ new_password: '', current_password: '', confirm_password: '' });

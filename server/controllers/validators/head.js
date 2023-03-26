@@ -6,7 +6,7 @@ const createHeadSchema = Joi.object({
   head_name: Joi.string().required(),
   sub_mat_id: Joi.number(),
   status: Joi.number().required(),
-  created_by: Joi.number().required(),
+  createdBy: Joi.number().required(),
 })
 
 const headMetaSchema = Joi.object({

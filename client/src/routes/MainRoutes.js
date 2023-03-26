@@ -9,7 +9,8 @@ import { MatrixMaster } from 'pages/matrix/index';
 import { SubsidaryMatrixMap } from 'pages/subsidaryMatrixMap/index';
 import CreateUser from 'pages/user/CreateUser';
 import { Report } from 'pages/report/index';
-import { RoleMaster } from 'pages/roles/index';
+import Protected from './Protected';
+// import { RoleMaster } from 'pages/roles/index';
 
 // render - dashboard
 const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
@@ -31,56 +32,55 @@ const MainRoutes = {
         },
         {
             path: '/heads',
-            element: <HeadMaster />
+            element: (
+                <Protected isSuper={true}>
+                    <HeadMaster />
+                </Protected>
+            )
         },
         {
             path: '/subsidaries',
-            element: <Subsidary />
+            element: (
+                <Protected isSuper={true}>
+                    <Subsidary />
+                </Protected>
+            )
         },
         {
-            path: 'user',
-            element: <CreateUser />
+            path: '/user',
+            element: (
+                <Protected isSuper={true}>
+                    <CreateUser />
+                </Protected>
+            )
         },
         {
             path: '/report',
-            element: <Report />
+            element: (
+                <Protected isSuper={false}>
+                    <Report />
+                </Protected>
+            )
         },
         {
             path: '/matrix',
-            element: <MatrixMaster />
+            element: (
+                <Protected>
+                    <MatrixMaster isSuper={true} />
+                </Protected>
+            )
         },
-        {
-            path: '/sub-matrix',
-            element: <SubsidaryMatrixMap />
-        },
-        {
-            path: '/role',
-            element: <RoleMaster />
-        }
         // {
-        //     path: 'dashboard',
-        //     children: [
-        //         {
-        //             path: 'default',
-        //             element: <DashboardDefault />
-        //         }
-        //     ]
-        // },
+        //     path: '/sub-matrix',
+        //     element: (
+        //         <Protected isSuper={true}>
+        //             <SubsidaryMatrixMap />
+        //         </Protected>
+        //     )
+        // }
         // {
-        //     path: 'sample-page',
-        //     element: <SamplePage />
-        // },
-        // {
-        //     path: 'shadow',
-        //     element: <Shadow />
-        // },
-        // {
-        //     path: 'typography',
-        //     element: <Typography />
-        // },
-        // {
-        //     path: 'icons/ant',
-        //     element: <AntIcons />
+        //     path: '/role',
+        //     element: <RoleMaster />
         // }
     ]
 };

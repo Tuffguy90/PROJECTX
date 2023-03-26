@@ -12,15 +12,19 @@ import MainCard from 'components/MainCard';
 import headService from 'services/head.service';
 import subsidaryService from 'services/subsidary.service';
 import reportService from 'services/report.service';
+import Swal from 'sweetalert2';
 
 export const Report = () => {
     const [mattrix, setMattrix] = useState([]);
     const [subsidaries, setSubsidaries] = useState([]);
-    const [subsidaryMatrix, setSubsidaryMatrix] = useState([]);
+    // const [subsidaryMatrix, setSubsidaryMatrix] = useState([]);
+    const [reportData, setReportData] = useState([]);
+    const [selectedSubsidary, setSubsidary] = useState(null);
+    const [selectedFin, setFin] = useState(null);
     useEffect(() => {
         loadMattrix();
         loadSubsidaries();
-        loadSubMatrix();
+        // loadSubMatrix();
     }, []);
 
     const loadMattrix = async () => {
@@ -28,16 +32,21 @@ export const Report = () => {
         setMattrix(data?.data);
     };
 
-    const loadSubMatrix = async () => {
-        const data = await subsidaryService.getSubsidaryMattrix();
-        console.log('loadmaxxx', data);
-        setSubsidaryMatrix(data?.data);
-    };
+    // const loadSubMatrix = async () => {
+    //     const data = await subsidaryService.getSubsidaryMattrix();
+    //     console.log('loadmaxxx', data);
+    //     setSubsidaryMatrix(data?.data);
+    // };
 
     const loadSubsidaries = async () => {
         const data = await subsidaryService.getSubsidaries();
         setSubsidaries(data?.data);
     };
+    const loadReport = async (financial_year, subsidary_id) => {
+        const report = reportService.reportStore(financial_year, subsidary_id);
+        setReportData(report);
+    };
+
     const statusCell = (options) => {
         const color = options.data?.status === 1 ? 'success' : 'danger';
         const title = options.data?.status === 1 ? 'Active' : 'Inactive';
@@ -49,7 +58,6 @@ export const Report = () => {
         );
     };
     const customSum = ({ value }) => {
-        console.log('vv', value);
         return value;
     };
 
@@ -77,6 +85,16 @@ export const Report = () => {
         sum = parseInt(data[9]['month_value']) + parseInt(data[10]['month_value'] + data[11]['month_value']);
         return sum;
     };
+
+    const handleSubmit = () => {
+        const year = new Date().getFullYear();
+        console.log('year', year);
+        if (!selectedSubsidary?.target?.value) {
+            Swal.fire('Validation Error', 'You must select subsidary first');
+            return;
+        }
+        loadReport(selectedFin?.target?.value || year, selectedSubsidary?.target?.value || 0);
+    };
     return (
         <Box>
             <TableContainer
@@ -92,20 +110,30 @@ export const Report = () => {
                 <MainCard sx={{ m: 1, p: 1 }} content={false}>
                     <h1>Report</h1>
                     <div className="row">
-                        <div className="col-lg-3">
+                        <div className="col-lg-4">
                             <label>Financial Year</label>&nbsp;
-                            <select className="form-control">
+                            <select className="form-control" onChange={(e) => setFin(e)}>
                                 <option value="2023">2023-24</option>
                                 <option value="2022">2022-23</option>
                             </select>
                         </div>
+                        <div className="col-lg-4">
+                            <label>Subsidary</label>&nbsp;
+                            <select className="form-control" onChange={(e) => setSubsidary(e)}>
+                                <option value="">--SELECT--</option>
+                                {subsidaries.map((eachSubsidary) => {
+                                    return <option value={eachSubsidary.id}>{eachSubsidary.name}</option>;
+                                })}
+                            </select>
+                        </div>
+
+                        <div className="col-lg-4 pt-3">
+                            <button className="btn btn-primary" onClick={handleSubmit}>
+                                Search
+                            </button>
+                        </div>
                     </div>
-                    <DataGrid
-                        dataSource={reportService.reportStore}
-                        allowColumnReordering={true}
-                        rowAlternationEnabled={true}
-                        showBorders={true}
-                    >
+                    <DataGrid dataSource={reportData} allowColumnReordering={true} rowAlternationEnabled={true} showBorders={true}>
                         <Editing mode="cell" allowAdding={true} allowDeleting={false} allowUpdating={true}>
                             <Popup title="Head" showTitle={true} />
                         </Editing>

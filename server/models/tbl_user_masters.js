@@ -30,9 +30,24 @@ module.exports = (sequelize, DataTypes) => {
       subsidary_id: DataTypes.INTEGER,
       status: DataTypes.INTEGER,
       token: DataTypes.STRING,
+      is_add: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      is_edit: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+        defaultValue:0
+      },
+      is_delete: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+        defaultValue:0
+      },
       createdBy: {
         allowNull: true,
         type: DataTypes.INTEGER,
+        defaultValue:0
       },
       updatedBy: {
         allowNull: true,

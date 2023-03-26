@@ -45,6 +45,7 @@ export const Subsidary = () => {
                             <Popup title="Subsidary" showTitle={true} />
                         </Editing>
                         <SearchPanel visible={true} highlightCaseSensitive={true} />
+                        <Column dataField="id" visible={false} allowAdding={false} allowEditing={false}></Column>
                         <Column dataField="name">
                             <RequiredRule />
                         </Column>

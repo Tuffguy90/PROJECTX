@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useEffect, useState } from 'react';
 // material-ui
 import { Box, Stack, TableContainer, Typography } from '@mui/material';
@@ -43,37 +43,38 @@ export const SubsidaryMatrixMap = () => {
     };
     return (
         <Box>
-        <TableContainer
-            sx={{
-                width: '100%',
-                overflowX: 'auto',
-                position: 'relative',
-                display: 'block',
-                maxWidth: '100%',
-                '& td, & th': { whiteSpace: 'nowrap' }
-            }}
-        >
-            <MainCard sx={{ m: 1, p: 1 }} content={false}>
-                <h1>Subsidary Matrix Mapping</h1>
-                <DataGrid
-                    dataSource={matrixService.subMatStore}
-                    allowColumnReordering={true}
-                    rowAlternationEnabled={true}
-                    showBorders={true}
-                >
-                    <Editing mode="popup" allowAdding={true} allowDeleting={false} allowUpdating={true}>
-                        <Popup title="Subsidary Matrix Mapping" showTitle={true} />
-                    </Editing>
-                    <SearchPanel visible={true} highlightCaseSensitive={true} />
-                    <Column dataField="subsidary_id" caption="Subsiary Name">
-                        <RequiredRule />
-                        <Lookup dataSource={subsidaries} displayExpr="name" valueExpr="id" />
-                    </Column>
-                    <Column dataField="mattrix_id" caption="Matrix Name">
-                        <RequiredRule />
-                        <Lookup dataSource={subsidaries} displayExpr="name" valueExpr="id" />
-                    </Column>
-                    {/* <Column dataField="status" dataType="number" cellRender={statusCell}>
+            <TableContainer
+                sx={{
+                    width: '100%',
+                    overflowX: 'auto',
+                    position: 'relative',
+                    display: 'block',
+                    maxWidth: '100%',
+                    '& td, & th': { whiteSpace: 'nowrap' }
+                }}
+            >
+                <MainCard sx={{ m: 1, p: 1 }} content={false}>
+                    <h1>Subsidary Matrix Mapping</h1>
+                    <DataGrid
+                        dataSource={matrixService.subMatStore}
+                        allowColumnReordering={true}
+                        rowAlternationEnabled={true}
+                        showBorders={true}
+                    >
+                        <Editing mode="popup" allowAdding={true} allowDeleting={false} allowUpdating={true}>
+                            <Popup title="Subsidary Matrix Mapping" showTitle={true} />
+                        </Editing>
+                        <SearchPanel visible={true} highlightCaseSensitive={true} />
+                        <Column dataField="id" visible={false} allowAdding={false} allowEditing={false}></Column>
+                        <Column dataField="subsidary_id" caption="Subsiary Name">
+                            <RequiredRule />
+                            <Lookup dataSource={subsidaries} displayExpr="name" valueExpr="id" />
+                        </Column>
+                        <Column dataField="mattrix_id" caption="Matrix Name">
+                            <RequiredRule />
+                            <Lookup dataSource={mattrix} displayExpr="name" valueExpr="id" />
+                        </Column>
+                        {/* <Column dataField="status" dataType="number" cellRender={statusCell}>
                         <Lookup
                             dataSource={[
                                 {
@@ -89,10 +90,10 @@ export const SubsidaryMatrixMap = () => {
                             valueExpr="value"
                         />
                     </Column> */}
-                    <Paging />
-                </DataGrid>
-            </MainCard>
-        </TableContainer>
-    </Box>
-    )
-}
+                        <Paging />
+                    </DataGrid>
+                </MainCard>
+            </TableContainer>
+        </Box>
+    );
+};
