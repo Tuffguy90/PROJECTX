@@ -2,6 +2,7 @@ import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import authService from '../../../services/auth.service';
 import { sweetAlertBox } from 'helpers/index';
+import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { Button, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, Stack } from '@mui/material';
@@ -15,13 +16,14 @@ import AnimateButton from 'components/@extended/AnimateButton';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import { userData } from 'store/reducers/user';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const AuthLogin = () => {
     const navigate = useNavigate();
-
     const [showPassword, setShowPassword] = React.useState(false);
+    const dispatch = useDispatch();
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -47,10 +49,11 @@ const AuthLogin = () => {
                         authService
                             .login({ email: values.email, password: values.password })
                             .then(({ data }) => {
-                                console.log('data',data)
+                                console.log('data', data);
                                 if (data?.status === 200) {
                                     localStorage.setItem('_token', data?.token);
                                     localStorage.setItem('_userData', JSON.stringify(data?.user));
+                                    dispatch(userData({userData:data?.user}));
                                     navigate('/dashboard');
                                 } else {
                                     sweetAlertBox('Oops', data?.message ? data?.message : 'Invalid login credentials', 'info');

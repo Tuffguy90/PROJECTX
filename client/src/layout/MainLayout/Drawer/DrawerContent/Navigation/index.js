@@ -3,11 +3,34 @@ import { Box, Typography } from '@mui/material';
 
 // project import
 import NavGroup from './NavGroup';
-import menuItem from 'menu-items';
+// import menuItem from 'menu-items';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import pages from 'menu-items/pages';
+import dashboard from 'menu-items/dashboard';
 
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
 
 const Navigation = () => {
+    const dispatch = useDispatch();
+    const { userData } = useSelector((state) => state.user);
+    const [menuItem, setMenuItem] = useState({
+        items: [dashboard, pages.subsidaries, pages.matrix, pages.heads, pages.report, pages.users]
+    });
+
+    useEffect(() => {
+        let menuItems = {};
+        if (userData?.role_id == 1) {
+            setMenuItem({
+                items: [dashboard, pages.subsidaries, pages.matrix, pages.heads, pages.report, pages.users]
+            });
+        } else {
+            setMenuItem({
+                items: [dashboard, pages.report]
+            });
+        }
+    }, [userData]);
+
     const navGroups = menuItem.items.map((item) => {
         switch (item.type) {
             case 'group':
