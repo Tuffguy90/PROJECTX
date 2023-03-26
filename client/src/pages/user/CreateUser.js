@@ -17,7 +17,10 @@ const CreateUser = () => {
     useEffect(() => {
         loadSubsidiaries();
     }, []);
-
+    const [permission, setPermission] = useState([
+        {id:0,name:'False'},
+        {id:1,name:'True'}
+    ]);
     const loadSubsidiaries = async () => {
         const data = await subsidaryService.getSubsidaries();
         setSubsidiaries(data?.data);
@@ -74,6 +77,18 @@ const CreateUser = () => {
                         <Column dataField="subsidary_id" caption="Subsidary">
                             <RequiredRule />
                             <Lookup dataSource={subsidiaries} displayExpr="name" valueExpr="id" />
+                        </Column>
+                        <Column dataField="is_add" caption="Can Add">
+                            <RequiredRule />
+                            <Lookup dataSource={permission} displayExpr="name" valueExpr="id" />
+                        </Column>
+                        <Column dataField="is_edit" caption="Can Edit">
+                            <RequiredRule />
+                            <Lookup dataSource={permission} displayExpr="name" valueExpr="id" />
+                        </Column>
+                        <Column dataField="is_delete" caption="Can Delete">
+                            <RequiredRule />
+                            <Lookup dataSource={permission} displayExpr="name" valueExpr="id" />
                         </Column>
                         <Column dataField="status" dataType="number" cellRender={statusCell}>
                             <RequiredRule />

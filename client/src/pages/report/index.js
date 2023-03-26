@@ -17,14 +17,14 @@ import Swal from 'sweetalert2';
 export const Report = () => {
     const [mattrix, setMattrix] = useState([]);
     const [subsidaries, setSubsidaries] = useState([]);
-    const [subsidaryMatrix, setSubsidaryMatrix] = useState([]);
+    // const [subsidaryMatrix, setSubsidaryMatrix] = useState([]);
     const [reportData, setReportData] = useState([]);
     const [selectedSubsidary, setSubsidary] = useState(null);
     const [selectedFin, setFin] = useState(null);
     useEffect(() => {
         loadMattrix();
         loadSubsidaries();
-        loadSubMatrix();
+        // loadSubMatrix();
     }, []);
 
     const loadMattrix = async () => {
@@ -32,11 +32,11 @@ export const Report = () => {
         setMattrix(data?.data);
     };
 
-    const loadSubMatrix = async () => {
-        const data = await subsidaryService.getSubsidaryMattrix();
-        console.log('loadmaxxx', data);
-        setSubsidaryMatrix(data?.data);
-    };
+    // const loadSubMatrix = async () => {
+    //     const data = await subsidaryService.getSubsidaryMattrix();
+    //     console.log('loadmaxxx', data);
+    //     setSubsidaryMatrix(data?.data);
+    // };
 
     const loadSubsidaries = async () => {
         const data = await subsidaryService.getSubsidaries();

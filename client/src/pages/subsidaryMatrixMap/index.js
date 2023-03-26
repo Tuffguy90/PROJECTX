@@ -72,7 +72,7 @@ export const SubsidaryMatrixMap = () => {
                         </Column>
                         <Column dataField="mattrix_id" caption="Matrix Name">
                             <RequiredRule />
-                            <Lookup dataSource={subsidaries} displayExpr="name" valueExpr="id" />
+                            <Lookup dataSource={mattrix} displayExpr="name" valueExpr="id" />
                         </Column>
                         {/* <Column dataField="status" dataType="number" cellRender={statusCell}>
                         <Lookup
