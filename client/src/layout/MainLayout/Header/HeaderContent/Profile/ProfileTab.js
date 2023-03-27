@@ -29,12 +29,12 @@ const ProfileTab = ({ handleLogout }) => {
                 </ListItemIcon>
                 <ListItemText primary="Change Password" />
             </ListItemButton>
-            <ListItemButton selected={selectedIndex === 1} onClick={(event) => handleListItemClick(event, 1, '/change-password')}>
+            {/* <ListItemButton selected={selectedIndex === 1} onClick={(event) => handleListItemClick(event, 1, '/change-password')}>
                 <ListItemIcon>
                     <UserOutlined />
                 </ListItemIcon>
                 <ListItemText primary="Profile" />
-            </ListItemButton>
+            </ListItemButton> */}
             <ListItemButton selected={selectedIndex === 2} onClick={handleLogout}>
                 <ListItemIcon>
                     <LogoutOutlined />
