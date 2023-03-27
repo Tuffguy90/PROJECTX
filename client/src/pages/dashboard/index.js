@@ -19,7 +19,7 @@ const Dashboard = () => {
     let loginUserData = JSON.parse(localStorage.getItem('_userData'));
     useEffect(() => {
         let subId = selectedSubsidiary;
-        !loginUserData.hasOwnProperty('subsidary') ? loadSubsidiaries() : (subId = loginUserData?.subsidary?.id);
+        loginUserData.role_id === 1 ? loadSubsidiaries() : (subId = loginUserData?.subsidary?.id);
         setSubsidiary(subId);
         loadReport(new Date().getFullYear(), subId);
         loadGraphData(new Date().getFullYear(), subId);
