@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 export const Report = () => {
     const [mattrix, setMattrix] = useState([]);
     const [subsidaries, setSubsidaries] = useState([]);
+    const [mattrixs, setMattrixs] = useState([]);
     // const [subsidaryMatrix, setSubsidaryMatrix] = useState([]);
     const [reportData, setReportData] = useState([]);
     const [selectedSubsidary, setSubsidary] = useState(1);
@@ -142,12 +143,36 @@ export const Report = () => {
                         </div>
                     </div>
                     <div className="mt-1">
-                        <DataGrid dataSource={reportData} allowColumnReordering={true} rowAlternationEnabled={true} showBorders={true}>
+                        <DataGrid
+                            dataSource={reportData}
+                            onCellPrepared={(e) => {
+                                //console.log('eee', e);
+                                if (e.rowType !== 'data' || e.columnIndex != 1) {
+                                    return;
+                                }
+
+                                // if (isGroup?.length > 0 && mattrixs.length >= 2) {
+                                //     e.cellElement.rowSpan = isGroup[0]['count'];
+                                //     e.cellElement.innerHTML = '<div>My Text</div>';
+                                // }
+                                // if (e.rowIndex % 5 === 0) {
+                                //     e.cellElement.rowSpan = 5;
+                                //     e.cellElement.innerHTML = '<div>My Text</div>';
+                                // } else {
+                                //     e.cellElement.style.display = 'none';
+                                // }
+                            }}
+                            allowColumnReordering={true}
+                            rowAlternationEnabled={true}
+                            showBorders={true}
+                        >
                             <Editing mode="cell" allowAdding={false} allowDeleting={false} allowUpdating={true}>
                                 <Popup title="Head" showTitle={true} />
                             </Editing>
                             <SearchPanel visible={true} highlightCaseSensitive={true} />
+                            <Column dataField="mattrix_name" width={200}></Column>
                             <Column dataField="head_name" width={200}></Column>
+
                             <Column dataField="data[0].month_value" caption="April"></Column>
                             <Column dataField="data[1].month_value" caption="May"></Column>
                             <Column dataField="data[2].month_value" caption="June"></Column>

@@ -69,7 +69,7 @@ const MainRoutes = {
                     <MatrixMaster isSuper={true} />
                 </Protected>
             )
-        },
+        }
         // {
         //     path: '/sub-matrix',
         //     element: (

@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "head_id",
         as: "meta",
       })
+      this.belongsTo(models.tbl_mattrix_masters, {
+        foreignKey: "mattrix_id",
+        as: "mattrix",
+      })
     }
   }
   tbl_head_masters.init(
@@ -66,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      paranoid:true,
+      paranoid: true,
       modelName: "tbl_head_masters",
     }
   )

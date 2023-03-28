@@ -86,6 +86,12 @@ const list = async (req, res) => {
       attributes: ["id", "head_name"],
       include: [
         {
+          attributes: ["name"],
+          required: false,
+          model: MATRIX,
+          as: "mattrix",
+        },
+        {
           required: false,
           model: HEADMETAS,
           as: "meta",
@@ -106,6 +112,7 @@ const list = async (req, res) => {
       modified_array.push({
         id: each_head.id,
         head_name: each_head.head_name,
+        mattrix_name: each_head?.mattrix?.name || "N/A",
         data: headsName.map((month_heads) => {
           return {
             month_name: month_heads.month_name,
@@ -181,6 +188,12 @@ const getGraphData = async (req, res) => {
       attributes: ["head_name"],
       include: [
         {
+          attributes: ["name"],
+          required: false,
+          model: MATRIX,
+          as: "mattrix",
+        },
+        {
           required: false,
           model: HEADMETAS,
           as: "meta",
@@ -198,6 +211,8 @@ const getGraphData = async (req, res) => {
     modified_array = head.map((each_head) => {
       return {
         name: each_head.head_name,
+        mattrix_name: each_head?.mattrix?.name || "N/A",
+
         data: headsName.map((month_heads) => {
           return (
             each_head.meta
