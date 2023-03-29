@@ -170,9 +170,9 @@ export const Report = () => {
                                 <Popup title="Head" showTitle={true} />
                             </Editing>
                             <SearchPanel visible={true} highlightCaseSensitive={true} />
-                            <Column dataField="mattrix_name" width={200}></Column>
-                            <Column dataField="head_name" width={200}></Column>
-
+                            <Column dataField="mattrix_name" width={200} allowEditing={false}></Column>
+                            <Column dataField="head_name" width={200} allowEditing={false}></Column>
+                            <Column dataField="target" allowEditing={false} width={200}></Column>
                             <Column dataField="data[0].month_value" caption="April"></Column>
                             <Column dataField="data[1].month_value" caption="May"></Column>
                             <Column dataField="data[2].month_value" caption="June"></Column>

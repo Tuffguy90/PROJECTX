@@ -85,16 +85,16 @@ const listOfSubsidaryMattrix = async (req, res) => {
 
 const mapSubsidaryMattrix = async (req, res) => {
   try {
-    console.log(req.body);
-    let body = req.body;
+    console.log(req.body)
+    let body = req.body
     if (body?.key) {
-      let subsidary_id = body?.values?.subsidary_id || undefined;
-      let mattrix_id = body?.values?.mattrix_id || undefined;
+      let subsidary_id = body?.values?.subsidary_id || undefined
+      let mattrix_id = body?.values?.mattrix_id || undefined
       const data = await SUBMATTRIXMAP.findOne({
         where: {
           id: body?.key,
         },
-        raw: true
+        raw: true,
       })
       if (mattrix_id) {
         const isDupl = await SUBMATTRIXMAP.findOne({
@@ -127,8 +127,8 @@ const mapSubsidaryMattrix = async (req, res) => {
       return helper.updateModel("subMat", body.values, body.key, res)
     }
     let isDupl = await SUBMATTRIXMAP.findOne({
-      where: body
-    });
+      where: body,
+    })
     if (isDupl) {
       return res.status(409).send({
         message: "Duplicate Data found",

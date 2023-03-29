@@ -83,7 +83,7 @@ const list = async (req, res) => {
     const subsidary_id = req.query?.subsidary_id || 1
     const mattrix_id = req.query?.mattrix_id || 1
     const head = await HEADS.findAll({
-      attributes: ["id", "head_name"],
+      attributes: ["id", "head_name", "target"],
       include: [
         {
           attributes: ["name"],
@@ -113,6 +113,7 @@ const list = async (req, res) => {
         id: each_head.id,
         head_name: each_head.head_name,
         mattrix_name: each_head?.mattrix?.name || "N/A",
+        target: each_head?.target,
         data: headsName.map((month_heads) => {
           return {
             month_name: month_heads.month_name,
