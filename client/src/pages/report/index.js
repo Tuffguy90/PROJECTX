@@ -190,13 +190,13 @@ export const Report = () => {
                             <Column dataField="data[11].month_value" caption="March"></Column>
                             <Column dataType="number" caption="Q4" cellRender={Q4Cell}></Column>
                             <Export enabled={true} />
-                            <Summary>
+                            {/* <Summary>
                                 <TotalItem column="head_name" summaryType="sum" customizeText={() => 'Sum'} />
                                 {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((e) => {
                                     const i = `data[${e}].month_value`;
                                     return <TotalItem column={i} summaryType="sum" customizeText={customSum} />;
                                 })}
-                            </Summary>
+                            </Summary> */}
 
                             <Paging />
                         </DataGrid>
