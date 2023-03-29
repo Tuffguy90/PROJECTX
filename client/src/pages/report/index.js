@@ -94,11 +94,11 @@ export const Report = () => {
     const handleSubmit = () => {
         const year = new Date().getFullYear();
         console.log('year', year);
-        if (!selectedSubsidary?.target?.value) {
+        if (!selectedSubsidary) {
             Swal.fire('Validation Error', 'You must select subsidary first');
             return;
         }
-        loadReport(selectedFin?.target?.value || year, selectedSubsidary?.target?.value || 0);
+        loadReport(selectedFin?.target?.value || year, selectedSubsidary || 0);
     };
     return (
         <Box>
@@ -126,7 +126,11 @@ export const Report = () => {
                             {subsidaries?.length > 0 && (
                                 <>
                                     <label>Subsidary</label>&nbsp;
-                                    <select className="form-control" value={selectedSubsidary} onChange={(e) => setSubsidary(e)}>
+                                    <select
+                                        className="form-control"
+                                        value={selectedSubsidary}
+                                        onChange={(e) => setSubsidary(e.target.value)}
+                                    >
                                         <option value="">--SELECT--</option>
                                         {subsidaries.map((eachSubsidary) => {
                                             return <option value={eachSubsidary.id}>{eachSubsidary.name}</option>;
@@ -170,9 +174,9 @@ export const Report = () => {
                                 <Popup title="Head" showTitle={true} />
                             </Editing>
                             <SearchPanel visible={true} highlightCaseSensitive={true} />
-                            <Column dataField="mattrix_name" width={200} allowEditing={false}></Column>
-                            <Column dataField="head_name" width={200} allowEditing={false}></Column>
-                            <Column dataField="target" allowEditing={false} width={200}></Column>
+                            <Column dataField="mattrix_name" width={160} allowEditing={false}></Column>
+                            <Column dataField="head_name" width={180} allowEditing={false}></Column>
+                            <Column dataField="target" allowEditing={false} width={75}></Column>
                             <Column dataField="data[0].month_value" caption="April"></Column>
                             <Column dataField="data[1].month_value" caption="May"></Column>
                             <Column dataField="data[2].month_value" caption="June"></Column>
