@@ -93,7 +93,6 @@ export const Report = () => {
 
     const handleSubmit = () => {
         const year = new Date().getFullYear();
-        console.log('year', year);
         if (!selectedSubsidary) {
             Swal.fire('Validation Error', 'You must select subsidary first');
             return;

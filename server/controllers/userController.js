@@ -180,6 +180,7 @@ const createUser = async (req, res) => {
     req.body["role_id"] = 2;
     let key = body.key || null;
     if (key !== null) {
+      console.log("body", req.body);
       body.email && delete body.email;
       body.mobile && delete body.mobile;
       let updateData = await USER.update({ ...body }, { where: { id: key } });
@@ -237,12 +238,15 @@ const createUser = async (req, res) => {
  */
 const userList = async (req, res) => {
   try {
-    const user_id = req.param.user_id || null;
-    let whereCondition = {
-      role_id: {
-        [Op.ne]: 1,
-      },
-    };
+    const user_id = req.query.user_id || null;
+    let whereCondition = {};
+    if (user_id === null) {
+      whereCondition = {
+        role_id: {
+          [Op.ne]: 1,
+        },
+      };
+    }
     var conditions = {
       attributes: [
         "id",

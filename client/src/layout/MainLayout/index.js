@@ -32,9 +32,9 @@ const MainLayout = () => {
         dispatch(openDrawer({ drawerOpen: !open }));
     };
 
-    useEffect(()=>{
-        console.log('userDAta',userData);
-    },[userData])
+    // useEffect(()=>{
+    //     console.log('userDAta',userData);
+    // },[userData])
 
     // console.warn('',useMediaQuery(theme.breakpoints.down('xl')))
 

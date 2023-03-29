@@ -155,12 +155,35 @@ const Dashboard = () => {
                 </Grid>
                 <MainCard sx={{ mt: 2 }} content={false}>
                     {/* <OrdersTable /> */}
-                    <DataGrid dataSource={reportData} allowColumnReordering={true} rowAlternationEnabled={true} showBorders={true}>
+                    <DataGrid
+                        dataSource={reportData}
+                        onCellPrepared={(e) => {
+                            if (e.rowType !== 'data' || e.columnIndex != 1) {
+                                return;
+                            }
+
+                            // if (isGroup?.length > 0 && mattrixs.length >= 2) {
+                            //     e.cellElement.rowSpan = isGroup[0]['count'];
+                            //     e.cellElement.innerHTML = '<div>My Text</div>';
+                            // }
+                            // if (e.rowIndex % 5 === 0) {
+                            //     e.cellElement.rowSpan = 5;
+                            //     e.cellElement.innerHTML = '<div>My Text</div>';
+                            // } else {
+                            //     e.cellElement.style.display = 'none';
+                            // }
+                        }}
+                        allowColumnReordering={true}
+                        rowAlternationEnabled={true}
+                        showBorders={true}
+                    >
                         <Editing mode="cell" allowAdding={false} allowDeleting={false} allowUpdating={true}>
                             <Popup title="Head" showTitle={true} />
                         </Editing>
                         <SearchPanel visible={true} highlightCaseSensitive={true} />
-                        <Column dataField="head_name" width={200}></Column>
+                        <Column dataField="mattrix_name" width={140} allowEditing={false}></Column>
+                        <Column dataField="head_name" width={180} allowEditing={false}></Column>
+                        <Column dataField="target" width={70} allowEditing={false} ></Column>
                         <Column dataField="data[0].month_value" caption="April"></Column>
                         <Column dataField="data[1].month_value" caption="May"></Column>
                         <Column dataField="data[2].month_value" caption="June"></Column>
@@ -178,13 +201,13 @@ const Dashboard = () => {
                         <Column dataField="data[11].month_value" caption="March"></Column>
                         <Column dataType="number" caption="Q4" cellRender={Q4Cell}></Column>
                         <Export enabled={true} />
-                        <Summary>
-                            <TotalItem column="head_name" summaryType="sum" customizeText={() => 'Sum'} />
-                            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((e) => {
-                                const i = `data[${e}].month_value`;
-                                return <TotalItem column={i} summaryType="sum" customizeText={customSum} />;
-                            })}
-                        </Summary>
+                        {/* <Summary>
+                                <TotalItem column="head_name" summaryType="sum" customizeText={() => 'Sum'} />
+                                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((e) => {
+                                    const i = `data[${e}].month_value`;
+                                    return <TotalItem column={i} summaryType="sum" customizeText={customSum} />;
+                                })}
+                            </Summary> */}
 
                         <Paging />
                     </DataGrid>

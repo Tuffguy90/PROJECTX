@@ -48,7 +48,7 @@ const subsidaries = {
             url: '/subsidaries',
             icon: icons.ProfileOutlined,
             breadcrumbs: false
-        }
+        },
     ]
 };
 

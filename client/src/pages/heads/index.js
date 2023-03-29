@@ -28,7 +28,6 @@ export const HeadMaster = () => {
 
     const loadSubMatrix = async () => {
         const data = await subsidaryService.getSubsidaryMattrix();
-        console.log('loadmaxxx', data);
         setSubsidaryMatrix(data?.data);
     };
 
