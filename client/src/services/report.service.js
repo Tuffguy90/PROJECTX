@@ -24,6 +24,7 @@ const reportStore = (financial_year = 2023, subsidary_id = 1) =>
             }
             sendRequest(`${API_BASE_URL}/update-report`, 'POST', {
                 key,
+                financial_year,
                 values: val[0]
             });
         }

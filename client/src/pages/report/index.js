@@ -2,7 +2,18 @@ import { useEffect, useState } from 'react';
 // material-ui
 import { Box, Stack, TableContainer, Typography } from '@mui/material';
 import 'devextreme/dist/css/dx.light.css';
-import DataGrid, { Column, Pager, Paging, SearchPanel, Editing, Export, Selection, Summary, TotalItem } from 'devextreme-react/data-grid';
+import DataGrid, {
+    Column,
+    Pager,
+    Paging,
+    SearchPanel,
+    Sorting,
+    Editing,
+    Export,
+    Selection,
+    Summary,
+    TotalItem
+} from 'devextreme-react/data-grid';
 import Dot from 'components/@extended/Dot';
 import { Lookup, Popup, RequiredRule } from '../../../node_modules/devextreme-react/data-grid';
 const pageSizes = [10, 25, 50, 100];
@@ -13,7 +24,7 @@ import subsidaryService from 'services/subsidary.service';
 import reportService from 'services/report.service';
 import Swal from 'sweetalert2';
 
-export const Report = (props) => {
+export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
     // console.log('ptrops', props);
     const [mattrix, setMattrix] = useState([]);
     const [subsidaries, setSubsidaries] = useState([]);
@@ -25,8 +36,14 @@ export const Report = (props) => {
     const [canEdit, setCanEdit] = useState(false);
     let loginUserData = JSON.parse(localStorage.getItem('_userData'));
     useEffect(() => {
-        loadReport(props?.onSearch.financial_year, props?.onSearch.selected_subsidary);
-    }, [props?.onSearch]);
+        loadReport(onSearch.financial_year, onSearch.selected_subsidary);
+        let selectedFin = {
+            target: {
+                value: onSearch.financial_year
+            }
+        };
+        setFin(selectedFin);
+    }, [onSearch]);
 
     useEffect(() => {
         let subId = selectedSubsidary;
@@ -96,7 +113,10 @@ export const Report = (props) => {
         sum = parseInt(data[9]['month_value']) + parseInt(data[10]['month_value'] + data[11]['month_value']);
         return sum;
     };
-
+    const handleEvent = () => {
+        console.log('handled and passed');
+        onChildEvent(true);
+    };
     const handleSubmit = () => {
         const year = new Date().getFullYear();
         if (!selectedSubsidary) {
@@ -118,7 +138,7 @@ export const Report = (props) => {
                 }}
             >
                 <MainCard sx={{ m: 1, p: 1 }} content={false}>
-                    {props?.hideSearchBar !== true ? (
+                    {hideSearchBar !== true ? (
                         <div className="row">
                             <div className="col-lg-12">
                                 <h1>Report</h1>
@@ -158,6 +178,7 @@ export const Report = (props) => {
                     <div className="mt-1">
                         <DataGrid
                             dataSource={reportData}
+                            onSaved={handleEvent}
                             onCellPrepared={(e) => {
                                 //console.log('eee', e);
                                 if (e.rowType !== 'data' || e.columnIndex != 1) {
@@ -179,6 +200,7 @@ export const Report = (props) => {
                             rowAlternationEnabled={true}
                             showBorders={true}
                         >
+                            <Sorting mode="none" />
                             <Editing mode="cell" allowAdding={false} allowDeleting={false} allowUpdating={canEdit}>
                                 <Popup title="Head" showTitle={true} />
                             </Editing>

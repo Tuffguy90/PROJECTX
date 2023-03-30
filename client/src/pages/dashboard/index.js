@@ -44,6 +44,11 @@ const Dashboard = () => {
         });
     };
 
+    const handleChildEvent = (e) => {
+        console.log('handled child ebent');
+        loadGraphData(selectedFin?.target.value, selectedSubsidiary);
+    };
+
     const showCountData = useMemo(() => {
         return countData?.map((item) => {
             return (
@@ -113,7 +118,7 @@ const Dashboard = () => {
             <Grid item xs={12} md={12} lg={12}>
                 <MainCard sx={{ mt: 2 }} content={false}>
                     {/* <OrdersTable /> */}
-                    <Report hideSearchBar={true} onSearch={reportData} />
+                    <Report hideSearchBar={true} onSearch={reportData} onChildEvent={handleChildEvent} />
                 </MainCard>
             </Grid>
         </Grid>
