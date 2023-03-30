@@ -75,7 +75,7 @@ const CreateUser = () => {
                                 <RequiredRule />
                             </Column>
                             <Column dataField="password_value" caption="Password">
-                                <RequiredRule />
+                                {/* <RequiredRule /> */}
                             </Column>
                             <Column dataField="address" caption="Address">
                                 <RequiredRule />

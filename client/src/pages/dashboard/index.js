@@ -1,14 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import DataGrid, { Column, Paging, SearchPanel, Editing, Export, Summary, TotalItem } from 'devextreme-react/data-grid';
 import IncomeAreaChart from './component/IncomeAreaChart';
 import MainCard from 'components/MainCard';
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
 import reportService from 'services/report.service';
-import Swal from 'sweetalert2';
 import subsidaryService from 'services/subsidary.service';
-import { Popup } from '../../../node_modules/devextreme-react/data-grid';
-
+import { Report } from 'pages/report/index';
 const Dashboard = () => {
     const [countData, setCountData] = useState([]);
     const [graphData, setGraphData] = useState(null);
@@ -21,7 +18,6 @@ const Dashboard = () => {
         let subId = selectedSubsidiary;
         !loginUserData.subsidary ? loadSubsidiaries() : (subId = loginUserData?.subsidary?.id);
         setSubsidiary(subId);
-        loadReport(new Date().getFullYear(), subId);
         loadGraphData(new Date().getFullYear(), subId);
         loginUserData?.role_id === 1 &&
             reportService.getDashboardCount().then(({ data }) => {
@@ -40,44 +36,12 @@ const Dashboard = () => {
         });
     };
 
-    const customSum = ({ value }) => {
-        return value;
-    };
-
-    const Q1Cell = (options) => {
-        const data = options.data?.data;
-        let sum = 0;
-        sum = parseInt(data[0]['month_value']) + parseInt(data[1]['month_value'] + data[2]['month_value']);
-        return sum;
-    };
-    const Q2Cell = (options) => {
-        const data = options.data?.data;
-        let sum = 0;
-        sum = parseInt(data[3]['month_value']) + parseInt(data[4]['month_value'] + data[5]['month_value']);
-        return sum;
-    };
-    const Q3Cell = (options) => {
-        const data = options.data?.data;
-        let sum = 0;
-        sum = parseInt(data[6]['month_value']) + parseInt(data[7]['month_value'] + data[8]['month_value']);
-        return sum;
-    };
-    const Q4Cell = (options) => {
-        const data = options.data?.data;
-        let sum = 0;
-        sum = parseInt(data[9]['month_value']) + parseInt(data[10]['month_value'] + data[11]['month_value']);
-        return sum;
-    };
-
-    const loadReport = async (financial_year, subsidary_id) => {
-        const report = reportService.reportStore(financial_year, subsidary_id);
-        setReportData(report);
-    };
-
-    const handleSubmit = () => {
-        let year = new Date().getFullYear();
-        loadGraphData(selectedFin?.target?.value || year, selectedSubsidiary);
-        loadReport(selectedFin?.target?.value || year, selectedSubsidiary);
+    const handleSubmit = (e) => {
+        loadGraphData(selectedFin?.target.value, selectedSubsidiary);
+        setReportData({
+            financial_year: selectedFin?.target.value,
+            selected_subsidary: selectedSubsidiary
+        });
     };
 
     const showCountData = useMemo(() => {
@@ -147,47 +111,9 @@ const Dashboard = () => {
 
             {/* row 3 */}
             <Grid item xs={12} md={12} lg={12}>
-                <Grid container alignItems="center" justifyContent="space-between">
-                    <Grid item>
-                        <Typography variant="h5">Subsidiary Data</Typography>
-                    </Grid>
-                    <Grid item />
-                </Grid>
                 <MainCard sx={{ mt: 2 }} content={false}>
                     {/* <OrdersTable /> */}
-                    <DataGrid dataSource={reportData} allowColumnReordering={true} rowAlternationEnabled={true} showBorders={true}>
-                        <Editing mode="cell" allowAdding={false} allowDeleting={false} allowUpdating={true}>
-                            <Popup title="Head" showTitle={true} />
-                        </Editing>
-                        <SearchPanel visible={true} highlightCaseSensitive={true} />
-                        <Column dataField="head_name" width={200}></Column>
-                        <Column dataField="data[0].month_value" caption="April"></Column>
-                        <Column dataField="data[1].month_value" caption="May"></Column>
-                        <Column dataField="data[2].month_value" caption="June"></Column>
-                        <Column dataType="number" caption="Q1" cellRender={Q1Cell}></Column>
-                        <Column dataField="data[3].month_value" caption="July"></Column>
-                        <Column dataField="data[4].month_value" caption="Aug"></Column>
-                        <Column dataField="data[5].month_value" caption="Sept"></Column>
-                        <Column dataType="number" caption="Q2" cellRender={Q2Cell}></Column>
-                        <Column dataField="data[6].month_value" caption="Oct"></Column>
-                        <Column dataField="data[7].month_value" caption="Nov"></Column>
-                        <Column dataField="data[8].month_value" caption="Dec"></Column>
-                        <Column dataType="number" caption="Q3" cellRender={Q3Cell}></Column>
-                        <Column dataField="data[9].month_value" caption="Jan"></Column>
-                        <Column dataField="data[10].month_value" caption="Feb"></Column>
-                        <Column dataField="data[11].month_value" caption="March"></Column>
-                        <Column dataType="number" caption="Q4" cellRender={Q4Cell}></Column>
-                        <Export enabled={true} />
-                        <Summary>
-                            <TotalItem column="head_name" summaryType="sum" customizeText={() => 'Sum'} />
-                            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((e) => {
-                                const i = `data[${e}].month_value`;
-                                return <TotalItem column={i} summaryType="sum" customizeText={customSum} />;
-                            })}
-                        </Summary>
-
-                        <Paging />
-                    </DataGrid>
+                    <Report hideSearchBar={true} onSearch={reportData} />
                 </MainCard>
             </Grid>
         </Grid>

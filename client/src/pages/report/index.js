@@ -5,7 +5,6 @@ import 'devextreme/dist/css/dx.light.css';
 import DataGrid, { Column, Pager, Paging, SearchPanel, Editing, Export, Selection, Summary, TotalItem } from 'devextreme-react/data-grid';
 import Dot from 'components/@extended/Dot';
 import { Lookup, Popup, RequiredRule } from '../../../node_modules/devextreme-react/data-grid';
-
 const pageSizes = [10, 25, 50, 100];
 import MainCard from 'components/MainCard';
 // service
@@ -14,7 +13,8 @@ import subsidaryService from 'services/subsidary.service';
 import reportService from 'services/report.service';
 import Swal from 'sweetalert2';
 
-export const Report = () => {
+export const Report = (props) => {
+    // console.log('ptrops', props);
     const [mattrix, setMattrix] = useState([]);
     const [subsidaries, setSubsidaries] = useState([]);
     const [mattrixs, setMattrixs] = useState([]);
@@ -22,13 +22,19 @@ export const Report = () => {
     const [reportData, setReportData] = useState([]);
     const [selectedSubsidary, setSubsidary] = useState(1);
     const [selectedFin, setFin] = useState(null);
+    const [canEdit, setCanEdit] = useState(false);
     let loginUserData = JSON.parse(localStorage.getItem('_userData'));
+    useEffect(() => {
+        loadReport(props?.onSearch.financial_year, props?.onSearch.selected_subsidary);
+    }, [props?.onSearch]);
+
     useEffect(() => {
         let subId = selectedSubsidary;
         loginUserData.role_id === 1 ? loadSubsidaries() : (subId = loginUserData?.subsidary?.id);
         setSubsidary(subId);
         loadReport(new Date().getFullYear(), subId);
         loadMattrix();
+        setCanEdit(loginUserData.is_edit === 1 ? true : false);
         // loadSubMatrix();
     }, []);
 
@@ -113,39 +119,43 @@ export const Report = () => {
                 }}
             >
                 <MainCard sx={{ m: 1, p: 1 }} content={false}>
-                    <h1>Report</h1>
-                    <div className="row">
-                        <div className="col-lg-4">
-                            <label>Financial Year</label>&nbsp;
-                            <select className="form-control" onChange={(e) => setFin(e)}>
-                                <option value="2023">2023-24</option>
-                                <option value="2022">2022-23</option>
-                            </select>
-                        </div>
-                        <div className="col-lg-4">
-                            {subsidaries?.length > 0 && (
-                                <>
-                                    <label>Subsidary</label>&nbsp;
-                                    <select
-                                        className="form-control"
-                                        value={selectedSubsidary}
-                                        onChange={(e) => setSubsidary(e.target.value)}
-                                    >
-                                        <option value="">--SELECT--</option>
-                                        {subsidaries.map((eachSubsidary) => {
-                                            return <option value={eachSubsidary.id}>{eachSubsidary.name}</option>;
-                                        })}
-                                    </select>
-                                </>
-                            )}
-                        </div>
+                    {props?.hideSearchBar !== true ? (
+                        <div className="row">
+                            <div className="col-lg-12">
+                                <h1>Report</h1>
+                            </div>
+                            <div className="col-lg-4">
+                                <label>Financial Year</label>&nbsp;
+                                <select className="form-control" onChange={(e) => setFin(e)}>
+                                    <option value="2023">2023-24</option>
+                                    <option value="2022">2022-23</option>
+                                </select>
+                            </div>
+                            <div className="col-lg-4">
+                                {subsidaries?.length > 0 && (
+                                    <>
+                                        <label>Subsidary</label>&nbsp;
+                                        <select
+                                            className="form-control"
+                                            value={selectedSubsidary}
+                                            onChange={(e) => setSubsidary(e.target.value)}
+                                        >
+                                            <option value="">--SELECT--</option>
+                                            {subsidaries.map((eachSubsidary) => {
+                                                return <option value={eachSubsidary.id}>{eachSubsidary.name}</option>;
+                                            })}
+                                        </select>
+                                    </>
+                                )}
+                            </div>
 
-                        <div className="col-lg-4" style={{ marginTop: '21px' }}>
-                            <button className="btn btn-primary" onClick={handleSubmit}>
-                                Search
-                            </button>
+                            <div className="col-lg-4" style={{ marginTop: '21px' }}>
+                                <button className="btn btn-primary" onClick={handleSubmit}>
+                                    Search
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    ) : null}
                     <div className="mt-1">
                         <DataGrid
                             dataSource={reportData}
@@ -170,7 +180,7 @@ export const Report = () => {
                             rowAlternationEnabled={true}
                             showBorders={true}
                         >
-                            <Editing mode="cell" allowAdding={false} allowDeleting={false} allowUpdating={true}>
+                            <Editing mode="cell" allowAdding={false} allowDeleting={false} allowUpdating={canEdit}>
                                 <Popup title="Head" showTitle={true} />
                             </Editing>
                             <SearchPanel visible={true} highlightCaseSensitive={true} />

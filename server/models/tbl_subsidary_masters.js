@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // this.hasMany(models.tbl_subsidary_mattrix_mapings, {
-      //   foreignKey: "subsidary_id",
-      //   as: "subMattrix",
-      // })
+      this.hasMany(models.tbl_user_masters, {
+        foreignKey: "subsidary_id",
+        as: "users",
+      })
     }
   }
   tbl_subsidary_masters.init(
@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      paranoid:true,
+      paranoid: true,
       modelName: "tbl_subsidary_masters",
     }
   )

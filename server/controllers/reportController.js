@@ -107,7 +107,6 @@ const list = async (req, res) => {
     })
 
     var modified_array = []
-    console.log("hhhhhhh", head)
     head.map((each_head) => {
       modified_array.push({
         id: each_head.id,

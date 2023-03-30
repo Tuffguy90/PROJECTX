@@ -43,7 +43,23 @@ const create = async (req, res) => {
 const list = async (req, res) => {
   try {
     const sub_id = req.query.id
-    const subs = await SUBSIDARY.findAll()
+    var conditions = {
+      include: [
+        {
+          model: db.tbl_user_masters,
+          as: "users",
+        },
+      ],
+    }
+
+    if (req.body.createdBy !== 1) {
+      conditions["include"][0]["where"] = {
+        id: req.body.createdBy,
+      }
+      conditions["include"][0]["required"] = true
+    }
+
+    const subs = await SUBSIDARY.findAll(conditions)
 
     return res.send({
       message: "List of Subsidaries",
