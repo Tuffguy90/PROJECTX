@@ -1,12 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.49315aaa.css",
-    "main.js": "/static/js/main.4764cd87.js",
-    "static/js/7.cccf4ce8.chunk.js": "/static/js/7.cccf4ce8.chunk.js",
-    "static/js/696.80ea413a.chunk.js": "/static/js/696.80ea413a.chunk.js",
-    "static/js/671.fa509259.chunk.js": "/static/js/671.fa509259.chunk.js",
+    "main.js": "/static/js/main.ab7e6bdf.js",
+    "static/js/7.482e5bbd.chunk.js": "/static/js/7.482e5bbd.chunk.js",
+    "static/js/696.9bb7acfc.chunk.js": "/static/js/696.9bb7acfc.chunk.js",
+    "static/js/204.6af2d7d1.chunk.js": "/static/js/204.6af2d7d1.chunk.js",
+    "static/js/850.498b4914.chunk.js": "/static/js/850.498b4914.chunk.js",
     "static/js/522.0eebcfeb.chunk.js": "/static/js/522.0eebcfeb.chunk.js",
-    "static/js/753.82149205.chunk.js": "/static/js/753.82149205.chunk.js",
+    "static/js/81.dba18f1f.chunk.js": "/static/js/81.dba18f1f.chunk.js",
     "static/js/86.ba7fbc94.chunk.js": "/static/js/86.ba7fbc94.chunk.js",
     "static/media/dxicons.woff": "/static/media/dxicons.c568ff14b17313b699e2.woff",
     "static/media/dxicons.ttf": "/static/media/dxicons.506efc48bb7054c11c4d.ttf",
@@ -16,6 +17,6 @@
   },
   "entrypoints": [
     "static/css/main.49315aaa.css",
-    "static/js/main.4764cd87.js"
+    "static/js/main.ab7e6bdf.js"
   ]
 }
