@@ -49,7 +49,6 @@ const AuthLogin = () => {
                         authService
                             .login({ email: values.email, password: values.password })
                             .then(({ data }) => {
-                                console.log('data', data);
                                 if (data?.status === 200) {
                                     localStorage.setItem('_token', data?.token);
                                     localStorage.setItem('_userData', JSON.stringify(data?.user));

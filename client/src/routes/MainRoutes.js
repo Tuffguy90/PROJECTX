@@ -15,6 +15,7 @@ import Protected from './Protected';
 // render - dashboard
 const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
 const ChangePassword = Loadable(lazy(() => import('pages/user/ChangePassword')));
+const UserProfile = Loadable(lazy(() => import('pages/user/UserProfile')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -69,6 +70,10 @@ const MainRoutes = {
                     <MatrixMaster isSuper={true} />
                 </Protected>
             )
+        },
+        {
+            path: '/user-profile',
+            element: <UserProfile />
         }
         // {
         //     path: '/sub-matrix',
