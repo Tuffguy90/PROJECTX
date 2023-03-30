@@ -36,13 +36,13 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
     const [canEdit, setCanEdit] = useState(false);
     let loginUserData = JSON.parse(localStorage.getItem('_userData'));
     useEffect(() => {
-        loadReport(onSearch.financial_year, onSearch.selected_subsidary);
+        loadReport(onSearch?.financial_year, onSearch?.selected_subsidary);
         let selectedFin = {
             target: {
-                value: onSearch.financial_year
+                value: onSearch?.financial_year
             }
         };
-        setFin(selectedFin);
+        if (onSearch?.financial_year) setFin(selectedFin);
     }, [onSearch]);
 
     useEffect(() => {
