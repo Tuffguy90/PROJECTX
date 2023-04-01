@@ -44,10 +44,26 @@ const subsidaryStore = new CustomStore({
     //     })
 });
 
+const userSubsidary = new CustomStore({
+    key: 'id',
+    load: () => sendRequest(`${API_BASE_URL}/user-subsidary`),
+    insert: (values) => sendRequest(`${API_BASE_URL}/map-user-subsudary`, 'POST', { ...values }),
+    update: (key, values) =>
+        sendRequest(`${API_BASE_URL}/map-user-subsudary`, 'POST', {
+            key,
+            values: values
+        })
+    // remove: (key) =>
+    //     sendRequest(`${API_BASE_URL}/DeleteOrder`, 'DELETE', {
+    //         key
+    //     })
+});
+
 const subsidaryService = {
     getSubsidaries,
     getSubsidaryMattrix,
-    subsidaryStore
+    subsidaryStore,
+    userSubsidary
 };
 
 export default subsidaryService;
