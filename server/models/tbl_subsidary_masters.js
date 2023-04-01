@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.tbl_user_masters, {
-        foreignKey: "subsidary_id",
-        as: "users",
+      this.belongsToMany(models.tbl_user_masters, {
+        through: models.tbl_user_subsidary_mappings, foreignKey: "subsidary_id",
+        as: "user",
       })
     }
   }

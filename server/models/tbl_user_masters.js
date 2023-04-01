@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.tbl_subsidary_masters, {
-        foreignKey: "subsidary_id",
+      this.belongsToMany(models.tbl_subsidary_masters, {
+        through: models.tbl_user_subsidary_mappings, foreignKey: "user_id",
         as: "subsidary",
-      });
+      })
       this.belongsTo(models.tbl_role_masters, {
         foreignKey: "role_id",
         as: "role",
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       mobile: DataTypes.INTEGER,
       address: DataTypes.STRING,
       role_id: DataTypes.INTEGER,
-      subsidary_id: DataTypes.INTEGER,
+      // subsidary_id: DataTypes.INTEGER,
       status: DataTypes.INTEGER,
       token: DataTypes.STRING,
       is_add: {
