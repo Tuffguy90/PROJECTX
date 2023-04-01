@@ -18,7 +18,8 @@ router.post("/create-bulk-head-meta", headRoutes.createBulkHeadMeta)
 router.post("/change-password", userRoutes.changePassword);
 router.post("/create-user", userRoutes.createUser);
 router.post("/create-role", roleController.create);
-router.post("/update-report", reportController.updateReport)
+router.post("/update-report", reportController.updateReport);
+router.post("/map-user-subsudary", userRoutes.mapUserSubsidary);
 
 /** GET ROUTES */
 router.get("/get-subsidaries", subsidaryRoutes.list);
@@ -31,5 +32,6 @@ router.get("/get-report", reportController.list);
 router.get("/get-roles", roleController.list);
 router.get("/get-dashboard-count", reportController.showDashboardCountValue);
 router.get("/get-graph-data", reportController.getGraphData);
+router.get("/delete-user-subsudary", userRoutes.removeUserSubSidaryMapings);
 
 module.exports = router

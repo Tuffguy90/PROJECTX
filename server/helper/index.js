@@ -1,4 +1,4 @@
-const db = require("../models/index")
+const db = require("../models/index");
 
 const updateModel = async (type, data, key, res) => {
   if (getModel(type)) {
@@ -6,46 +6,49 @@ const updateModel = async (type, data, key, res) => {
       where: {
         id: key,
       },
-    })
+    });
     return res.send({
       message: "Data Updated Successfully",
       data: updatedSub,
-    })
+    });
   }
 
   return res.status(500).send({
     message: "Something went wrong",
-  })
-}
+  });
+};
 
 const getModel = (type) => {
-  let MODEL = {}
+  let MODEL = {};
   switch (type) {
     case "subsidary":
-      MODEL = db.tbl_subsidary_masters
-      break
+      MODEL = db.tbl_subsidary_masters;
+      break;
     case "mattrix":
-      MODEL = db.tbl_mattrix_masters
-      break
+      MODEL = db.tbl_mattrix_masters;
+      break;
     case "head":
-      MODEL = db.tbl_head_masters
-      break
+      MODEL = db.tbl_head_masters;
+      break;
     case "subMat":
-      MODEL = db.tbl_subsidary_mattrix_mapings
-      break
+      MODEL = db.tbl_subsidary_mattrix_mapings;
+      break;
     case "role":
       MODEL = db.tbl_role_masters;
       break;
     case "user":
       MODEL = db.tbl_user_masters;
       break;
+    case "usersubsidary":
+      MODEL = db.tbl_user_subsidary_mappings;
+      break;
   }
 
-  return MODEL
-}
+  return MODEL;
+};
 
 const helper = {
   updateModel,
-}
+};
 
-module.exports = helper
+module.exports = helper;

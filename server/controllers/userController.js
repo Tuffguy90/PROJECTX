@@ -1,10 +1,11 @@
 var jwt = require("jsonwebtoken")
 const db = require("../models/index")
 const bcrypt = require("bcrypt")
-const { createUserSchema } = require("./validators/user")
-const USER = db.tbl_user_masters
+const { createUserSchema,userSubsidary } = require("./validators/user")
+const USER = db.tbl_user_masters;
 const ROLE = db.tbl_role_masters
-const SUBSIDARY = db.tbl_subsidary_masters
+const UserSubSidary = db.tbl_user_subsidary_mappings;
+const SUBSIDARY = db.tbl_subsidary_masters;
 const { extractTokenInfo } = require("../helpers/index")
 require("dotenv").config()
 const { Op } = require("sequelize")
@@ -289,11 +290,63 @@ const userList = async (req, res) => {
   }
 }
 
+const mapUserSubsidary = async (req, res) => {
+  try {
+    let tokenUserData = extractTokenInfo(req);
+    let body = req.body;
+    if (body?.key) {
+      return helper.updateModel("usersubsidary", body.values, body.key, res)
+    };
+    body.createdBy = tokenUserData?.id || null
+    const validate = userSubsidary.validate(body);
+    if (validate?.error) {
+      return res.status(400).send({
+        message: "Validation Error",
+        error: validate?.error,
+      })
+    };
+    let resp = await UserSubSidary.create(req.body);
+    return res.status(200).send({
+      message: "Create Successfully",
+      resp,
+    })
+  } catch (err) {
+    return res.status(500).send({ message: err?.message, data: [] })
+  }
+}
+
+const removeUserSubSidaryMapings = async (req, res) => {
+  try {
+    let id = req.params.id || req.query.id || undefined;
+    if(!id){
+      return res.status(400).send({
+        message: "Validation Error",
+        error:null,
+      })
+    }
+    await UserSubSidary.destroy(
+      {
+        where: {
+          id
+        },
+      }
+    );
+    return res.status(200).send({
+      message: "Create Successfully",
+      resp,
+    })
+  } catch (error) {
+    return res.status(500).send({ message: err?.message, data: [] })
+  }
+}
+
 const userRoutes = {
   login,
   changePassword,
   createUser,
   userList,
+  mapUserSubsidary,
+  removeUserSubSidaryMapings
 }
 
 module.exports = userRoutes

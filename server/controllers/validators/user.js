@@ -24,5 +24,11 @@ const createRoleSchema = Joi.object({
   createdBy: Joi.number().required(),
 });
 
-const userSchema = { createUserSchema, createRoleSchema };
+const userSubsidary = Joi.object({
+  user_id: Joi.number().required(),
+  subsidary_id: Joi.number().required(),
+  createdBy: Joi.number().required(),
+});
+
+const userSchema = { createUserSchema, createRoleSchema,userSubsidary };
 module.exports = userSchema;
