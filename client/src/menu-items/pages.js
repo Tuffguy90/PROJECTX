@@ -148,6 +148,22 @@ const subsidaryMatrixMap = {
     ]
 };
 
+const userSubsidary = {
+    id: 'group-sub-mat5',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'userSub',
+            title: 'User Subsidary Mapings',
+            type: 'item',
+            url: '/user-sub',
+            icon: icons.ProfileOutlined,
+            breadcrumbs: false
+        }
+    ]
+};
+
 const pages = {
     subsidaries,
     matrix,
@@ -155,7 +171,8 @@ const pages = {
     users,
     report,
     subsidaryMatrixMap,
-    role
+    role,
+    userSubsidary
 };
 
 export default pages;

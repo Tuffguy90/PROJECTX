@@ -47,7 +47,7 @@ const list = async (req, res) => {
       include: [
         {
           model: db.tbl_user_masters,
-          as: "users",
+          as: "user",
         },
       ],
     }

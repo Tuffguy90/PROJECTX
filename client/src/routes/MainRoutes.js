@@ -10,6 +10,7 @@ import { SubsidaryMatrixMap } from 'pages/subsidaryMatrixMap/index';
 import CreateUser from 'pages/user/CreateUser';
 import { Report } from 'pages/report/index';
 import Protected from './Protected';
+import { UserSubsidary } from 'pages/user/UserSubsidary';
 // import { RoleMaster } from 'pages/roles/index';
 
 // render - dashboard
@@ -74,7 +75,15 @@ const MainRoutes = {
         {
             path: '/user-profile',
             element: <UserProfile />
-        }
+        },
+        {
+            path: '/user-sub',
+            element: (
+                <Protected>
+                    <UserSubsidary isSuper={true} />
+                </Protected>
+            )
+        },
         // {
         //     path: '/sub-matrix',
         //     element: (

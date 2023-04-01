@@ -256,20 +256,12 @@ const userList = async (req, res) => {
         "mobile",
         "email",
         "address",
-        "subsidary_id",
         "password",
         "password_value",
         "status",
         "is_add",
         "is_edit",
         "is_delete",
-      ],
-      include: [
-        {
-          model: SUBSIDARY,
-          attributes: ["name", "code", "id", "short_name"],
-          as: "subsidary",
-        },
       ],
       logging: false,
       where: whereCondition,
@@ -295,7 +287,7 @@ const mapUserSubsidary = async (req, res) => {
     let tokenUserData = extractTokenInfo(req);
     let body = req.body;
     if (body?.key) {
-      let isDuplicate = await UserSubSidary.finAll({
+      let isDuplicate = await UserSubSidary.findOne({
         where: body?.values,
       });
       if (isDuplicate) {
@@ -314,7 +306,7 @@ const mapUserSubsidary = async (req, res) => {
         error: validate?.error,
       });
     }
-    let isDuplicate = await UserSubSidary.finAll({
+    let isDuplicate = await UserSubSidary.findOne({
       where: req.body,
     });
     if (isDuplicate) {
@@ -352,16 +344,18 @@ const removeUserSubSidaryMapings = async (req, res) => {
       resp,
     });
   } catch (error) {
-    return res.status(500).send({ message: err?.message, data: [] });
+    return res.status(500).send({ message: error?.message, data: [] });
   }
 };
 
 const userSubsidaryList = async (req, res) => {
   try {
-    let resp = await UserSubSidary.findAll();
+    let resp = await UserSubSidary.findAll({
+      attributes:['id','user_id','subsidary_id']
+    });
     return res.status(200).send({
       message: "Success",
-      resp,
+      data: resp,
     });
   } catch (error) {
     return res.status(500).send({ message: err?.message, data: [] });
