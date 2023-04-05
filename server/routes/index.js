@@ -32,6 +32,7 @@ router.get("/get-report", reportController.list);
 router.get("/get-roles", roleController.list);
 router.get("/get-dashboard-count", reportController.showDashboardCountValue);
 router.get("/get-graph-data", reportController.getGraphData);
-router.get("/delete-user-subsudary", userRoutes.removeUserSubSidaryMapings);
+router.get("/delete-user-subsudary/:id?", userRoutes.removeUserSubSidaryMapings);
+router.get("/user-subsidary", userRoutes.userSubsidaryList);
 
 module.exports = router

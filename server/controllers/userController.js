@@ -45,7 +45,6 @@ const login = async (req, res) => {
     };
 
     let user = await USER.findOne(conditions);
-    console.log("user", user);
     // user = JSON.parse(JSON.stringify(user));
     // if (user.role_id == 1) {
     //   let subsidary = await SUBSIDARY.findAll({
@@ -257,20 +256,12 @@ const userList = async (req, res) => {
         "mobile",
         "email",
         "address",
-        "subsidary_id",
         "password",
         "password_value",
         "status",
         "is_add",
         "is_edit",
         "is_delete",
-      ],
-      include: [
-        {
-          model: SUBSIDARY,
-          attributes: ["name", "code", "id", "short_name"],
-          as: "subsidary",
-        },
       ],
       logging: false,
       where: whereCondition,
@@ -296,6 +287,15 @@ const mapUserSubsidary = async (req, res) => {
     let tokenUserData = extractTokenInfo(req);
     let body = req.body;
     if (body?.key) {
+      let isDuplicate = await UserSubSidary.findOne({
+        where: body?.values,
+      });
+      if (isDuplicate) {
+        return res.status(409).send({
+          message: "Duplicate Data found",
+          data: isDuplicate,
+        });
+      }
       return helper.updateModel("usersubsidary", body.values, body.key, res);
     }
     body.createdBy = tokenUserData?.id || null;
@@ -304,6 +304,15 @@ const mapUserSubsidary = async (req, res) => {
       return res.status(400).send({
         message: "Validation Error",
         error: validate?.error,
+      });
+    }
+    let isDuplicate = await UserSubSidary.findOne({
+      where: req.body,
+    });
+    if (isDuplicate) {
+      return res.status(409).send({
+        message: "Duplicate Data found",
+        data: isDuplicate,
       });
     }
     let resp = await UserSubSidary.create(req.body);
@@ -335,6 +344,20 @@ const removeUserSubSidaryMapings = async (req, res) => {
       resp,
     });
   } catch (error) {
+    return res.status(500).send({ message: error?.message, data: [] });
+  }
+};
+
+const userSubsidaryList = async (req, res) => {
+  try {
+    let resp = await UserSubSidary.findAll({
+      attributes:['id','user_id','subsidary_id']
+    });
+    return res.status(200).send({
+      message: "Success",
+      data: resp,
+    });
+  } catch (error) {
     return res.status(500).send({ message: err?.message, data: [] });
   }
 };
@@ -346,6 +369,7 @@ const userRoutes = {
   userList,
   mapUserSubsidary,
   removeUserSubSidaryMapings,
+  userSubsidaryList,
 };
 
 module.exports = userRoutes;

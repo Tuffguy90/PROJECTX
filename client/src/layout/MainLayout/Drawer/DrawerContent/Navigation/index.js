@@ -22,7 +22,7 @@ const Navigation = () => {
         let menuItems = {};
         if (userData?.role_id == 1) {
             setMenuItem({
-                items: [dashboard, pages.subsidaries, pages.matrix, pages.heads, pages.report, pages.users]
+                items: [dashboard, pages.subsidaries, pages.matrix, pages.heads, pages.report, pages.users,pages.userSubsidary]
             });
         } else {
             setMenuItem({
