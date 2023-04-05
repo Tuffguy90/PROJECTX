@@ -205,9 +205,9 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
                                 <Popup title="Head" showTitle={true} />
                             </Editing>
                             <SearchPanel visible={true} highlightCaseSensitive={true} />
-                            <Column dataField="mattrix_name" width={160} allowEditing={false}></Column>
-                            <Column dataField="head_name" width={180} allowEditing={false}></Column>
-                            <Column dataField="target" allowEditing={false} width={75}></Column>
+                            <Column dataField="mattrix_name" width={150} allowEditing={false}></Column>
+                            <Column dataField="head_name" width={120} allowEditing={false}></Column>
+                            <Column dataField="target" allowEditing={false} width={60}></Column>
                             <Column dataField="data[0].month_value" caption="April"></Column>
                             <Column dataField="data[1].month_value" caption="May"></Column>
                             <Column dataField="data[2].month_value" caption="June"></Column>

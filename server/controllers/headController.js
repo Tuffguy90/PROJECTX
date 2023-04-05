@@ -19,7 +19,6 @@ const create = async (req, res) => {
         error: validate?.error,
       })
     }
-    console.log("here...........", body)
     const isDupl = await HEAD.findOne({
       where: {
         head_name: body.head_name,
@@ -129,7 +128,6 @@ const list = async (req, res) => {
       data: matrix,
     })
   } catch (err) {
-    console.log("error-in-matrix-list", err)
     return res.status(500).send("Internal Server Error")
   }
 }

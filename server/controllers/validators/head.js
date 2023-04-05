@@ -5,6 +5,7 @@ const createHeadSchema = Joi.object({
   mattrix_id: Joi.number().required(),
   head_name: Joi.string().required(),
   target: Joi.number().required(),
+  financial_year:Joi.number().required(),
   sub_mat_id: Joi.number(),
   status: Joi.number().required(),
   createdBy: Joi.number().required(),
