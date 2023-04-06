@@ -15,14 +15,23 @@ const Navigation = () => {
     const dispatch = useDispatch();
     const { userData } = useSelector((state) => state.user);
     const [menuItem, setMenuItem] = useState({
-        items: [dashboard, pages.subsidaries, pages.matrix, pages.heads, pages.report, pages.users]
+        items: [dashboard, pages.subsidaries, pages.childSubsidaries, pages.matrix, pages.heads, pages.report, pages.users]
     });
 
     useEffect(() => {
         let menuItems = {};
         if (userData?.role_id == 1) {
             setMenuItem({
-                items: [dashboard, pages.subsidaries, pages.matrix, pages.heads, pages.report, pages.users,pages.userSubsidary]
+                items: [
+                    dashboard,
+                    pages.subsidaries,
+                    pages.childSubsidaries,
+                    pages.matrix,
+                    pages.heads,
+                    pages.report,
+                    pages.users,
+                    pages.userSubsidary
+                ]
             });
         } else {
             setMenuItem({

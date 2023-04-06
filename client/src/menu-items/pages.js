@@ -48,7 +48,23 @@ const subsidaries = {
             url: '/subsidaries',
             icon: icons.ProfileOutlined,
             breadcrumbs: false
-        },
+        }
+    ]
+};
+
+const childSubsidaries = {
+    id: 'group-child-sub',
+    title: 'Navigation',
+    type: 'group',
+    children: [
+        {
+            id: 'child-subsidaries',
+            title: 'Child-Subsidary',
+            type: 'item',
+            url: '/child-subsidaries',
+            icon: icons.ProfileOutlined,
+            breadcrumbs: false
+        }
     ]
 };
 
@@ -172,7 +188,8 @@ const pages = {
     report,
     subsidaryMatrixMap,
     role,
-    userSubsidary
+    userSubsidary,
+    childSubsidaries
 };
 
 export default pages;

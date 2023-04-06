@@ -10,7 +10,13 @@ import subsidaryService from 'services/subsidary.service';
 import Dot from 'components/@extended/Dot';
 import { Lookup, Popup, RequiredRule } from '../../../node_modules/devextreme-react/data-grid';
 
-export const Subsidary = () => {
+export const ChildSubsidiary = () => {
+    const [childSubsidariesList, setChildSubsidariesList] = useState([]);
+    useEffect(() => {
+        let resData = subsidaryService.subsidaryStore(1);
+        console.log('resData', resData);
+        setChildSubsidariesList(resData);
+    }, []);
     const statusCell = (options) => {
         const color = options.data?.status === 1 ? 'success' : 'danger';
         const title = options.data?.status === 1 ? 'Active' : 'Inactive';
@@ -34,9 +40,9 @@ export const Subsidary = () => {
                 }}
             >
                 <MainCard sx={{ m: 1, p: 1 }} content={false}>
-                    <h1>Main Subsidaries</h1>
+                    <h1>Child Subsidaries</h1>
                     <DataGrid
-                        dataSource={subsidaryService.subsidaryStore}
+                        dataSource={childSubsidariesList}
                         allowColumnReordering={true}
                         rowAlternationEnabled={true}
                         showBorders={true}
@@ -47,6 +53,9 @@ export const Subsidary = () => {
                         <SearchPanel visible={true} highlightCaseSensitive={true} />
                         <Column dataField="id" visible={false} allowAdding={false} allowEditing={false}></Column>
                         <Column dataField="name">
+                            <RequiredRule />
+                        </Column>
+                        <Column dataField="parent_id" caption="Parent Name">
                             <RequiredRule />
                         </Column>
                         <Column dataField="code">

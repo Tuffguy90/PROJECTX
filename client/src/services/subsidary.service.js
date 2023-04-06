@@ -29,20 +29,27 @@ const getSubsidaryMattrix = async () => {
         .then((response) => response?.data);
 };
 
-const subsidaryStore = new CustomStore({
-    key: 'id',
-    load: () => sendRequest(`${API_BASE_URL}/get-subsidaries`),
-    insert: (values) => sendRequest(`${API_BASE_URL}/create-subsidary`, 'POST', { ...values }),
-    update: (key, values) =>
-        sendRequest(`${API_BASE_URL}/create-subsidary`, 'POST', {
-            key,
-            values: values
-        })
-    // remove: (key) =>
-    //     sendRequest(`${API_BASE_URL}/DeleteOrder`, 'DELETE', {
-    //         key
-    //     })
-});
+const subsidaryStore = (list_type = 0) =>
+    new CustomStore({
+        key: 'id',
+        load: async () => {
+            return sendRequest(`${API_BASE_URL}/get-subsidaries?list_type=${list_type}`).then((response) => {
+                response = response?.data;
+                console.log('response', response);
+                return response?.data;
+            });
+        },
+        insert: (values) => sendRequest(`${API_BASE_URL}/create-subsidary`, 'POST', { ...values }),
+        update: (key, values) =>
+            sendRequest(`${API_BASE_URL}/create-subsidary`, 'POST', {
+                key,
+                values: values
+            })
+        // remove: (key) =>
+        //     sendRequest(`${API_BASE_URL}/DeleteOrder`, 'DELETE', {
+        //         key
+        //     })
+    });
 
 const userSubsidary = new CustomStore({
     key: 'id',
@@ -53,8 +60,7 @@ const userSubsidary = new CustomStore({
     //         key,
     //         values: values
     //     })
-    remove: (key) =>
-        sendRequest(`${API_BASE_URL}/delete-user-subsudary/${key}`, 'get')
+    remove: (key) => sendRequest(`${API_BASE_URL}/delete-user-subsudary/${key}`, 'get')
 });
 
 const subsidaryService = {
