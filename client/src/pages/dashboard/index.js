@@ -16,8 +16,9 @@ const Dashboard = () => {
     let loginUserData = JSON.parse(localStorage.getItem('_userData'));
     useEffect(() => {
         let subId = selectedSubsidiary;
-        !loginUserData.subsidary || loginUserData.subsidary.length === 0 ? loadSubsidiaries() : (subId = loginUserData?.subsidary?.id);
-        setSubsidiary(subId);
+        // console.log(loginUserData);
+        !loginUserData.subsidary || loginUserData.subsidary.length === 0 ? loadSubsidiaries() : setSubsidiaries(loginUserData.subsidary);
+        // setSubsidiary(subId);
         loadGraphData(new Date().getFullYear(), subId);
         loginUserData?.role_id === 1 &&
             reportService.getDashboardCount().then(({ data }) => {
@@ -26,6 +27,7 @@ const Dashboard = () => {
     }, []);
 
     const loadSubsidiaries = async () => {
+        console.log('called loadSubsidiaries');
         const data = await subsidaryService.formattedSubSidaryList();
         setSubsidiaries(data?.data);
     };
@@ -88,8 +90,8 @@ const Dashboard = () => {
                                     onChange={(e) => setSubsidiary(e?.target?.value)}
                                 >
                                     <option value="">--SELECT--</option>
-                                    {subsidiaries.map((eachSubsidiary) => {
-                                        return <option value={eachSubsidiary.id}>{eachSubsidiary.h_name}</option>;
+                                    {subsidiaries.map((eachSubsidiary,index) => {
+                                        return <option key={index} value={eachSubsidiary.id}>{eachSubsidiary.h_name}</option>;
                                     })}
                                 </select>
                             </>

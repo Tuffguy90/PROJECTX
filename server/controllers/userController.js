@@ -34,7 +34,7 @@ const login = async (req, res) => {
       include: [
         {
           model: SUBSIDARY,
-          attributes: ["name", "id"],
+          attributes: ["name", ["name","h_name"], "id"],
           as: "subsidary",
         },
       ],

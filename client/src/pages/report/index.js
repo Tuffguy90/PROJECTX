@@ -47,7 +47,7 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
 
     useEffect(() => {
         let subId = selectedSubsidary;
-        loginUserData.role_id === 1 ? loadSubsidaries() : (subId = loginUserData?.subsidary?.id);
+        !loginUserData.subsidary || loginUserData.subsidary.length === 0 ? loadSubsidaries() : setSubsidaries(loginUserData.subsidary);
         setSubsidary(subId);
         loadReport(new Date().getFullYear(), subId);
         loadMattrix();
