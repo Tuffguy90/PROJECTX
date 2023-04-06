@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       })
       this.hasMany(models.tbl_subsidary_masters, {
         foreignKey: "parent_id",
-        as: "child_subsidiary",
+        as: "parent_subsidiary",
       });
     }
   }
