@@ -3,6 +3,8 @@ const SUBSIDARY = db.tbl_subsidary_masters;
 const SUBMATTRIX = db.tbl_subsidary_mattrix_mapings;
 const subsidarySchema = require("./validators/subsidary");
 const helper = require("../helper/index");
+const { QueryTypes } = require('sequelize');
+ 
 const create = async (req, res) => {
   try {
     const body = req.body;
@@ -51,7 +53,7 @@ const list = async (req, res) => {
         },
         {
           model: db.tbl_subsidary_masters,
-          attributes: ["id","name"],
+          attributes: ["id", "name"],
           as: "parent_subsidiary",
           required: false,
         },
@@ -76,9 +78,28 @@ const list = async (req, res) => {
   }
 };
 
+const formattedList = async (req, res) => {
+  try {
+    let q = `SELECT c.id,c.name,CASE WHEN p.name is 
+    null THEN c.name ELSE concat(p.name,'->',c.name)  
+    END h_name  FROM exdb.tbl_subsidary_masters p right 
+    join exdb.tbl_subsidary_masters c on p.id = c.parent_id where c.deletedAt is  null`;
+    let subs = await db.sequelize.query(q,{
+      type: QueryTypes.SELECT
+    });
+    return res.send({
+      message: "List of Subsidaries",
+      data: subs,
+    });
+  } catch (error) {
+    return res.status(500).send(err?.message);
+  }
+};
+
 const subsidaryRoutes = {
   create,
   list,
+  formattedList,
 };
 
 module.exports = subsidaryRoutes;

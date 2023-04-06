@@ -23,6 +23,7 @@ router.post("/map-user-subsudary", userRoutes.mapUserSubsidary);
 
 /** GET ROUTES */
 router.get("/get-subsidaries", subsidaryRoutes.list);
+router.get("/get-formatted-subsidaries", subsidaryRoutes.formattedList);
 router.get("/get-subsidary-mattrix", mattrixController.listOfSubsidaryMattrix);
 router.get("/get-mattrix", mattrixController.list);
 router.get("/delete-mattrix", mattrixController.remove);
