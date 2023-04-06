@@ -3,7 +3,6 @@ import dashboard from './dashboard';
 import pages from './pages';
 const loginUserData = JSON.parse(localStorage.getItem('_userData'));
 
-
 // ==============================|| MENU ITEMS ||============================== //
 let menuItems = {};
 // if (loginUserData?.role_id == 1) {
@@ -16,7 +15,7 @@ let menuItems = {};
 //     };
 // }
 menuItems = {
-    items: [dashboard, pages.subsidaries, pages.matrix, pages.heads, pages.report, pages.users]
+    items: [dashboard, pages.subsidaries, pages.childSubsidaries, pages.matrix, pages.heads, pages.report, pages.users]
 };
 
 export default menuItems;

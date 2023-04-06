@@ -4,7 +4,8 @@ const SUBMATTRIX = db.tbl_subsidary_mattrix_mapings;
 const subsidarySchema = require("./validators/subsidary");
 const helper = require("../helper/index");
 const { QueryTypes } = require('sequelize');
- 
+const { Op } = require("sequelize");
+
 const create = async (req, res) => {
   try {
     const body = req.body;
@@ -44,7 +45,9 @@ const create = async (req, res) => {
 
 const list = async (req, res) => {
   try {
-    const sub_id = req.query.id;
+    let sub_id = req.query.id || null;
+    let parent_id = req.query.parent_id || 0;
+    let list_type = req.query.list_type || 0; //0-All,1-Parent,2-Child
     var conditions = {
       include: [
         {
@@ -53,12 +56,26 @@ const list = async (req, res) => {
         },
         {
           model: db.tbl_subsidary_masters,
-          attributes: ["id", "name"],
           as: "parent_subsidiary",
-          required: false,
+          attributes: ["id", "name"],
         },
       ],
+      where: {},
+      logging: false,
     };
+    if (list_type !== 0) {
+      Number(list_type) === 1 && (conditions.where.parent_id = 0);
+      Number(list_type) === 2 &&
+        (conditions.where.parent_id = {
+          [Op.ne]: 0,
+        });
+    }
+    if (sub_id !== null) {
+      conditions.where["id"] = sub_id;
+    }
+    if (parent_id !== 0) {
+      conditions.where["parent_id"] = parent_id;
+    }
 
     if (req.body.createdBy !== 1) {
       conditions["include"][0]["where"] = {
@@ -68,7 +85,6 @@ const list = async (req, res) => {
     }
 
     const subs = await SUBSIDARY.findAll(conditions);
-
     return res.send({
       message: "List of Subsidaries",
       data: subs,

@@ -6,11 +6,11 @@ import MainLayout from 'layout/MainLayout';
 import { Subsidary } from 'pages/subsidary/index';
 import { HeadMaster } from 'pages/heads/index';
 import { MatrixMaster } from 'pages/matrix/index';
-import { SubsidaryMatrixMap } from 'pages/subsidaryMatrixMap/index';
 import CreateUser from 'pages/user/CreateUser';
 import { Report } from 'pages/report/index';
 import Protected from './Protected';
 import { UserSubsidary } from 'pages/user/UserSubsidary';
+import { ChildSubsidiary } from 'pages/subsidary/ChildSubsidiary';
 // import { RoleMaster } from 'pages/roles/index';
 
 // render - dashboard
@@ -45,6 +45,14 @@ const MainRoutes = {
             element: (
                 <Protected isSuper={true}>
                     <Subsidary />
+                </Protected>
+            )
+        },
+        {
+            path: '/child-subsidaries',
+            element: (
+                <Protected isSuper={true}>
+                    <ChildSubsidiary />
                 </Protected>
             )
         },

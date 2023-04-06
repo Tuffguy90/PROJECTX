@@ -10,7 +10,6 @@ import pages from 'menu-items/pages';
 import dashboard from 'menu-items/dashboard';
 import { userData as userAction } from 'store/reducers/user';
 
-
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
 
 const Navigation = () => {
@@ -19,21 +18,29 @@ const Navigation = () => {
 
     useEffect(() => {
         if (!userData.id) {
-            console.log(userData);
             let user = JSON.parse(localStorage.getItem('_userData'));
             dispatch(userAction({ userData: user }));
         }
     }, []);
 
     const [menuItem, setMenuItem] = useState({
-        items: [dashboard, pages.subsidaries, pages.matrix, pages.heads, pages.report, pages.users]
+        items: [dashboard, pages.subsidaries, pages.childSubsidaries, pages.matrix, pages.heads, pages.report, pages.users]
     });
 
     useEffect(() => {
         let menuItems = {};
         if (userData?.role_id == 1) {
             setMenuItem({
-                items: [dashboard, pages.subsidaries, pages.matrix, pages.heads, pages.report, pages.users, pages.userSubsidary]
+                items: [
+                    dashboard,
+                    pages.subsidaries,
+                    pages.matrix,
+                    pages.heads,
+                    pages.report,
+                    pages.users,
+                    pages.userSubsidary,
+                    pages.childSubsidaries
+                ]
             });
         } else {
             setMenuItem({

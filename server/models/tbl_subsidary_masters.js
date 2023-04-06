@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         through: models.tbl_user_subsidary_mappings, foreignKey: "subsidary_id",
         as: "user",
       })
-      this.hasMany(models.tbl_subsidary_masters, {
+      this.belongsTo(models.tbl_subsidary_masters, {
         foreignKey: "parent_id",
         as: "parent_subsidiary",
       });
