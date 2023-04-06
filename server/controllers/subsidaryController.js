@@ -45,7 +45,7 @@ const create = async (req, res) => {
 const list = async (req, res) => {
   try {
     let sub_id = req.query.id || null;
-    let parent_id = req.query.parent_id || null;
+    let parent_id = req.query.parent_id || 0;
     let list_type = req.query.list_type || 0; //0-All,1-Parent,2-Child
     var conditions = {
       include: [
@@ -55,25 +55,24 @@ const list = async (req, res) => {
         },
         {
           model: db.tbl_subsidary_masters,
-          as: "child_subsidiary",
-        },
-        {
-          model: db.tbl_subsidary_masters,
           as: "parent_subsidiary",
+          attributes: ["id", "name"],
         },
       ],
+      where: {},
+      logging: false,
     };
     if (list_type !== 0) {
-      Number(list_type) === 1 && (conditions.where["parent_id"] = 0);
+      Number(list_type) === 1 && (conditions.where.parent_id = 0);
       Number(list_type) === 2 &&
-        (conditions.where["parent_id"] = {
+        (conditions.where.parent_id = {
           [Op.ne]: 0,
         });
     }
     if (sub_id !== null) {
       conditions.where["id"] = sub_id;
     }
-    if (parent_id !== null) {
+    if (parent_id !== 0) {
       conditions.where["parent_id"] = parent_id;
     }
 
@@ -85,7 +84,6 @@ const list = async (req, res) => {
     }
 
     const subs = await SUBSIDARY.findAll(conditions);
-    console.log("subs", subs);
     return res.send({
       message: "List of Subsidaries",
       data: subs,

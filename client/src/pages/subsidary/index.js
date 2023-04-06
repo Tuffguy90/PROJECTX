@@ -36,7 +36,7 @@ export const Subsidary = () => {
                 <MainCard sx={{ m: 1, p: 1 }} content={false}>
                     <h1>Main Subsidaries</h1>
                     <DataGrid
-                        dataSource={subsidaryService.subsidaryStore}
+                        dataSource={subsidaryService.subsidaryStore(1)}
                         allowColumnReordering={true}
                         rowAlternationEnabled={true}
                         showBorders={true}

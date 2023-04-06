@@ -29,16 +29,10 @@ const getSubsidaryMattrix = async () => {
         .then((response) => response?.data);
 };
 
-const subsidaryStore = (list_type = 0) =>
+const subsidaryStore = (list_type = 0, parent_id = 0) =>
     new CustomStore({
         key: 'id',
-        load: async () => {
-            return sendRequest(`${API_BASE_URL}/get-subsidaries?list_type=${list_type}`).then((response) => {
-                response = response?.data;
-                console.log('response', response);
-                return response?.data;
-            });
-        },
+        load: () => sendRequest(`${API_BASE_URL}/get-subsidaries?list_type=${list_type}&parent_id=${parent_id}`),
         insert: (values) => sendRequest(`${API_BASE_URL}/create-subsidary`, 'POST', { ...values }),
         update: (key, values) =>
             sendRequest(`${API_BASE_URL}/create-subsidary`, 'POST', {
@@ -63,11 +57,23 @@ const userSubsidary = new CustomStore({
     remove: (key) => sendRequest(`${API_BASE_URL}/delete-user-subsudary/${key}`, 'get')
 });
 
+const getSubsidiariesList = (list_type = 0, parent_id = 0) => {
+    let url = `${API_BASE_URL}/get-subsidaries?list_type=${list_type}&parent_id=${parent_id}`;
+    return axios({
+        url,
+        method: 'GET',
+        headers: authHeader()
+    }).catch((err) => {
+        return err.response;
+    });
+};
+
 const subsidaryService = {
     getSubsidaries,
     getSubsidaryMattrix,
     subsidaryStore,
-    userSubsidary
+    userSubsidary,
+    getSubsidiariesList
 };
 
 export default subsidaryService;

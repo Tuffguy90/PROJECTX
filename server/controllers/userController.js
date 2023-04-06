@@ -308,6 +308,7 @@ const mapUserSubsidary = async (req, res) => {
     }
     let isDuplicate = await UserSubSidary.findOne({
       where: req.body,
+      raw: true,
     });
     if (isDuplicate) {
       return res.status(409).send({
@@ -315,11 +316,32 @@ const mapUserSubsidary = async (req, res) => {
         data: isDuplicate,
       });
     }
-    let resp = await UserSubSidary.create(req.body);
-    return res.status(200).send({
-      message: "Create Successfully",
-      resp,
-    });
+    console.log(isDuplicate);
+    // if (isDuplicate.parent_id == 0) {
+    //   let allChild = await UserSubSidary.findOne({
+    //     attributes: ["id"],
+    //     where: {
+    //       parent_id: isDuplicate.id,
+    //     },
+    //     raw: true,
+    //   });
+    //   let bulkbody = [];
+    //   bulkbody.push(body);
+    //   allChild.forEach(e => {
+    //     bulkbody.push({
+    //       user_id:body.user_id,
+    //       subsidary_id:e.id,
+    //       createdBy: body.createdBy
+    //     });
+    //   });
+    //   console.log('bulkbody',bulkbody);
+    // } else {
+      let resp = await UserSubSidary.create(req.body);
+      return res.status(200).send({
+        message: "Create Successfully",
+        resp,
+      });
+    // }
   } catch (err) {
     return res.status(500).send({ message: err?.message, data: [] });
   }
@@ -351,7 +373,7 @@ const removeUserSubSidaryMapings = async (req, res) => {
 const userSubsidaryList = async (req, res) => {
   try {
     let resp = await UserSubSidary.findAll({
-      attributes:['id','user_id','subsidary_id']
+      attributes: ["id", "user_id", "subsidary_id"],
     });
     return res.status(200).send({
       message: "Success",

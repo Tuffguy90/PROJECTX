@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { Box, Stack, TableContainer, Typography } from '@mui/material';
 import 'devextreme/dist/css/dx.light.css';
 import DataGrid, { Column, Pager, Paging, SearchPanel, Editing } from 'devextreme-react/data-grid';
-const pageSizes = [10, 25, 50, 100];
 import MainCard from 'components/MainCard';
 // service
 import subsidaryService from 'services/subsidary.service';
@@ -11,12 +10,14 @@ import Dot from 'components/@extended/Dot';
 import { Lookup, Popup, RequiredRule } from '../../../node_modules/devextreme-react/data-grid';
 
 export const ChildSubsidiary = () => {
-    const [childSubsidariesList, setChildSubsidariesList] = useState([]);
+    const [parentSubsidiaryList, setParentSubsidiaryList] = useState([]);
+    const [selectedSubsidary, setSubsidary] = useState(1);
     useEffect(() => {
-        let resData = subsidaryService.subsidaryStore(1);
-        console.log('resData', resData);
-        setChildSubsidariesList(resData);
+        subsidaryService.getSubsidiariesList(selectedSubsidary).then((response) => {
+            setParentSubsidiaryList(response?.data?.data);
+        });
     }, []);
+
     const statusCell = (options) => {
         const color = options.data?.status === 1 ? 'success' : 'danger';
         const title = options.data?.status === 1 ? 'Active' : 'Inactive';
@@ -27,6 +28,16 @@ export const ChildSubsidiary = () => {
             </Stack>
         );
     };
+
+    const handleSubmit = () => {
+        const year = new Date().getFullYear();
+        if (!selectedSubsidary) {
+            Swal.fire('Validation Error', 'You must select subsidary first');
+            return;
+        }
+        loadReport(selectedFin?.target?.value || year, selectedSubsidary || 0);
+    };
+
     return (
         <Box>
             <TableContainer
@@ -41,8 +52,31 @@ export const ChildSubsidiary = () => {
             >
                 <MainCard sx={{ m: 1, p: 1 }} content={false}>
                     <h1>Child Subsidaries</h1>
+                    <div className="row">
+                        <div className="col-lg-4">
+                            {parentSubsidiaryList?.length > 0 && (
+                                <>
+                                    <label>Subsidary</label>&nbsp;
+                                    <select
+                                        className="form-control"
+                                        value={selectedSubsidary}
+                                        onChange={(e) => setSubsidary(e.target.value)}
+                                    >
+                                        <option value="">--Select--</option>
+                                        {parentSubsidiaryList.map((eachSubsidary) => {
+                                            return (
+                                                <option key={eachSubsidary.id} value={eachSubsidary.id}>
+                                                    {eachSubsidary.name}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </>
+                            )}
+                        </div>
+                    </div>
                     <DataGrid
-                        dataSource={childSubsidariesList}
+                        dataSource={subsidaryService.subsidaryStore(2, selectedSubsidary)}
                         allowColumnReordering={true}
                         rowAlternationEnabled={true}
                         showBorders={true}
@@ -57,6 +91,7 @@ export const ChildSubsidiary = () => {
                         </Column>
                         <Column dataField="parent_id" caption="Parent Name">
                             <RequiredRule />
+                            <Lookup dataSource={parentSubsidiaryList} displayExpr="name" valueExpr="id" />
                         </Column>
                         <Column dataField="code">
                             <RequiredRule />

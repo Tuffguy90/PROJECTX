@@ -8,12 +8,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import pages from 'menu-items/pages';
 import dashboard from 'menu-items/dashboard';
+import { userData as userAction } from 'store/reducers/user';
 
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
 
 const Navigation = () => {
     const dispatch = useDispatch();
     const { userData } = useSelector((state) => state.user);
+
+    useEffect(() => {
+        if (!userData.id) {
+            let user = JSON.parse(localStorage.getItem('_userData'));
+            dispatch(userAction({ userData: user }));
+        }
+    }, []);
+
     const [menuItem, setMenuItem] = useState({
         items: [dashboard, pages.subsidaries, pages.childSubsidaries, pages.matrix, pages.heads, pages.report, pages.users]
     });
@@ -25,12 +34,12 @@ const Navigation = () => {
                 items: [
                     dashboard,
                     pages.subsidaries,
-                    pages.childSubsidaries,
                     pages.matrix,
                     pages.heads,
                     pages.report,
                     pages.users,
-                    pages.userSubsidary
+                    pages.userSubsidary,
+                    pages.childSubsidaries
                 ]
             });
         } else {
