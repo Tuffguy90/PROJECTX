@@ -13,10 +13,15 @@ module.exports = (sequelize, DataTypes) => {
         through: models.tbl_user_subsidary_mappings, foreignKey: "subsidary_id",
         as: "user",
       })
+      this.hasMany(models.tbl_subsidary_masters, {
+        foreignKey: "parent_id",
+        as: "child_subsidiary",
+      });
     }
   }
   tbl_subsidary_masters.init(
     {
+      parent_id: DataTypes.INTEGER(5),
       name: DataTypes.STRING,
       code: DataTypes.STRING,
       email: DataTypes.STRING,

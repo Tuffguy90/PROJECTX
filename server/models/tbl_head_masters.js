@@ -43,6 +43,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      financial_year: {
+        type: DataTypes.INTEGER(5),
+        allowNull: true,
+      },
       status: {
         type: DataTypes.INTEGER,
         allowNull: false,

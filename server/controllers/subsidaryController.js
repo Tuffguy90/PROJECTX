@@ -66,8 +66,7 @@ const list = async (req, res) => {
       data: subs,
     })
   } catch (err) {
-    console.log("error-in-subsidary-list", err)
-    return res.status(500).send("Internal Server Error")
+    return res.status(500).send(err?.message)
   }
 }
 

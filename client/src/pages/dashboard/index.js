@@ -16,7 +16,7 @@ const Dashboard = () => {
     let loginUserData = JSON.parse(localStorage.getItem('_userData'));
     useEffect(() => {
         let subId = selectedSubsidiary;
-        !loginUserData.subsidary ? loadSubsidiaries() : (subId = loginUserData?.subsidary?.id);
+        !loginUserData.subsidary || loginUserData.subsidary.length === 0 ? loadSubsidiaries() : (subId = loginUserData?.subsidary?.id);
         setSubsidiary(subId);
         loadGraphData(new Date().getFullYear(), subId);
         loginUserData?.role_id === 1 &&
@@ -110,7 +110,13 @@ const Dashboard = () => {
                     </Grid>
                 </Grid>
                 <MainCard content={false} sx={{ mt: 1.5 }}>
-                    <Box sx={{ pt: 1, pr: 2 }}>{graphData?.length > 0 && <IncomeAreaChart series={graphData} />}</Box>
+                    <Box sx={{ pt: 1, pr: 2 }}>
+                        {graphData?.length > 0 ? (
+                            <IncomeAreaChart series={graphData} />
+                        ) : (
+                            <h5 style={{ textAlign: 'center' }} className='p-5'>Data Not Found.</h5>
+                        )}
+                    </Box>
                 </MainCard>
             </Grid>
 

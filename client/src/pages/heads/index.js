@@ -77,6 +77,9 @@ export const HeadMaster = () => {
                         <Column dataField="target" dataType="number">
                             <RequiredRule />
                         </Column>
+                        <Column dataField="financial_year" dataType="number">
+                            <RequiredRule />
+                        </Column>
                         <Column dataField="subsidary_id" caption="Subsidary">
                             <RequiredRule />
                             <Lookup dataSource={subsidaries} displayExpr="name" valueExpr="id" />
