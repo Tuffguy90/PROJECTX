@@ -18,7 +18,7 @@ export const UserSubsidary = () => {
         authService.getUserList().then(e=>{
             setUser(e?.data?.data?.data);
         })
-        subsidaryService.subsidaryStore.load().then(e=>{
+        subsidaryService.formattedSubSidaryList().then(e=>{
             setSubsidary(e.data);
         })
     },[])
@@ -53,7 +53,7 @@ export const UserSubsidary = () => {
                         </Column>
                         <Column dataField="subsidary_id" caption="Subsidary Name">
                             <RequiredRule />
-                            <Lookup dataSource={subsidary} displayExpr="name" valueExpr="id" />
+                            <Lookup dataSource={subsidary} displayExpr="h_name" valueExpr="id" />
                         </Column>
                         <Paging />
                     </DataGrid>

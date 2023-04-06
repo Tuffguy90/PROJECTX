@@ -68,12 +68,26 @@ const getSubsidiariesList = (list_type = 0, parent_id = 0) => {
     });
 };
 
+
+const formattedSubSidaryList = async () => {
+    return axios({
+        url: `${API_BASE_URL}/get-formatted-subsidaries`,
+        method: 'GET',
+        headers: authHeader()
+    })
+        .catch((err) => {
+            return err.message;
+        })
+        .then((response) => response?.data);
+};
+
 const subsidaryService = {
     getSubsidaries,
     getSubsidaryMattrix,
     subsidaryStore,
     userSubsidary,
-    getSubsidiariesList
+    getSubsidiariesList,
+    formattedSubSidaryList
 };
 
 export default subsidaryService;

@@ -67,7 +67,7 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
     // };
 
     const loadSubsidaries = async () => {
-        const data = await subsidaryService.getSubsidaries();
+        const data = await subsidaryService.formattedSubSidaryList();
         setSubsidaries(data?.data);
     };
     const loadReport = async (financial_year, subsidary_id) => {
@@ -161,7 +161,7 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
                                         >
                                             <option value="">--SELECT--</option>
                                             {subsidaries.map((eachSubsidary) => {
-                                                return <option value={eachSubsidary.id}>{eachSubsidary.name}</option>;
+                                                return <option value={eachSubsidary.id}>{eachSubsidary.h_name}</option>;
                                             })}
                                         </select>
                                     </>

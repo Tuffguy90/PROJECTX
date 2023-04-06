@@ -26,7 +26,7 @@ const Dashboard = () => {
     }, []);
 
     const loadSubsidiaries = async () => {
-        const data = await subsidaryService.getSubsidaries();
+        const data = await subsidaryService.formattedSubSidaryList();
         setSubsidiaries(data?.data);
     };
 
@@ -89,7 +89,7 @@ const Dashboard = () => {
                                 >
                                     <option value="">--SELECT--</option>
                                     {subsidiaries.map((eachSubsidiary) => {
-                                        return <option value={eachSubsidiary.id}>{eachSubsidiary.name}</option>;
+                                        return <option value={eachSubsidiary.id}>{eachSubsidiary.h_name}</option>;
                                     })}
                                 </select>
                             </>
