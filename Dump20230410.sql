@@ -35,7 +35,7 @@ CREATE TABLE `sequelizemeta` (
 
 LOCK TABLES `sequelizemeta` WRITE;
 /*!40000 ALTER TABLE `sequelizemeta` DISABLE KEYS */;
-INSERT INTO `sequelizemeta` VALUES ('20230319071442-create-tbl-user-masters.js'),('20230319100959-create-tbl-subsidary-masters.js'),('20230319101142-create-tbl-mattrix-masters.js'),('20230319101257-create-tbl-subsidary-mattrix-mapings.js'),('20230319101653-create-tbl-head-masters.js'),('20230319101812-create-tbl-head-meta.js'),('20230319175256-modify_user_masters_add_new_fields.js'),('20230323180300-create-tbl-role-master.js'),('20230323200811-create-tbl-role-module-mappings.js'),('20230323201805-create-tbl-module-masters.js'),('20230325185033-modify-tbl_users_maters.js'),('20230326161639-modifify-tbl_user_masters.js');
+INSERT INTO `sequelizemeta` VALUES ('20230319071442-create-tbl-user-masters.js'),('20230319100959-create-tbl-subsidary-masters.js'),('20230319101142-create-tbl-mattrix-masters.js'),('20230319101257-create-tbl-subsidary-mattrix-mapings.js'),('20230319101653-create-tbl-head-masters.js'),('20230319101812-create-tbl-head-meta.js'),('20230319175256-modify_user_masters_add_new_fields.js'),('20230323180300-create-tbl-role-master.js'),('20230323200811-create-tbl-role-module-mappings.js'),('20230323201805-create-tbl-module-masters.js'),('20230325185033-modify-tbl_users_maters.js'),('20230326161639-modifify-tbl_user_masters.js'),('20230329174644-modify_tbl_head_masters.js'),('20230401102007-create-tbl-user-subsidary-mappings.js'),('20230401153231-modifiy-tabl_head_master.js'),('20230405184039-modify-tbl_subsidary_masters.js');
 /*!40000 ALTER TABLE `sequelizemeta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,6 +52,7 @@ CREATE TABLE `tbl_head_masters` (
   `subsidary_id` int NOT NULL,
   `mattrix_id` int NOT NULL,
   `head_name` varchar(100) DEFAULT NULL,
+  `financial_year` int DEFAULT NULL,
   `status` int NOT NULL DEFAULT '1',
   `createdBy` int DEFAULT NULL,
   `updatedBy` int DEFAULT NULL,
@@ -59,8 +60,9 @@ CREATE TABLE `tbl_head_masters` (
   `deletedAt` datetime DEFAULT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
+  `target` int DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +71,7 @@ CREATE TABLE `tbl_head_masters` (
 
 LOCK TABLES `tbl_head_masters` WRITE;
 /*!40000 ALTER TABLE `tbl_head_masters` DISABLE KEYS */;
-INSERT INTO `tbl_head_masters` VALUES (1,1,1,1,'head1',1,1,NULL,NULL,NULL,'2023-03-26 07:38:31','2023-03-26 07:41:23'),(2,1,1,2,'head2',1,1,NULL,NULL,NULL,'2023-03-26 07:38:57','2023-03-26 07:38:57');
+INSERT INTO `tbl_head_masters` VALUES (1,1,1,1,'head1',NULL,1,1,NULL,NULL,NULL,'2023-03-26 07:38:31','2023-03-26 07:41:23',0),(2,1,1,2,'head2',NULL,1,1,NULL,NULL,NULL,'2023-03-26 07:38:57','2023-03-26 07:38:57',0);
 /*!40000 ALTER TABLE `tbl_head_masters` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,7 +97,7 @@ CREATE TABLE `tbl_head_meta` (
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +128,7 @@ CREATE TABLE `tbl_mattrix_masters` (
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +161,7 @@ CREATE TABLE `tbl_module_masters` (
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,7 +192,7 @@ CREATE TABLE `tbl_role_masters` (
   `updatedAt` datetime DEFAULT NULL,
   `deletedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -220,7 +222,7 @@ CREATE TABLE `tbl_role_module_mappings` (
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -241,6 +243,7 @@ DROP TABLE IF EXISTS `tbl_subsidary_masters`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_subsidary_masters` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `parent_id` int NOT NULL DEFAULT '0',
   `name` varchar(150) DEFAULT NULL,
   `code` varchar(100) NOT NULL,
   `short_name` varchar(30) DEFAULT NULL,
@@ -256,7 +259,7 @@ CREATE TABLE `tbl_subsidary_masters` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `mobile` (`mobile`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -265,7 +268,7 @@ CREATE TABLE `tbl_subsidary_masters` (
 
 LOCK TABLES `tbl_subsidary_masters` WRITE;
 /*!40000 ALTER TABLE `tbl_subsidary_masters` DISABLE KEYS */;
-INSERT INTO `tbl_subsidary_masters` VALUES (1,'Subsidary1','13143','sb1','sub1@mail.com','11223344',1,1,NULL,NULL,NULL,'2023-03-25 19:23:50','2023-03-25 19:23:50'),(2,'Subsidary2','12241244','s31221','sdffgfd@mail.com','6754636346',1,1,NULL,NULL,NULL,'2023-03-26 08:08:59','2023-03-26 08:08:59');
+INSERT INTO `tbl_subsidary_masters` VALUES (1,0,'Subsidary1','13143','sb1','sub1@mail.com','11223344',1,1,NULL,NULL,NULL,'2023-03-25 19:23:50','2023-03-25 19:23:50'),(2,0,'Subsidary2','12241244','s31221','sdffgfd@mail.com','6754636346',1,1,NULL,NULL,NULL,'2023-03-26 08:08:59','2023-03-26 08:08:59'),(3,1,'sdfsfsd','4234','fdsdfsf','fsfsfsdfs','24356',1,1,NULL,NULL,NULL,'2023-03-26 08:08:59','2023-03-26 08:08:59'),(4,2,'effghk','fdggfgdfg','asffasfasf','riadasdassa@mail.com','2727218',1,1,NULL,NULL,NULL,'2023-04-06 19:40:58','2023-04-06 19:40:58');
 /*!40000 ALTER TABLE `tbl_subsidary_masters` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -301,7 +304,7 @@ CREATE TABLE `tbl_user_masters` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `mobile` (`mobile`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -310,8 +313,39 @@ CREATE TABLE `tbl_user_masters` (
 
 LOCK TABLES `tbl_user_masters` WRITE;
 /*!40000 ALTER TABLE `tbl_user_masters` DISABLE KEYS */;
-INSERT INTO `tbl_user_masters` VALUES (1,'super','admin','$2b$10$csmkCzrBPbrCDd2Xo39XYOafN8bFP4cUGoSoDhUp33UlnT0PB6BKG','superadmin@mail.com','1345678','sfgdhjk',1,NULL,1,1,1,NULL,NULL,'2023-03-24 03:03:39','2023-03-27 17:56:24','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6InN1cGVyIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJlbWFpbCI6InN1cGVyYWRtaW5AbWFpbC5jb20iLCJpYXQiOjE2Nzk5Mzk3ODQsImV4cCI6MTY4MDExMjU4NH0.es4MdC7tSEMRHFvA86GenIW9mI6kjCAemi7XAZc8uYg',1,1,1,NULL),(2,'Suvam2','Raj2','$2b$10$csmkCzrBPbrCDd2Xo39XYOafN8bFP4cUGoSoDhUp33UlnT0PB6BKG','suvamraj@mail.com','123456','Kolkata',2,1,1,1,NULL,NULL,NULL,'2023-03-25 19:27:53','2023-03-27 17:54:49','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3RfbmFtZSI6IlN1dmFtMiIsImxhc3RfbmFtZSI6IlJhajIiLCJlbWFpbCI6InN1dmFtcmFqQG1haWwuY29tIiwiaWF0IjoxNjc5OTM5Njg5LCJleHAiOjE2ODAxMTI0ODl9.U7WkMUao3fKvg1XMmQcgV_N0bOwhSw5IFMY9iaBa4Ww',1,1,0,NULL),(3,'joydeep','bandhopadhay','$2b$10$VTR1QkvazN9hcGpHwM38UOIkPHQcnr5vF7zy1cYnFfH/PJC84SwCa','joydeep@mail.com','86752345','Kolkata',2,1,1,1,NULL,NULL,NULL,'2023-03-25 19:36:12','2023-03-25 19:36:12',NULL,0,1,1,NULL);
+INSERT INTO `tbl_user_masters` VALUES (1,'super','admin','$2b$10$csmkCzrBPbrCDd2Xo39XYOafN8bFP4cUGoSoDhUp33UlnT0PB6BKG','superadmin@mail.com','1345678','sfgdhjk',1,NULL,1,1,1,NULL,NULL,'2023-03-24 03:03:39','2023-04-06 21:42:18','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6InN1cGVyIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJlbWFpbCI6InN1cGVyYWRtaW5AbWFpbC5jb20iLCJpYXQiOjE2ODA4MTczMzgsImV4cCI6MTY4MDk5MDEzOH0.WnwWgOAXfrc-RYKMzea1MNEZ5EPo90NmDpOOlXhBTWk',1,1,1,NULL),(2,'Suvam2','Raj2','$2b$10$csmkCzrBPbrCDd2Xo39XYOafN8bFP4cUGoSoDhUp33UlnT0PB6BKG','suvamraj@mail.com','123456','Kolkata',2,1,1,1,NULL,NULL,NULL,'2023-03-25 19:27:53','2023-04-06 21:38:03','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3RfbmFtZSI6IlN1dmFtMiIsImxhc3RfbmFtZSI6IlJhajIiLCJlbWFpbCI6InN1dmFtcmFqQG1haWwuY29tIiwiaWF0IjoxNjgwODE3MDgzLCJleHAiOjE2ODA5ODk4ODN9.uzPqV8-_lETkpUrXsMu2-HOtAf6XoV4vo2gF3VhjX1Q',1,1,0,NULL),(3,'joydeep','bandhopadhay','$2b$10$VTR1QkvazN9hcGpHwM38UOIkPHQcnr5vF7zy1cYnFfH/PJC84SwCa','joydeep@mail.com','86752345','Kolkata',2,1,1,1,NULL,NULL,NULL,'2023-03-25 19:36:12','2023-03-25 19:36:12',NULL,0,1,1,NULL);
 /*!40000 ALTER TABLE `tbl_user_masters` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_user_subsidary_mappings`
+--
+
+DROP TABLE IF EXISTS `tbl_user_subsidary_mappings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbl_user_subsidary_mappings` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `subsidary_id` int DEFAULT NULL,
+  `createdBy` int DEFAULT NULL,
+  `updatedBy` int DEFAULT NULL,
+  `deletedBy` int DEFAULT NULL,
+  `deletedAt` datetime DEFAULT NULL,
+  `createdAt` datetime DEFAULT NULL,
+  `updatedAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_user_subsidary_mappings`
+--
+
+LOCK TABLES `tbl_user_subsidary_mappings` WRITE;
+/*!40000 ALTER TABLE `tbl_user_subsidary_mappings` DISABLE KEYS */;
+INSERT INTO `tbl_user_subsidary_mappings` VALUES (2,2,2,1,NULL,NULL,NULL,'2023-04-01 17:05:51','2023-04-01 17:05:51'),(6,3,3,1,NULL,NULL,NULL,'2023-04-06 21:31:06','2023-04-06 21:31:06'),(7,2,3,1,NULL,NULL,NULL,'2023-04-06 21:31:41','2023-04-06 21:31:41');
+/*!40000 ALTER TABLE `tbl_user_subsidary_mappings` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -323,4 +357,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-27 23:43:00
+-- Dump completed on 2023-04-10  2:23:19
