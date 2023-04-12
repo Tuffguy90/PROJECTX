@@ -35,6 +35,7 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
     const [childSubsidiary, setChildSubsidiary] = useState([]);
     const [selectedFin, setFin] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
+    const [financialYearList, setFinancialYearList] = useState([]);
     let loginUserData = JSON.parse(localStorage.getItem('_userData'));
     useEffect(() => {
         loadReport(onSearch?.financial_year, onSearch?.selected_subsidary);
@@ -54,6 +55,9 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
         loadMattrix();
         setCanEdit(loginUserData.is_edit === 1 ? true : false);
         // loadSubMatrix();
+        reportService.getFinancialYearList().then(({ data }) => {
+            setFinancialYearList(data?.data);
+        });
     }, []);
 
     const loadMattrix = async () => {
@@ -68,7 +72,7 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
     // };
 
     const loadSubsidaries = async () => {
-        const data = await subsidaryService.formattedSubSidaryList();
+        const data = await subsidaryService.getSubsidaries(1);
         setSubsidaries(data?.data);
     };
     const loadReport = async (financial_year, subsidary_id) => {
@@ -155,8 +159,14 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
                             <div className="col-lg-3">
                                 <label>Financial Year</label>&nbsp;
                                 <select className="form-control" onChange={(e) => setFin(e)}>
-                                    <option value="2023">2023-24</option>
-                                    <option value="2022">2022-23</option>
+                                    <option value="">--SELECT--</option>
+                                    {financialYearList?.map((years, index) => {
+                                        return (
+                                            <option key={index} value={years.financial_year}>
+                                                {years.fin_name}
+                                            </option>
+                                        );
+                                    })}
                                 </select>
                             </div>
                             <div className="col-lg-3">
@@ -174,7 +184,7 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
                                         >
                                             <option value="">--SELECT--</option>
                                             {subsidaries.map((eachSubsidary) => {
-                                                return <option value={eachSubsidary.id}>{eachSubsidary.h_name}</option>;
+                                                return <option value={eachSubsidary.id}>{eachSubsidary.name}</option>;
                                             })}
                                         </select>
                                     </>
