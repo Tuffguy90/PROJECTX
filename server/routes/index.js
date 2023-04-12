@@ -22,7 +22,7 @@ router.post("/update-report", reportController.updateReport);
 router.post("/map-user-subsudary", userRoutes.mapUserSubsidary);
 
 /** GET ROUTES */
-router.get("/get-subsidiaries", subsidaryRoutes.list);
+router.get("/get-subsidiaries/:list_type?/:parent_id?", subsidaryRoutes.list);
 router.get("/get-formatted-subsidaries", subsidaryRoutes.formattedList);
 router.get("/get-subsidary-mattrix", mattrixController.listOfSubsidaryMattrix);
 router.get("/get-mattrix", mattrixController.list);
