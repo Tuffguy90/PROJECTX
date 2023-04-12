@@ -9,7 +9,7 @@ const icons = {
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
 
 const dashboard = {
-    id: 'group-sub11',
+    id: 'group-dashboard',
     title: 'Navigation',
     type: 'group',
     children: [

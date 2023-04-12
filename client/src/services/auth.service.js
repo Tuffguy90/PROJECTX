@@ -62,31 +62,5 @@ const userCRUD = new CustomStore({
     //     })
 });
 
-const getUserList = async (user_id = null) => {
-    let url = `${API_BASE_URL}/get-user-list`;
-    if (user_id !== null) {
-        url += `?user_id=${user_id}`;
-    }
-    return axios({
-        url,
-        method: 'GET',
-        headers: authHeader()
-    }).catch((err) => {
-        return err.response;
-    });
-};
-
-const updateUserProfileData = async (data) => {
-    let url = `${API_BASE_URL}/create-user`;
-    return axios({
-        url,
-        method: 'POST',
-        data,
-        headers: authHeader()
-    }).catch((err) => {
-        return err.response;
-    });
-};
-
-const authService = { tokenExpiryCheck, login, changePassword, userCRUD, getUserList, updateUserProfileData };
+const authService = { tokenExpiryCheck, login, changePassword, userCRUD };
 export default authService;

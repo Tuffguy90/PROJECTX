@@ -14,7 +14,6 @@ import { sweetAlertBox } from 'helpers/index';
 // ==============================|| COMPONENTS - TYPOGRAPHY ||============================== //
 
 const ChangePassword = () => {
-    const loginUserData = JSON.parse(localStorage.getItem('_userData'));
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -51,7 +50,7 @@ const ChangePassword = () => {
                                 onSubmit={async (values, { setErrors, setStatus, setSubmitting, resetForm }) => {
                                     try {
                                         authService
-                                            .changePassword({ ...values, created_by: loginUserData.id })
+                                            .changePassword(values)
                                             .then((response) => {
                                                 if (response?.status === 200) {
                                                     resetForm({ new_password: '', current_password: '', confirm_password: '' });
@@ -126,7 +125,7 @@ const ChangePassword = () => {
                                                             <InputAdornment position="end">
                                                                 <IconButton
                                                                     aria-label="toggle password visibility"
-                                                                    onClick={() => handleClickShowPassword('new_password')}
+                                                                    onClick={() => handleClickShowPassword(new_password)}
                                                                     onMouseDown={handleMouseDownPassword}
                                                                     edge="end"
                                                                     size="large"

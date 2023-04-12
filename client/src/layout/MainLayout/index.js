@@ -23,7 +23,6 @@ const MainLayout = () => {
     const dispatch = useDispatch();
 
     const { drawerOpen } = useSelector((state) => state.menu);
-    const { userData } = useSelector((state) => state.user);
 
     // drawer toggler
     const [open, setOpen] = useState(drawerOpen);
@@ -31,10 +30,6 @@ const MainLayout = () => {
         setOpen(!open);
         dispatch(openDrawer({ drawerOpen: !open }));
     };
-
-    // useEffect(()=>{
-    //     console.log('userDAta',userData);
-    // },[userData])
 
     // console.warn('',useMediaQuery(theme.breakpoints.down('xl')))
 

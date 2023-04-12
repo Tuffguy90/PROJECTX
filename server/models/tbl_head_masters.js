@@ -13,10 +13,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "head_id",
         as: "meta",
       })
-      this.belongsTo(models.tbl_mattrix_masters, {
-        foreignKey: "mattrix_id",
-        as: "mattrix",
-      })
     }
   }
   tbl_head_masters.init(
@@ -34,17 +30,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      target: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        defaultValue: 0,
-      },
       head_name: {
         type: DataTypes.STRING,
-        allowNull: true,
-      },
-      financial_year: {
-        type: DataTypes.INTEGER(5),
         allowNull: true,
       },
       status: {
@@ -79,7 +66,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      paranoid: true,
       modelName: "tbl_head_masters",
     }
   )

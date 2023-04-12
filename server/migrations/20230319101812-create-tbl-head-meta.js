@@ -11,23 +11,23 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       subsidary_id: {
-        type: Sequelize.INTEGER(5),
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       mattrix_id: {
-        type: Sequelize.INTEGER(5),
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       head_id: {
-        type: Sequelize.INTEGER(5),
+        type: Sequelize.INTEGER,
         allowNull: true
       },
       head_value: {
-        type: Sequelize.INTEGER(5),
+        type: Sequelize.INTEGER,
         allowNull: true
       },
       financial_year: {
-        type: Sequelize.INTEGER(5),
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       month: {
@@ -36,15 +36,15 @@ module.exports = {
       },
       createdBy: {
         allowNull: true,
-        type: Sequelize.INTEGER(5)
+        type: Sequelize.INTEGER
       },
       updatedBy: {
         allowNull: true,
-        type: Sequelize.INTEGER(5)
+        type: Sequelize.INTEGER
       },
       deletedBy: {
         allowNull: true,
-        type: Sequelize.INTEGER(5)
+        type: Sequelize.INTEGER
       },
       deletedAt: {
         allowNull: true,

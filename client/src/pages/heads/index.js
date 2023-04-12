@@ -28,6 +28,7 @@ export const HeadMaster = () => {
 
     const loadSubMatrix = async () => {
         const data = await subsidaryService.getSubsidaryMattrix();
+        console.log('loadmaxxx', data);
         setSubsidaryMatrix(data?.data);
     };
 
@@ -68,16 +69,8 @@ export const HeadMaster = () => {
                         <Editing mode="popup" allowAdding={true} allowDeleting={false} allowUpdating={true}>
                             <Popup title="Head" showTitle={true} />
                         </Editing>
-
                         <SearchPanel visible={true} highlightCaseSensitive={true} />
-                        <Column dataField="id" visible={false} allowAdding={false} allowEditing={false}></Column>
                         <Column dataField="head_name">
-                            <RequiredRule />
-                        </Column>
-                        <Column dataField="target" dataType="number">
-                            <RequiredRule />
-                        </Column>
-                        <Column dataField="financial_year" dataType="number">
                             <RequiredRule />
                         </Column>
                         <Column dataField="subsidary_id" caption="Subsidary">

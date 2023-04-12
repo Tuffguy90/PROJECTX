@@ -31,7 +31,6 @@ const create = async (req, res) => {
         data: isDupl,
       })
     }
-
     const createdMatrix = await HEAD.create(body)
 
     return res.send({
@@ -128,6 +127,7 @@ const list = async (req, res) => {
       data: matrix,
     })
   } catch (err) {
+    console.log("error-in-matrix-list", err)
     return res.status(500).send("Internal Server Error")
   }
 }

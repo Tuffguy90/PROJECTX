@@ -1,14 +1,11 @@
 var jwt = require("jsonwebtoken");
 const db = require("../models/index");
 const bcrypt = require("bcrypt");
-const { createUserSchema, userSubsidary } = require("./validators/user");
+const { createUserSchema } = require("./validators/user");
 const USER = db.tbl_user_masters;
-const ROLE = db.tbl_role_masters;
-const UserSubSidary = db.tbl_user_subsidary_mappings;
 const SUBSIDARY = db.tbl_subsidary_masters;
 const { extractTokenInfo } = require("../helpers/index");
 require("dotenv").config();
-const { Op } = require("sequelize");
 
 /**
  * User Login
@@ -20,39 +17,13 @@ const login = async (req, res) => {
   try {
     const email = req.body.email;
     const conditions = {
-      attributes: [
-        "id",
-        "first_name",
-        "last_name",
-        "email",
-        "password",
-        "is_add",
-        "is_edit",
-        "is_delete",
-        "role_id",
-      ],
-      include: [
-        {
-          model: SUBSIDARY,
-          attributes: ["name", ["name","h_name"], "id"],
-          as: "subsidary",
-        },
-      ],
+      attributes: ["id", "first_name", "last_name", "email", "password"],
       where: {
         email: email,
-        status: 1,
       },
     };
 
-    let user = await USER.findOne(conditions);
-    // user = JSON.parse(JSON.stringify(user));
-    // if (user.role_id == 1) {
-    //   let subsidary = await SUBSIDARY.findAll({
-    //     attributes: ["name", "id"],
-    //     raw: true,
-    //   });
-    //   user["subsidary"] = subsidary;
-    // }
+    const user = await USER.findOne(conditions);
     if (user) {
       const isMatch = await bcrypt.compare(req.body.password, user.password);
       if (!isMatch) {
@@ -61,7 +32,12 @@ const login = async (req, res) => {
           message: "Invalid Login Credentials",
         });
       }
-
+      if (req.body.password !== user.password) {
+        return res.status(400).send({
+          status: 400,
+          message: "Invalid Login Credentials",
+        });
+      }
       var token = jwt.sign(
         {
           id: user.id,
@@ -178,12 +154,9 @@ const createUser = async (req, res) => {
   try {
     let tokenUserData = extractTokenInfo(req);
     let body = req.body;
-    req.body["role_id"] = 2;
     let key = body.key || null;
     if (key !== null) {
-      console.log("body", req.body);
       body.email && delete body.email;
-      body.mobile && delete body.mobile;
       let updateData = await USER.update({ ...body }, { where: { id: key } });
       if (updateData) {
         return res.status(200).send({
@@ -194,7 +167,7 @@ const createUser = async (req, res) => {
     }
     /** Password will user mobile number
      */
-    body.password = body.password_value;
+    body.password = req.body.mobile;
     const validate = createUserSchema.validate(body);
     if (validate?.error) {
       return res.status(400).send({
@@ -216,7 +189,7 @@ const createUser = async (req, res) => {
     }
     body.createdBy = tokenUserData?.id || null;
     let salt = await bcrypt.genSalt(10);
-    body.password = await bcrypt.hash(body.password_value, salt);
+    body.password = await bcrypt.hash(body.password, salt);
     const createdUser = await USER.create(body);
 
     return res.status(200).send({
@@ -224,6 +197,7 @@ const createUser = async (req, res) => {
       data: createdUser,
     });
   } catch (err) {
+    console.log("err", err?.message);
     return res.status(500).json({
       message: err?.message,
       data: [],
@@ -239,15 +213,7 @@ const createUser = async (req, res) => {
  */
 const userList = async (req, res) => {
   try {
-    const user_id = req.query.user_id || null;
-    let whereCondition = {};
-    if (user_id === null) {
-      whereCondition = {
-        role_id: {
-          [Op.ne]: 1,
-        },
-      };
-    }
+    const user_id = req.param.user_id || null;
     var conditions = {
       attributes: [
         "id",
@@ -256,21 +222,23 @@ const userList = async (req, res) => {
         "mobile",
         "email",
         "address",
-        "password",
-        "password_value",
+        "subsidary_id",
         "status",
-        "is_add",
-        "is_edit",
-        "is_delete",
       ],
-      logging: false,
-      where: whereCondition,
+      include: [
+        {
+          model: SUBSIDARY,
+          attributes: ["name", "code", "id", "short_name"],
+          as: "subsidary",
+        },
+      ],
     };
     const countData = await USER.findAll(conditions);
     if (user_id !== null) {
-      whereCondition.id = user_id;
+      conditions["where"] = {
+        id: user_id,
+      };
     }
-    conditions.where = whereCondition;
     const userList = await USER.findAll(conditions);
 
     return res.status(200).send({
@@ -282,116 +250,11 @@ const userList = async (req, res) => {
   }
 };
 
-const mapUserSubsidary = async (req, res) => {
-  try {
-    let tokenUserData = extractTokenInfo(req);
-    let body = req.body;
-    if (body?.key) {
-      let isDuplicate = await UserSubSidary.findOne({
-        where: body?.values,
-      });
-      if (isDuplicate) {
-        return res.status(409).send({
-          message: "Duplicate Data found",
-          data: isDuplicate,
-        });
-      }
-      return helper.updateModel("usersubsidary", body.values, body.key, res);
-    }
-    body.createdBy = tokenUserData?.id || null;
-    const validate = userSubsidary.validate(body);
-    if (validate?.error) {
-      return res.status(400).send({
-        message: "Validation Error",
-        error: validate?.error,
-      });
-    }
-    let isDuplicate = await UserSubSidary.findOne({
-      where: req.body,
-      raw: true,
-    });
-    if (isDuplicate) {
-      return res.status(409).send({
-        message: "Duplicate Data found",
-        data: isDuplicate,
-      });
-    }
-    console.log(isDuplicate);
-    // if (isDuplicate.parent_id == 0) {
-    //   let allChild = await UserSubSidary.findOne({
-    //     attributes: ["id"],
-    //     where: {
-    //       parent_id: isDuplicate.id,
-    //     },
-    //     raw: true,
-    //   });
-    //   let bulkbody = [];
-    //   bulkbody.push(body);
-    //   allChild.forEach(e => {
-    //     bulkbody.push({
-    //       user_id:body.user_id,
-    //       subsidary_id:e.id,
-    //       createdBy: body.createdBy
-    //     });
-    //   });
-    //   console.log('bulkbody',bulkbody);
-    // } else {
-      let resp = await UserSubSidary.create(req.body);
-      return res.status(200).send({
-        message: "Create Successfully",
-        resp,
-      });
-    // }
-  } catch (err) {
-    return res.status(500).send({ message: err?.message, data: [] });
-  }
-};
-
-const removeUserSubSidaryMapings = async (req, res) => {
-  try {
-    let id = req.params.id || req.query.id || undefined;
-    if (!id) {
-      return res.status(400).send({
-        message: "Validation Error",
-        error: null,
-      });
-    }
-    await UserSubSidary.destroy({
-      where: {
-        id,
-      },
-    });
-    return res.status(200).send({
-      message: "Create Successfully",
-      resp,
-    });
-  } catch (error) {
-    return res.status(500).send({ message: error?.message, data: [] });
-  }
-};
-
-const userSubsidaryList = async (req, res) => {
-  try {
-    let resp = await UserSubSidary.findAll({
-      attributes: ["id", "user_id", "subsidary_id"],
-    });
-    return res.status(200).send({
-      message: "Success",
-      data: resp,
-    });
-  } catch (error) {
-    return res.status(500).send({ message: err?.message, data: [] });
-  }
-};
-
 const userRoutes = {
   login,
   changePassword,
   createUser,
   userList,
-  mapUserSubsidary,
-  removeUserSubSidaryMapings,
-  userSubsidaryList,
 };
 
 module.exports = userRoutes;

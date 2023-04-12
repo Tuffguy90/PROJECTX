@@ -128,7 +128,7 @@ const Profile = () => {
                                                         <Stack>
                                                             <Typography variant="h6">{loginUserData?.first_name}</Typography>
                                                             <Typography variant="body2" color="textSecondary">
-                                                                {loginUserData?.role?.name}
+                                                                Role Name
                                                             </Typography>
                                                         </Stack>
                                                     </Stack>

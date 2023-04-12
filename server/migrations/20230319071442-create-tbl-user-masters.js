@@ -10,52 +10,52 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       first_name: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING,
       },
       last_name: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING,
       },
       password: {
         type: Sequelize.STRING,
       },
       email: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
       mobile: {
-        type: Sequelize.STRING(10),
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
       address: {
-        type: Sequelize.STRING(150),
+        type: Sequelize.STRING,
         allowNull: true,
       },
       role_id: {
-        type: Sequelize.INTEGER(2),
+        type: Sequelize.INTEGER,
         allowNull: true,
       },
       subsidary_id: {
-        type: Sequelize.INTEGER(2),
+        type: Sequelize.INTEGER,
         allowNull: true,
       },
       status: {
-        type: Sequelize.INTEGER(2),
+        type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 1,
       },
       createdBy: {
         allowNull: true,
-        type: Sequelize.INTEGER(5),
+        type: Sequelize.INTEGER,
       },
       updatedBy: {
         allowNull: true,
-        type: Sequelize.INTEGER(5),
+        type: Sequelize.INTEGER,
       },
       deletedBy: {
         allowNull: true,
-        type: Sequelize.INTEGER(5),
+        type: Sequelize.INTEGER,
       },
       deletedAt: {
         allowNull: true,

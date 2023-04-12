@@ -29,65 +29,25 @@ const getSubsidaryMattrix = async () => {
         .then((response) => response?.data);
 };
 
-const subsidaryStore = (list_type = 0, parent_id = 0) =>
-    new CustomStore({
-        key: 'id',
-        load: () => sendRequest(`${API_BASE_URL}/get-subsidaries?list_type=${list_type}&parent_id=${parent_id}`),
-        insert: (values) => sendRequest(`${API_BASE_URL}/create-subsidary`, 'POST', { ...values }),
-        update: (key, values) =>
-            sendRequest(`${API_BASE_URL}/create-subsidary`, 'POST', {
-                key,
-                values: values
-            })
-        // remove: (key) =>
-        //     sendRequest(`${API_BASE_URL}/DeleteOrder`, 'DELETE', {
-        //         key
-        //     })
-    });
-
-const userSubsidary = new CustomStore({
+const subsidaryStore = new CustomStore({
     key: 'id',
-    load: () => sendRequest(`${API_BASE_URL}/user-subsidary`),
-    insert: (values) => sendRequest(`${API_BASE_URL}/map-user-subsudary`, 'POST', { ...values }),
-    // update: (key, values) =>
-    //     sendRequest(`${API_BASE_URL}/map-user-subsudary`, 'POST', {
-    //         key,
-    //         values: values
-    //     })
-    remove: (key) => sendRequest(`${API_BASE_URL}/delete-user-subsudary/${key}`, 'get')
-});
-
-const getSubsidiariesList = (list_type = 0, parent_id = 0) => {
-    let url = `${API_BASE_URL}/get-subsidaries?list_type=${list_type}&parent_id=${parent_id}`;
-    return axios({
-        url,
-        method: 'GET',
-        headers: authHeader()
-    }).catch((err) => {
-        return err.response;
-    });
-};
-
-
-const formattedSubSidaryList = async () => {
-    return axios({
-        url: `${API_BASE_URL}/get-formatted-subsidaries`,
-        method: 'GET',
-        headers: authHeader()
-    })
-        .catch((err) => {
-            return err.message;
+    load: () => sendRequest(`${API_BASE_URL}/get-subsidaries`),
+    insert: (values) => sendRequest(`${API_BASE_URL}/create-subsidary`, 'POST', { ...values }),
+    update: (key, values) =>
+        sendRequest(`${API_BASE_URL}/create-subsidary`, 'POST', {
+            key,
+            values: values
         })
-        .then((response) => response?.data);
-};
+    // remove: (key) =>
+    //     sendRequest(`${API_BASE_URL}/DeleteOrder`, 'DELETE', {
+    //         key
+    //     })
+});
 
 const subsidaryService = {
     getSubsidaries,
     getSubsidaryMattrix,
-    subsidaryStore,
-    userSubsidary,
-    getSubsidiariesList,
-    formattedSubSidaryList
+    subsidaryStore
 };
 
 export default subsidaryService;

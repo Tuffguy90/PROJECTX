@@ -67,7 +67,7 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
-.env
+
 # dotenv environment variables file
 # .env
 .env.test
@@ -107,4 +107,4 @@ dist
 *.bak
 
 #output
-# build
+build

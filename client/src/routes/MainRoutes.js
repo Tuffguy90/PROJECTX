@@ -5,18 +5,12 @@ import Loadable from 'components/Loadable';
 import MainLayout from 'layout/MainLayout';
 import { Subsidary } from 'pages/subsidary/index';
 import { HeadMaster } from 'pages/heads/index';
-import { MatrixMaster } from 'pages/matrix/index';
 import CreateUser from 'pages/user/CreateUser';
 import { Report } from 'pages/report/index';
-import Protected from './Protected';
-import { UserSubsidary } from 'pages/user/UserSubsidary';
-import { ChildSubsidiary } from 'pages/subsidary/ChildSubsidiary';
-// import { RoleMaster } from 'pages/roles/index';
 
 // render - dashboard
 const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
 const ChangePassword = Loadable(lazy(() => import('pages/user/ChangePassword')));
-const UserProfile = Loadable(lazy(() => import('pages/user/UserProfile')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -34,75 +28,44 @@ const MainRoutes = {
         },
         {
             path: '/heads',
-            element: (
-                <Protected isSuper={true}>
-                    <HeadMaster />
-                </Protected>
-            )
+            element: <HeadMaster />
         },
         {
-            path: '/subsidiaries',
-            element: (
-                <Protected isSuper={true}>
-                    <Subsidary />
-                </Protected>
-            )
+            path: '/subsidaries',
+            element: <Subsidary />
         },
         {
-            path: '/child-subsidiaries',
-            element: (
-                <Protected isSuper={true}>
-                    <ChildSubsidiary />
-                </Protected>
-            )
-        },
-        {
-            path: '/user',
-            element: (
-                <Protected isSuper={true}>
-                    <CreateUser />
-                </Protected>
-            )
+            path: 'user',
+            element: <CreateUser />
         },
         {
             path: '/report',
-            element: (
-                <Protected isSuper={false}>
-                    <Report />
-                </Protected>
-            )
-        },
-        {
-            path: '/matrix',
-            element: (
-                <Protected>
-                    <MatrixMaster isSuper={true} />
-                </Protected>
-            )
-        },
-        {
-            path: '/user-profile',
-            element: <UserProfile />
-        },
-        {
-            path: '/user-sub',
-            element: (
-                <Protected>
-                    <UserSubsidary isSuper={true} />
-                </Protected>
-            )
-        },
+            element: <Report />
+        }
         // {
-        //     path: '/sub-matrix',
-        //     element: (
-        //         <Protected isSuper={true}>
-        //             <SubsidaryMatrixMap />
-        //         </Protected>
-        //     )
-        // }
+        //     path: 'dashboard',
+        //     children: [
+        //         {
+        //             path: 'default',
+        //             element: <DashboardDefault />
+        //         }
+        //     ]
+        // },
         // {
-        //     path: '/role',
-        //     element: <RoleMaster />
+        //     path: 'sample-page',
+        //     element: <SamplePage />
+        // },
+        // {
+        //     path: 'shadow',
+        //     element: <Shadow />
+        // },
+        // {
+        //     path: 'typography',
+        //     element: <Typography />
+        // },
+        // {
+        //     path: 'icons/ant',
+        //     element: <AntIcons />
         // }
     ]
 };
