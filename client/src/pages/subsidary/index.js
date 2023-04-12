@@ -34,7 +34,7 @@ export const Subsidary = () => {
                 }}
             >
                 <MainCard sx={{ m: 1, p: 1 }} content={false}>
-                    <h1>Main Subsidaries</h1>
+                    <h1>Main Subsidiaries</h1>
                     <DataGrid
                         dataSource={subsidaryService.subsidaryStore(1)}
                         allowColumnReordering={true}
@@ -42,7 +42,7 @@ export const Subsidary = () => {
                         showBorders={true}
                     >
                         <Editing mode="popup" allowAdding={true} allowDeleting={false} allowUpdating={true}>
-                            <Popup title="Subsidary" showTitle={true} />
+                            <Popup title="Subsidiary" showTitle={true} />
                         </Editing>
                         <SearchPanel visible={true} highlightCaseSensitive={true} />
                         <Column dataField="id" visible={false} allowAdding={false} allowEditing={false}></Column>

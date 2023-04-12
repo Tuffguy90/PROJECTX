@@ -24,7 +24,7 @@ const Navigation = () => {
     }, []);
 
     const [menuItem, setMenuItem] = useState({
-        items: [dashboard, pages.subsidaries, pages.childSubsidaries, pages.matrix, pages.heads, pages.report, pages.users]
+        items: [dashboard, pages.subsidaries, pages.matrix, pages.heads, pages.report, pages.users]
     });
 
     useEffect(() => {
@@ -39,7 +39,7 @@ const Navigation = () => {
                     pages.report,
                     pages.users,
                     pages.userSubsidary,
-                    pages.childSubsidaries
+                    // pages.childSubsidaries
                 ]
             });
         } else {

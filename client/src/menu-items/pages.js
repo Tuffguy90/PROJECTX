@@ -12,56 +12,56 @@ const icons = {
 
 // ==============================|| MENU ITEMS - EXTRA PAGES ||============================== //
 
-// const pages = {
-//     id: 'authentication',
-//     title: 'Authentication',
+// const subsidaries = {
+//     id: 'group-sub',
+//     title: 'Navigation',
 //     type: 'group',
 //     children: [
 //         {
-//             id: 'login1',
-//             title: 'Login',
+//             id: 'subsidiaries',
+//             title: 'Subsidary',
 //             type: 'item',
-//             url: '/login',
-//             icon: icons.LoginOutlined,
-//             target: true
-//         },
-//         {
-//             id: 'register1',
-//             title: 'Register',
-//             type: 'item',
-//             url: '/register',
+//             url: '/subsidiaries',
 //             icon: icons.ProfileOutlined,
-//             target: true
+//             breadcrumbs: false
+//         }
+//     ]
+// };
+
+// const childSubsidiaries = {
+//     id: 'group-child-sub',
+//     title: 'Navigation',
+//     type: 'group',
+//     children: [
+//         {
+//             id: 'child-subsidiaries',
+//             title: 'Child-Subsidiary',
+//             type: 'item',
+//             url: '/child-subsidiaries',
+//             icon: icons.ProfileOutlined,
+//             breadcrumbs: false
 //         }
 //     ]
 // };
 
 const subsidaries = {
-    id: 'group-sub',
-    title: 'Navigation',
+    id: 'subsidiaries-list',
+    title: 'Subsidiary',
     type: 'group',
     children: [
         {
-            id: 'subsidaries',
-            title: 'Subsidary',
+            id: 'subsidiaries',
+            title: 'Subsidiary',
             type: 'item',
-            url: '/subsidaries',
+            url: '/subsidiaries',
             icon: icons.ProfileOutlined,
             breadcrumbs: false
-        }
-    ]
-};
-
-const childSubsidaries = {
-    id: 'group-child-sub',
-    title: 'Navigation',
-    type: 'group',
-    children: [
+        },
         {
-            id: 'child-subsidaries',
-            title: 'Child-Subsidary',
+            id: 'child-subsidiaries',
+            title: 'Child-Subsidiary',
             type: 'item',
-            url: '/child-subsidaries',
+            url: '/child-subsidiaries',
             icon: icons.ProfileOutlined,
             breadcrumbs: false
         }
@@ -70,7 +70,7 @@ const childSubsidaries = {
 
 const heads = {
     id: 'group-sub2',
-    title: 'Navigation',
+    title: 'Heads',
     type: 'group',
     children: [
         {
@@ -86,7 +86,7 @@ const heads = {
 
 const users = {
     id: 'group-sub3',
-    title: 'Navigation',
+    title: 'Users',
     type: 'group',
     children: [
         {
@@ -102,7 +102,7 @@ const users = {
 
 const report = {
     id: 'group-sub4',
-    title: 'Navigation',
+    title: 'Reports',
     type: 'group',
     children: [
         {
@@ -118,7 +118,7 @@ const report = {
 
 const role = {
     id: 'group-role',
-    title: 'Navigation',
+    title: 'Roles',
     type: 'group',
     children: [
         {
@@ -155,7 +155,7 @@ const subsidaryMatrixMap = {
     children: [
         {
             id: 'subMat',
-            title: 'Matrix Maping',
+            title: 'Matrix Mapping',
             type: 'item',
             url: '/sub-matrix',
             icon: icons.ProfileOutlined,
@@ -171,7 +171,7 @@ const userSubsidary = {
     children: [
         {
             id: 'userSub',
-            title: 'User Subsidary Mapings',
+            title: 'User Subsidiary Mappings',
             type: 'item',
             url: '/user-sub',
             icon: icons.ProfileOutlined,
@@ -188,8 +188,8 @@ const pages = {
     report,
     subsidaryMatrixMap,
     role,
-    userSubsidary,
-    childSubsidaries
+    userSubsidary
+    // childSubsidiaries
 };
 
 export default pages;

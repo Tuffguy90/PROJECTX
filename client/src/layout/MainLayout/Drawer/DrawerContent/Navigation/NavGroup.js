@@ -12,7 +12,7 @@ import NavItem from './NavItem';
 const NavGroup = ({ item }) => {
     const menu = useSelector((state) => state.menu);
     const { drawerOpen } = menu;
-
+    console.log('item', item);
     const navCollapse = item.children?.map((menuItem) => {
         switch (menuItem.type) {
             case 'item':

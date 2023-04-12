@@ -41,7 +41,7 @@ const MainRoutes = {
             )
         },
         {
-            path: '/subsidaries',
+            path: '/subsidiaries',
             element: (
                 <Protected isSuper={true}>
                     <Subsidary />
@@ -49,7 +49,7 @@ const MainRoutes = {
             )
         },
         {
-            path: '/child-subsidaries',
+            path: '/child-subsidiaries',
             element: (
                 <Protected isSuper={true}>
                     <ChildSubsidiary />

@@ -32,7 +32,7 @@ export const ChildSubsidiary = () => {
     const handleSubmit = () => {
         const year = new Date().getFullYear();
         if (!selectedSubsidary) {
-            Swal.fire('Validation Error', 'You must select subsidary first');
+            Swal.fire('Validation Error', 'You must select subsidiary first');
             return;
         }
         loadReport(selectedFin?.target?.value || year, selectedSubsidary || 0);
@@ -51,7 +51,7 @@ export const ChildSubsidiary = () => {
                 }}
             >
                 <MainCard sx={{ m: 1, p: 1 }} content={false}>
-                    <h1>Child Subsidaries</h1>
+                    <h1>Child Subsidiaries</h1>
                     <div className="row">
                         <div className="col-lg-4">
                             {parentSubsidiaryList?.length > 0 && (
