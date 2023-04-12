@@ -13,7 +13,7 @@ import matrixService from 'services/matrix.service';
 import headService from 'services/head.service';
 import subsidaryService from 'services/subsidary.service';
 
-export const SubsidaryMatrixMap = () => {
+const SubsidiaryMatrixMap = () => {
     const [mattrix, setMattrix] = useState([]);
     const [subsidaries, setSubsidaries] = useState([]);
     useEffect(() => {
@@ -54,7 +54,7 @@ export const SubsidaryMatrixMap = () => {
                 }}
             >
                 <MainCard sx={{ m: 1, p: 1 }} content={false}>
-                    <h1>Subsidary Matrix Mapping</h1>
+                    <h1>Subsidiary Matrix Mapping</h1>
                     <DataGrid
                         dataSource={matrixService.subMatStore}
                         allowColumnReordering={true}
@@ -97,3 +97,5 @@ export const SubsidaryMatrixMap = () => {
         </Box>
     );
 };
+
+export default SubsidiaryMatrixMap;

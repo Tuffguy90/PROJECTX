@@ -12,6 +12,7 @@ import Protected from './Protected';
 import { UserSubsidary } from 'pages/user/UserSubsidary';
 import { ChildSubsidiary } from 'pages/subsidary/ChildSubsidiary';
 // import { RoleMaster } from 'pages/roles/index';
+import SubsidiaryMatrixMap from 'pages/subsidaryMatrixMap';
 
 // render - dashboard
 const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
@@ -41,7 +42,7 @@ const MainRoutes = {
             )
         },
         {
-            path: '/subsidaries',
+            path: '/subsidiaries',
             element: (
                 <Protected isSuper={true}>
                     <Subsidary />
@@ -49,7 +50,7 @@ const MainRoutes = {
             )
         },
         {
-            path: '/child-subsidaries',
+            path: '/child-subsidiaries',
             element: (
                 <Protected isSuper={true}>
                     <ChildSubsidiary />
@@ -96,7 +97,7 @@ const MainRoutes = {
         //     path: '/sub-matrix',
         //     element: (
         //         <Protected isSuper={true}>
-        //             <SubsidaryMatrixMap />
+        //             <SubsidiaryMatrixMap />
         //         </Protected>
         //     )
         // }

@@ -25,13 +25,14 @@ import reportService from 'services/report.service';
 import Swal from 'sweetalert2';
 
 export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
-    // console.log('ptrops', props);
     const [mattrix, setMattrix] = useState([]);
     const [subsidaries, setSubsidaries] = useState([]);
     const [mattrixs, setMattrixs] = useState([]);
-    // const [subsidaryMatrix, setSubsidaryMatrix] = useState([]);
     const [reportData, setReportData] = useState([]);
-    const [selectedSubsidary, setSubsidary] = useState(1);
+    const [selectedParentSubsidiary, setParentSubsidiary] = useState('');
+    const [selectedSubsidiary, setSubsidiary] = useState('');
+    const [selectedUnit, setSelectedUnit] = useState('');
+    const [childSubsidiary, setChildSubsidiary] = useState([]);
     const [selectedFin, setFin] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     let loginUserData = JSON.parse(localStorage.getItem('_userData'));
@@ -46,9 +47,9 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
     }, [onSearch]);
 
     useEffect(() => {
-        let subId = selectedSubsidary;
+        let subId = selectedSubsidiary;
         !loginUserData.subsidary || loginUserData.subsidary.length === 0 ? loadSubsidaries() : setSubsidaries(loginUserData.subsidary);
-        setSubsidary(subId);
+        setSubsidiary(subId);
         loadReport(new Date().getFullYear(), subId);
         loadMattrix();
         setCanEdit(loginUserData.is_edit === 1 ? true : false);
@@ -119,12 +120,20 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
     };
     const handleSubmit = () => {
         const year = new Date().getFullYear();
-        if (!selectedSubsidary) {
+        if (!selectedSubsidiary) {
             Swal.fire('Validation Error', 'You must select subsidary first');
             return;
         }
-        loadReport(selectedFin?.target?.value || year, selectedSubsidary || 0);
+        loadReport(selectedFin?.target?.value || year, selectedSubsidiary);
     };
+
+    const checkChildSubsidiary = (subId) => {
+        let child = subsidaries.filter((item) => {
+            if (subId == item?.id) return item;
+        });
+        setChildSubsidiary(child[0]?.child_subsidiary);
+    };
+
     return (
         <Box>
             <TableContainer
@@ -143,21 +152,25 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
                             <div className="col-lg-12">
                                 <h1>Report</h1>
                             </div>
-                            <div className="col-lg-4">
+                            <div className="col-lg-3">
                                 <label>Financial Year</label>&nbsp;
                                 <select className="form-control" onChange={(e) => setFin(e)}>
                                     <option value="2023">2023-24</option>
                                     <option value="2022">2022-23</option>
                                 </select>
                             </div>
-                            <div className="col-lg-4">
+                            <div className="col-lg-3">
                                 {subsidaries?.length > 0 && (
                                     <>
-                                        <label>Subsidary</label>&nbsp;
+                                        <label>Subsidiary</label>&nbsp;
                                         <select
                                             className="form-control"
-                                            value={selectedSubsidary}
-                                            onChange={(e) => setSubsidary(e.target.value)}
+                                            value={selectedParentSubsidiary}
+                                            onChange={(e) => (
+                                                setSubsidiary(e.target.value),
+                                                setParentSubsidiary(e?.target?.value),
+                                                checkChildSubsidiary(e?.target?.value)
+                                            )}
                                         >
                                             <option value="">--SELECT--</option>
                                             {subsidaries.map((eachSubsidary) => {
@@ -167,8 +180,28 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
                                     </>
                                 )}
                             </div>
-
-                            <div className="col-lg-4" style={{ marginTop: '21px' }}>
+                            <div className="col-lg-3">
+                                {childSubsidiary?.length > 0 && (
+                                    <>
+                                        <label>Units</label>&nbsp;
+                                        <select
+                                            className="form-control"
+                                            value={selectedUnit}
+                                            onChange={(e) => (setSelectedUnit(e?.target?.value), setSubsidiary(e?.target?.value))}
+                                        >
+                                            <option value="">--SELECT--</option>
+                                            {childSubsidiary.map((eachSubsidiary, index) => {
+                                                return (
+                                                    <option key={index} value={eachSubsidiary.id}>
+                                                        {eachSubsidiary.name}
+                                                    </option>
+                                                );
+                                            })}
+                                        </select>
+                                    </>
+                                )}
+                            </div>
+                            <div className="col-lg-3" style={{ marginTop: '21px' }}>
                                 <button className="btn btn-primary" onClick={handleSubmit}>
                                     Search
                                 </button>

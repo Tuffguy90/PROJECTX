@@ -6,7 +6,7 @@ const MATRIX = db.tbl_mattrix_masters;
 const SUBSIDIARY = db.tbl_subsidary_masters;
 const subsidarySchema = require("./validators/subsidary");
 const helper = require("../helper/index");
-const { Op } = require("sequelize");
+const { Op, QueryTypes } = require("sequelize");
 
 var headsName = [
   {
@@ -290,11 +290,27 @@ const updateReport = async (req, res) => {
   }
 };
 
+const getFinancialYearList = async (req, res) => {
+  try {
+    let q = `SELECT financial_year, CONCAT(financial_year,'-',financial_year+1) fin_name FROM tbl_head_masters WHERE financial_year IS NOT NULL GROUP BY financial_year;`;
+    let subs = await db.sequelize.query(q, {
+      type: QueryTypes.SELECT,
+    });
+    return res.send({
+      message: "List of Financial Years",
+      data: subs,
+    });
+  } catch (error) {
+    return res.status(500).send(error?.message);
+  }
+};
+
 const reportController = {
   list,
   showDashboardCountValue,
   updateReport,
   getGraphData,
+  getFinancialYearList
 };
 
 module.exports = reportController;

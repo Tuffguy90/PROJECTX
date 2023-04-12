@@ -1,5 +1,5 @@
-"use strict"
-const { Model } = require("sequelize")
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class tbl_subsidary_masters extends Model {
     /**
@@ -10,12 +10,17 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsToMany(models.tbl_user_masters, {
-        through: models.tbl_user_subsidary_mappings, foreignKey: "subsidary_id",
+        through: models.tbl_user_subsidary_mappings,
+        foreignKey: "subsidary_id",
         as: "user",
-      })
+      });
       this.belongsTo(models.tbl_subsidary_masters, {
         foreignKey: "parent_id",
         as: "parent_subsidiary",
+      });
+      this.hasMany(models.tbl_subsidary_masters, {
+        foreignKey: "parent_id",
+        as: "child_subsidiary",
       });
     }
   }
@@ -59,6 +64,6 @@ module.exports = (sequelize, DataTypes) => {
       paranoid: true,
       modelName: "tbl_subsidary_masters",
     }
-  )
-  return tbl_subsidary_masters
-}
+  );
+  return tbl_subsidary_masters;
+};

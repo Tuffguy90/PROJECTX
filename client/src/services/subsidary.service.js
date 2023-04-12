@@ -5,9 +5,9 @@ import { authHeader } from '../helpers';
 import sendRequest from './common/send.request';
 import CustomStore from '../../node_modules/devextreme/data/custom_store';
 
-const getSubsidaries = async () => {
+const getSubsidaries = async (list_type = 0) => {
     return axios({
-        url: `${API_BASE_URL}/get-subsidaries`,
+        url: `${API_BASE_URL}/get-subsidiaries?list_type=${list_type}`,
         method: 'GET',
         headers: authHeader()
     })
@@ -32,7 +32,7 @@ const getSubsidaryMattrix = async () => {
 const subsidaryStore = (list_type = 0, parent_id = 0) =>
     new CustomStore({
         key: 'id',
-        load: () => sendRequest(`${API_BASE_URL}/get-subsidaries?list_type=${list_type}&parent_id=${parent_id}`),
+        load: () => sendRequest(`${API_BASE_URL}/get-subsidiaries?list_type=${list_type}&parent_id=${parent_id}`),
         insert: (values) => sendRequest(`${API_BASE_URL}/create-subsidary`, 'POST', { ...values }),
         update: (key, values) =>
             sendRequest(`${API_BASE_URL}/create-subsidary`, 'POST', {
@@ -58,7 +58,7 @@ const userSubsidary = new CustomStore({
 });
 
 const getSubsidiariesList = (list_type = 0, parent_id = 0) => {
-    let url = `${API_BASE_URL}/get-subsidaries?list_type=${list_type}&parent_id=${parent_id}`;
+    let url = `${API_BASE_URL}/get-subsidiaries?list_type=${list_type}&parent_id=${parent_id}`;
     return axios({
         url,
         method: 'GET',
@@ -67,7 +67,6 @@ const getSubsidiariesList = (list_type = 0, parent_id = 0) => {
         return err.response;
     });
 };
-
 
 const formattedSubSidaryList = async () => {
     return axios({

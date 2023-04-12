@@ -51,7 +51,7 @@ export const ChildSubsidiary = () => {
                 }}
             >
                 <MainCard sx={{ m: 1, p: 1 }} content={false}>
-                    <h1>Child Subsidaries</h1>
+                    <h1>Units</h1>
                     <div className="row">
                         <div className="col-lg-4">
                             {parentSubsidiaryList?.length > 0 && (

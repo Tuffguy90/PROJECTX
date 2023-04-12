@@ -1,5 +1,5 @@
 // assets
-import { LoginOutlined, ProfileOutlined, UserOutlined, FileExcelOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import { LoginOutlined, CopyOutlined, ProfileOutlined, UserOutlined, FileExcelOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 
 // icons
 const icons = {
@@ -7,94 +7,87 @@ const icons = {
     ProfileOutlined,
     UserOutlined,
     FileExcelOutlined,
-    UsergroupAddOutlined
+    UsergroupAddOutlined,
+    CopyOutlined
 };
 
 // ==============================|| MENU ITEMS - EXTRA PAGES ||============================== //
 
-// const pages = {
-//     id: 'authentication',
-//     title: 'Authentication',
-//     type: 'group',
-//     children: [
-//         {
-//             id: 'login1',
-//             title: 'Login',
-//             type: 'item',
-//             url: '/login',
-//             icon: icons.LoginOutlined,
-//             target: true
-//         },
-//         {
-//             id: 'register1',
-//             title: 'Register',
-//             type: 'item',
-//             url: '/register',
-//             icon: icons.ProfileOutlined,
-//             target: true
-//         }
-//     ]
-// };
-
-const subsidaries = {
+const subsidiaries = {
     id: 'group-sub',
-    title: 'Navigation',
+    title: 'Subsidiary',
     type: 'group',
     children: [
         {
-            id: 'subsidaries',
-            title: 'Subsidary',
+            id: 'subsidiaries',
+            title: 'Subsidiary',
             type: 'item',
-            url: '/subsidaries',
+            url: '/subsidiaries',
+            icon: icons.ProfileOutlined,
+            breadcrumbs: false
+        },
+        {
+            id: 'child-subsidiaries',
+            title: 'Units',
+            type: 'item',
+            url: '/child-subsidiaries',
             icon: icons.ProfileOutlined,
             breadcrumbs: false
         }
     ]
 };
 
-const childSubsidaries = {
-    id: 'group-child-sub',
-    title: 'Navigation',
-    type: 'group',
-    children: [
-        {
-            id: 'child-subsidaries',
-            title: 'Child-Subsidary',
-            type: 'item',
-            url: '/child-subsidaries',
-            icon: icons.ProfileOutlined,
-            breadcrumbs: false
-        }
-    ]
-};
-
-const heads = {
+const masterSetup = {
     id: 'group-sub2',
-    title: 'Navigation',
+    title: 'Master Setup',
     type: 'group',
     children: [
         {
             id: 'heads',
-            title: 'Heads',
+            title: 'Heads Master',
             type: 'item',
             url: '/heads',
             icon: icons.ProfileOutlined,
             breadcrumbs: false
+        },
+        {
+            id: 'matrix',
+            title: 'Matrix Master',
+            type: 'item',
+            url: '/matrix',
+            icon: icons.ProfileOutlined,
+            breadcrumbs: false
         }
+        // {
+        //     id: 'subMat',
+        //     title: 'Matrix Mapping',
+        //     type: 'item',
+        //     url: '/sub-matrix',
+        //     icon: icons.ProfileOutlined,
+        //     breadcrumbs: false
+        // }
     ]
 };
 
 const users = {
     id: 'group-sub3',
-    title: 'Navigation',
+    title: 'User',
     type: 'group',
     children: [
         {
             id: 'users',
-            title: 'User',
+            title: 'User List',
             type: 'item',
             url: '/user',
             icon: icons.UserOutlined,
+            breadcrumbs: false
+        },
+        {
+            id: 'userSub',
+            title: 'Subsidiary Mappings',
+            type: 'item',
+            url: '/user-sub',
+            icon: icons.CopyOutlined,
             breadcrumbs: false
         }
     ]
@@ -102,7 +95,7 @@ const users = {
 
 const report = {
     id: 'group-sub4',
-    title: 'Navigation',
+    title: 'Report',
     type: 'group',
     children: [
         {
@@ -116,80 +109,27 @@ const report = {
     ]
 };
 
-const role = {
-    id: 'group-role',
-    title: 'Navigation',
-    type: 'group',
-    children: [
-        {
-            id: 'role',
-            title: 'Role',
-            type: 'item',
-            url: '/role',
-            icon: icons.UsergroupAddOutlined,
-            breadcrumbs: false
-        }
-    ]
-};
-
-const matrix = {
-    id: 'group-mat3',
-    title: 'Navigation',
-    type: 'group',
-    children: [
-        {
-            id: 'matrix',
-            title: 'Matrix Master',
-            type: 'item',
-            url: '/matrix',
-            icon: icons.ProfileOutlined,
-            breadcrumbs: false
-        }
-    ]
-};
-
-const subsidaryMatrixMap = {
-    id: 'group-sub-mat4',
-    title: 'Navigation',
-    type: 'group',
-    children: [
-        {
-            id: 'subMat',
-            title: 'Matrix Maping',
-            type: 'item',
-            url: '/sub-matrix',
-            icon: icons.ProfileOutlined,
-            breadcrumbs: false
-        }
-    ]
-};
-
-const userSubsidary = {
-    id: 'group-sub-mat5',
-    title: 'Navigation',
-    type: 'group',
-    children: [
-        {
-            id: 'userSub',
-            title: 'User Subsidary Mapings',
-            type: 'item',
-            url: '/user-sub',
-            icon: icons.ProfileOutlined,
-            breadcrumbs: false
-        }
-    ]
-};
+// const role = {
+//     id: 'group-role',
+//     title: 'Navigation',
+//     type: 'group',
+//     children: [
+//         {
+//             id: 'role',
+//             title: 'Role Master',
+//             type: 'item',
+//             url: '/role',
+//             icon: icons.UsergroupAddOutlined,
+//             breadcrumbs: false
+//         }
+//     ]
+// };
 
 const pages = {
-    subsidaries,
-    matrix,
-    heads,
     users,
-    report,
-    subsidaryMatrixMap,
-    role,
-    userSubsidary,
-    childSubsidaries
+    subsidiaries,
+    masterSetup,
+    report
 };
 
 export default pages;

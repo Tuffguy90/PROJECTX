@@ -9,26 +9,30 @@ import { Report } from 'pages/report/index';
 const Dashboard = () => {
     const [countData, setCountData] = useState([]);
     const [graphData, setGraphData] = useState(null);
-    const [selectedSubsidiary, setSubsidiary] = useState(1);
+    const [selectedParentSubsidiary, setParentSubsidiary] = useState('');
+    const [selectedSubsidiary, setSubsidiary] = useState('');
+    const [selectedUnit, setSelectedUnit] = useState('');
+    const [childSubsidiary, setChildSubsidiary] = useState([]);
     const [selectedFin, setFin] = useState(null);
     const [subsidiaries, setSubsidiaries] = useState([]);
     const [reportData, setReportData] = useState([]);
+    const [financialYearList, setFinancialYearList] = useState([]);
     let loginUserData = JSON.parse(localStorage.getItem('_userData'));
     useEffect(() => {
         let subId = selectedSubsidiary;
-        // console.log(loginUserData);
         !loginUserData.subsidary || loginUserData.subsidary.length === 0 ? loadSubsidiaries() : setSubsidiaries(loginUserData.subsidary);
-        // setSubsidiary(subId);
         loadGraphData(new Date().getFullYear(), subId);
         loginUserData?.role_id === 1 &&
             reportService.getDashboardCount().then(({ data }) => {
                 setCountData(data?.data);
             });
+        reportService.getFinancialYearList().then(({ data }) => {
+            setFinancialYearList(data?.data);
+        });
     }, []);
 
     const loadSubsidiaries = async () => {
-        console.log('called loadSubsidiaries');
-        const data = await subsidaryService.formattedSubSidaryList();
+        const data = await subsidaryService.getSubsidaries(1);
         setSubsidiaries(data?.data);
     };
 
@@ -47,7 +51,6 @@ const Dashboard = () => {
     };
 
     const handleChildEvent = (e) => {
-        console.log('handled child ebent');
         loadGraphData(selectedFin?.target.value, selectedSubsidiary);
     };
 
@@ -61,6 +64,14 @@ const Dashboard = () => {
         });
     }, [countData]);
 
+    const checkChildSubsidiary = (subId) => {
+        selectedUnit !== '' && setSelectedUnit('');
+        let child = subsidiaries.filter((item) => {
+            if (subId == item?.id) return item;
+        });
+        setChildSubsidiary(child[0]?.child_subsidiary);
+    };
+
     return (
         <Grid container rowSpacing={4.5} columnSpacing={2.75}>
             {/* row 1 */}
@@ -73,31 +84,66 @@ const Dashboard = () => {
             {/* Filter Rows */}
             <Grid item xs={12} md={12} lg={12}>
                 <div className="row">
-                    <div className="col-lg-4">
+                    <div className="col-lg-3">
                         <label>Financial Year</label>&nbsp;
                         <select className="form-control" onChange={(e) => setFin(e)}>
-                            <option value="2023">2023-24</option>
-                            <option value="2022">2022-23</option>
+                            <option value="">--SELECT--</option>
+                            {financialYearList.map((years, index) => {
+                                return (
+                                    <option key={index} value={years.financial_year}>
+                                        {years.fin_name}
+                                    </option>
+                                );
+                            })}
                         </select>
                     </div>
-                    <div className="col-lg-4">
+                    <div className="col-lg-3">
                         {subsidiaries?.length > 0 && (
                             <>
                                 <label>Subsidiary</label>&nbsp;
                                 <select
                                     className="form-control"
-                                    value={selectedSubsidiary}
-                                    onChange={(e) => setSubsidiary(e?.target?.value)}
+                                    value={selectedParentSubsidiary}
+                                    onChange={(e) => (
+                                        setParentSubsidiary(e?.target?.value),
+                                        checkChildSubsidiary(e?.target?.value),
+                                        setSubsidiary(e?.target?.value)
+                                    )}
                                 >
                                     <option value="">--SELECT--</option>
-                                    {subsidiaries.map((eachSubsidiary,index) => {
-                                        return <option key={index} value={eachSubsidiary.id}>{eachSubsidiary.h_name}</option>;
+                                    {subsidiaries.map((eachSubsidiary, index) => {
+                                        return (
+                                            <option key={index} value={eachSubsidiary.id}>
+                                                {eachSubsidiary.name}
+                                            </option>
+                                        );
                                     })}
                                 </select>
                             </>
                         )}
                     </div>
-                    <div className="col-lg-4" style={{ paddingTop: '20px' }}>
+                    <div className="col-lg-3">
+                        {childSubsidiary?.length > 0 && (
+                            <>
+                                <label>Units</label>&nbsp;
+                                <select
+                                    className="form-control"
+                                    value={selectedUnit}
+                                    onChange={(e) => (setSelectedUnit(e?.target?.value), setSubsidiary(e?.target?.value))}
+                                >
+                                    <option value="">--SELECT--</option>
+                                    {childSubsidiary.map((eachSubsidiary, index) => {
+                                        return (
+                                            <option key={index} value={eachSubsidiary.id}>
+                                                {eachSubsidiary.name}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                            </>
+                        )}
+                    </div>
+                    <div className="col-lg-3" style={{ paddingTop: '20px' }}>
                         <button className="btn btn-primary" onClick={handleSubmit}>
                             Search
                         </button>
@@ -116,7 +162,9 @@ const Dashboard = () => {
                         {graphData?.length > 0 ? (
                             <IncomeAreaChart series={graphData} />
                         ) : (
-                            <h5 style={{ textAlign: 'center' }} className='p-5'>Data Not Found.</h5>
+                            <h5 style={{ textAlign: 'center' }} className="p-5">
+                                Data Not Found.
+                            </h5>
                         )}
                     </Box>
                 </MainCard>

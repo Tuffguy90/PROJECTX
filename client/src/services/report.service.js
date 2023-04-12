@@ -5,11 +5,14 @@ import { authHeader } from '../helpers';
 import sendRequest from './common/send.request';
 import CustomStore from '../../node_modules/devextreme/data/custom_store';
 
-const reportStore = (financial_year = 2023, subsidary_id = 1) =>
+const reportStore = (financial_year = null, subsidiary_id = null) =>
     new CustomStore({
         key: 'id',
         load: () => {
-            let url = `${API_BASE_URL}/get-report?financial_year=${financial_year}&subsidary_id=${subsidary_id}`;
+            if (subsidiary_id === null || subsidiary_id === '' || financial_year === null || financial_year === '') {
+                return [];
+            }
+            let url = `${API_BASE_URL}/get-report?financial_year=${financial_year}&subsidary_id=${subsidiary_id}`;
             return sendRequest(url);
         },
         update: (key, values) => {
@@ -62,9 +65,22 @@ const getDashboardCount = async () => {
     });
 };
 
-const getDashboardGraphData = async (financial_year = new Date().getFullYear(), subsidary_id = 1) => {
+const getDashboardGraphData = async (financial_year = null, subsidiary_id = null) => {
+    if (subsidiary_id === null || subsidiary_id === '' || financial_year === null || financial_year === '') {
+        return false;
+    }
     return await axios({
-        url: `${API_BASE_URL}/get-graph-data?financial_year=${financial_year}&subsidary_id=${subsidary_id}`,
+        url: `${API_BASE_URL}/get-graph-data?financial_year=${financial_year}&subsidary_id=${subsidiary_id}`,
+        method: 'GET',
+        headers: authHeader()
+    }).catch((err) => {
+        return err.response;
+    });
+};
+
+const getFinancialYearList = async () => {
+    return await axios({
+        url: `${API_BASE_URL}/get-financial-years`,
         method: 'GET',
         headers: authHeader()
     }).catch((err) => {
@@ -76,7 +92,8 @@ const reportService = {
     reportStore,
     getMattrix,
     getDashboardCount,
-    getDashboardGraphData
+    getDashboardGraphData,
+    getFinancialYearList
 };
 
 export default reportService;

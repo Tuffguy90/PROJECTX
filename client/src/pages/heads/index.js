@@ -32,7 +32,7 @@ export const HeadMaster = () => {
     };
 
     const loadSubsidaries = async () => {
-        const data = await subsidaryService.getSubsidaries();
+        const data = await subsidaryService.formattedSubSidaryList();
         setSubsidaries(data?.data);
     };
     const statusCell = (options) => {
@@ -71,25 +71,25 @@ export const HeadMaster = () => {
 
                         <SearchPanel visible={true} highlightCaseSensitive={true} />
                         <Column dataField="id" visible={false} allowAdding={false} allowEditing={false}></Column>
-                        <Column dataField="head_name">
+                        <Column dataField="head_name" width={180}>
                             <RequiredRule />
                         </Column>
-                        <Column dataField="target" dataType="number">
+                        <Column dataField="target" width={80} dataType="number">
                             <RequiredRule />
                         </Column>
-                        <Column dataField="financial_year" dataType="number">
+                        <Column dataField="financial_year" width={100} dataType="number">
                             <RequiredRule />
                         </Column>
                         <Column dataField="subsidary_id" caption="Subsidary">
                             <RequiredRule />
-                            <Lookup dataSource={subsidaries} displayExpr="name" valueExpr="id" />
+                            <Lookup dataSource={subsidaries} displayExpr="h_name" valueExpr="id" />
                         </Column>
-                        <Column dataField="mattrix_id" caption="Mattrix">
+                        <Column dataField="mattrix_id" width={150} caption="Mattrix">
                             <RequiredRule />
                             <Lookup dataSource={mattrix} displayExpr="name" valueExpr="id" />
                         </Column>
 
-                        <Column dataField="status" dataType="number" cellRender={statusCell}>
+                        <Column dataField="status" width={100} dataType="number" cellRender={statusCell}>
                             <Lookup
                                 dataSource={[
                                     {

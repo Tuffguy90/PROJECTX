@@ -3,7 +3,7 @@ const SUBSIDARY = db.tbl_subsidary_masters;
 const SUBMATTRIX = db.tbl_subsidary_mattrix_mapings;
 const subsidarySchema = require("./validators/subsidary");
 const helper = require("../helper/index");
-const { QueryTypes } = require('sequelize');
+const { QueryTypes } = require("sequelize");
 const { Op } = require("sequelize");
 
 const create = async (req, res) => {
@@ -59,9 +59,15 @@ const list = async (req, res) => {
           as: "parent_subsidiary",
           attributes: ["id", "name"],
         },
+        {
+          model: db.tbl_subsidary_masters,
+          as: "child_subsidiary",
+          attributes: ["id", "name"],
+        },
       ],
       where: {},
       logging: false,
+      order: [["id", "ASC"]],
     };
     if (list_type !== 0) {
       Number(list_type) === 1 && (conditions.where.parent_id = 0);
@@ -100,15 +106,15 @@ const formattedList = async (req, res) => {
     null THEN c.name ELSE concat(p.name,'->',c.name)  
     END h_name  FROM exdb.tbl_subsidary_masters p right 
     join exdb.tbl_subsidary_masters c on p.id = c.parent_id where c.deletedAt is  null`;
-    let subs = await db.sequelize.query(q,{
-      type: QueryTypes.SELECT
+    let subs = await db.sequelize.query(q, {
+      type: QueryTypes.SELECT,
     });
     return res.send({
       message: "List of Subsidaries",
       data: subs,
     });
   } catch (error) {
-    return res.status(500).send(err?.message);
+    return res.status(500).send(error?.message);
   }
 };
 
