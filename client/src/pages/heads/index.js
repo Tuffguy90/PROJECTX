@@ -7,9 +7,24 @@ import Dot from 'components/@extended/Dot';
 import { Lookup, Popup, RequiredRule } from '../../../node_modules/devextreme-react/data-grid';
 const pageSizes = [10, 25, 50, 100];
 import MainCard from 'components/MainCard';
+import moment from 'moment';
 // service
 import headService from 'services/head.service';
 import subsidaryService from 'services/subsidary.service';
+
+const currentYear = parseInt(moment().format('YYYY'));
+console.log('currentYear', currentYear);
+const prevYear = currentYear - 1;
+const fySource = [
+    {
+        value: currentYear - 1,
+        label: `${prevYear}-${currentYear}`
+    },
+    {
+        value: currentYear,
+        label: `${currentYear}-${currentYear + 1}`
+    }
+];
 
 export const HeadMaster = () => {
     const [mattrix, setMattrix] = useState([]);
@@ -78,6 +93,7 @@ export const HeadMaster = () => {
                             <RequiredRule />
                         </Column>
                         <Column dataField="financial_year" width={100} dataType="number">
+                            <Lookup dataSource={fySource} valueExpr="value" displayExpr="label" />
                             <RequiredRule />
                         </Column>
                         <Column dataField="subsidary_id" caption="Subsidary">
