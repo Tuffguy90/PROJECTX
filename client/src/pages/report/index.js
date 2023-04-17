@@ -36,6 +36,7 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
     const [selectedFin, setFin] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [financialYearList, setFinancialYearList] = useState([]);
+    const [subsidary, setSubsidarySource] = useState([]);
     let loginUserData = JSON.parse(localStorage.getItem('_userData'));
     useEffect(() => {
         loadReport(onSearch?.financial_year, onSearch?.selected_subsidary);
@@ -51,6 +52,7 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
         let subId = selectedSubsidiary;
         !loginUserData.subsidary || loginUserData.subsidary.length === 0 ? loadSubsidaries() : setSubsidaries(loginUserData.subsidary);
         setSubsidiary(subId);
+        loadSubsidariesMain();
         loadReport(new Date().getFullYear(), subId);
         loadMattrix();
         setCanEdit(loginUserData.is_edit === 1 ? true : false);
@@ -74,6 +76,10 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
     const loadSubsidaries = async () => {
         const data = await subsidaryService.getSubsidaries(1);
         setSubsidaries(data?.data);
+    };
+    const loadSubsidariesMain = async () => {
+        const data = await subsidaryService.getSubsidaries();
+        setSubsidarySource(data?.data);
     };
     const loadReport = async (financial_year, subsidary_id) => {
         const report = reportService.reportStore(financial_year, subsidary_id);
@@ -247,6 +253,11 @@ export const Report = ({ onSearch, hideSearchBar, onChildEvent }) => {
                             <Editing mode="cell" allowAdding={false} allowDeleting={false} allowUpdating={canEdit}>
                                 <Popup title="Head" showTitle={true} />
                             </Editing>
+                            <Column dataField="parent_id" caption="Subsidary" width={150} allowEditing={false}>
+                                <Lookup dataSource={subsidary} displayExpr="name" valueExpr="id" />
+                            </Column>
+                            <Column dataField="subsidary_name" caption="Unit" width={150} allowEditing={false}></Column>
+
                             <SearchPanel visible={true} highlightCaseSensitive={true} />
                             <Column dataField="mattrix_name" width={150} allowEditing={false}></Column>
                             <Column dataField="head_name" width={120} allowEditing={false}></Column>

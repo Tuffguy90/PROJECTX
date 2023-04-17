@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "mattrix_id",
         as: "mattrix",
       })
+      this.belongsTo(models.tbl_subsidary_masters, {
+        foreignKey: "subsidary_id",
+        as: "subsidary",
+      })
     }
   }
   tbl_head_masters.init(

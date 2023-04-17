@@ -45,6 +45,12 @@ const subsidaryStore = (list_type = 0, parent_id = 0) =>
         //     })
     });
 
+const subsidaryLookup = new CustomStore({
+    key: 'id',
+    loadMode: 'raw',
+    load: () => sendRequest(`${API_BASE_URL}/get-subsidiaries`)
+});
+
 const userSubsidary = new CustomStore({
     key: 'id',
     load: () => sendRequest(`${API_BASE_URL}/user-subsidary`),
@@ -86,6 +92,7 @@ const subsidaryService = {
     subsidaryStore,
     userSubsidary,
     getSubsidiariesList,
+    subsidaryLookup,
     formattedSubSidaryList
 };
 
